@@ -11,11 +11,11 @@ const isEntity = (v: any): v is Entity<any> => {
 };
 
 export abstract class Entity<T> {
-  protected readonly _id: ID;
+  protected readonly id: ID;
   public readonly props: T;
 
   constructor(props: T, id?: ID) {
-    this._id = id ? id : new ID();
+    this.id = id ? id : new ID();
     this.validateProps(props);
     this.props = props;
   }
@@ -33,12 +33,12 @@ export abstract class Entity<T> {
       return false;
     }
 
-    return this._id.matches(object._id);
+    return this.id.matches(object.id);
   }
 
   public getPropsCopy(): Readonly<{ id: ID } & T> {
     const propsCopy = {
-      id: this._id,
+      id: this.id,
       ...this.props,
     };
     return Object.freeze(propsCopy);
