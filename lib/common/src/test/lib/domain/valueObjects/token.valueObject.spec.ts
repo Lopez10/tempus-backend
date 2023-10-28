@@ -1,4 +1,4 @@
-import { Token } from '@common';
+import { Token } from 'lib/common/src';
 
 describe('Token test', () => {
   it(`

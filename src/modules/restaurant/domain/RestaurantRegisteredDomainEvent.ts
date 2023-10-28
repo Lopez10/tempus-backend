@@ -1,4 +1,4 @@
-import { DomainEvent, ID } from '@common';
+import { DomainEvent, ID } from 'lib/common/src';
 
 export class RestaurantRegisteredDomainEvent<T> extends DomainEvent {
   static eventName = 'restaurant.registered';

@@ -4,7 +4,7 @@ import {
   ArgumentNotProvidedException,
   ArgumentInvalidException,
   ArgumentOutOfRangeException,
-} from '@common/exceptions';
+} from 'lib/common/src/exceptions';
 
 const isEntity = (v: any): v is Entity<any> => {
   return v instanceof Entity;

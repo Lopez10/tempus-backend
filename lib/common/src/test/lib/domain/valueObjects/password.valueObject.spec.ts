@@ -1,4 +1,4 @@
-import { Password } from '@common';
+import { Password } from 'lib/common/src';
 
 describe('Password value object test', () => {
   it(`

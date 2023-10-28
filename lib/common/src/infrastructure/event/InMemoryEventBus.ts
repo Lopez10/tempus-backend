@@ -1,6 +1,6 @@
-import { DomainEvent } from '@common/domain';
-import { DomainEventSubscriber } from '@common/domain/event/DomainEventSuscriber';
-import { EventBus } from '@common/domain/event/EventBus';
+import { DomainEvent } from 'lib/common/src/domain';
+import { DomainEventSubscriber } from 'lib/common/src/domain/event/DomainEventSuscriber';
+import { EventBus } from 'lib/common/src/domain/event/EventBus';
 
 export class InMemoryEventBus implements EventBus {
   private readonly subscriptions: Map<string, Function[]> = new Map();

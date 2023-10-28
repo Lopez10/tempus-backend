@@ -5,8 +5,5 @@ export * from './Id.valueObject';
 export * from './Password.valueObject';
 export * from './Name.valueObject';
 export * from './Description.valueObject';
-export * from './Orientation.valueObject';
 export * from './Token.valueObject';
 export * from './Role.valueObject';
-export * from './Roast.valueObject';
-export * from './CoffeeExtraction.valueObject';

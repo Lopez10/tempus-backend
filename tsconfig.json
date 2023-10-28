@@ -19,10 +19,10 @@
     "noFallthroughCasesInSwitch": false,
     "paths": {
       "@common": [
-        "./src/lib/common/src"
+        "./lib/common/src"
       ],
       "@common/*": [
-        "./src/lib/common/src/*"
+        "./lib/common/src/*"
       ],
     },
   }

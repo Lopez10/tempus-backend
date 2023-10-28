@@ -1,5 +1,5 @@
-import { Email, ID } from '@common/domain';
-import { InvalidTokenException } from '@common/exceptions';
+import { Email, ID } from 'lib/common/src/domain';
+import { InvalidTokenException } from 'lib/common/src/exceptions';
 import { TokenExpiredError, decode, sign, verify } from 'jsonwebtoken';
 
 export class TokenPayload {

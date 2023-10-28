@@ -1,4 +1,4 @@
-import { AggregateRoot, Description, ID, Name } from '@common';
+import { AggregateRoot, Description, ID, Name } from 'lib/common/src';
 import { RestaurantRegisteredDomainEvent } from './RestaurantRegisteredDomainEvent';
 
 type restaurantProps = {

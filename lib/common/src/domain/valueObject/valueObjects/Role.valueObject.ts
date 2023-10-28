@@ -1,4 +1,4 @@
-import { InvalidRoleException } from '@common/exceptions';
+import { InvalidRoleException } from 'lib/common/src/exceptions';
 import { ValueObject } from '../valueObject.base';
 
 export class Role extends ValueObject<string> {
