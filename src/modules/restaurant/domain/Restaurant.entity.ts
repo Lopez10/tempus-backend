@@ -1,6 +1,4 @@
 import { AggregateRoot, Description, Email, ID, Name } from 'lib/common/src';
-import { RestaurantCreated } from './event/RestaurantCreated.event';
-import { RestaurantEmailUpdated } from './event/RestaurantEmailUpdated.event';
 
 export type restaurantProps = {
   name: Name;
@@ -22,8 +20,6 @@ export class Restaurant extends AggregateRoot<restaurantProps> {
 
   static create(props: restaurantProps, id?: ID): Restaurant {
     const restaurant = new Restaurant(props, id);
-
-    restaurant.record(new RestaurantCreated(id));
 
     return restaurant;
   }
@@ -50,7 +46,5 @@ export class Restaurant extends AggregateRoot<restaurantProps> {
 
   updateEmail(email: Email) {
     this.props.email = email;
-
-    this.record(new RestaurantEmailUpdated(this.id, email));
   }
 }
