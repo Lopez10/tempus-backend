@@ -1,17 +1,19 @@
-import { EventBus } from '@common/domain/event/EventBus';
+import { InMemoryEventBus } from '@common/infrastructure/event/InMemoryEventBus';
 import { Restaurant, restaurantProps } from '../../domain/Restaurant.entity';
 import { RestaurantRepositoryPort } from '../../domain/Restaurant.respository.port';
-import { ID } from '@common';
 
 export class RestaurantCreator {
   constructor(
-    private repository: RestaurantRepositoryPort,
-    private eventBus: EventBus,
+    private readonly repository: RestaurantRepositoryPort,
+    private readonly eventBus: InMemoryEventBus,
   ) {}
 
-  async run(params: restaurantProps, id?: ID): Promise<void> {
-    const restaurant = Restaurant.create(params, id);
+  async run(restaurantProps: restaurantProps) {
+    console.log(restaurantProps);
+    const restaurant = Restaurant.create(restaurantProps);
     await this.repository.insert(restaurant);
-    await this.eventBus.publish(restaurant.pullDomainEvents());
+    this.eventBus.publish(restaurant.pullDomainEvents());
+
+    return restaurant;
   }
 }

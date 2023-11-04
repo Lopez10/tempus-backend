@@ -11,47 +11,47 @@ datasource db {
 }
 
 model Restaurant {
-  id    Int    @id @default(autoincrement())
+  id    String @id @unique
   email String @unique
   name  String
   Area  Area[]
 }
 
 model Area {
-  id           Int        @id @default(autoincrement())
+  id           String     @id @unique
   name         String
-  restaurantId Int
+  restaurantId String     @unique
   restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
   Book         Book[]
 }
 
 model Book {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @unique
   name      String
-  areaId    Int
+  areaId    String
   area      Area      @relation(fields: [areaId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
   Ticket    Ticket?
-  ClientId  Int
+  ClientId  String    @unique
   Client    Client    @relation(fields: [ClientId], references: [id])
 }
 
 model Ticket {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @unique
   name      String
-  BookId    Int       @unique
+  BookId    String    @unique
   Book      Book      @relation(fields: [BookId], references: [id])
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
   Client    Client    @relation(fields: [ClientId], references: [id])
-  ClientId  Int       @unique
+  ClientId  String    @unique
 }
 
 model Client {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @unique
   name      String
   email     String    @unique
   createdAt DateTime  @default(now())

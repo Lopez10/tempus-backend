@@ -23,7 +23,7 @@ export class Restaurant extends AggregateRoot<restaurantProps> {
   static create(props: restaurantProps, id?: ID): Restaurant {
     const restaurant = new Restaurant(props, id);
 
-    restaurant.record(new RestaurantCreated<restaurantProps>(props, id));
+    restaurant.record(new RestaurantCreated(id));
 
     return restaurant;
   }
