@@ -1,31 +1,40 @@
 import { Entity } from './entity.base';
+import { DomainEvent } from './event/DomainEvent';
+import { DomainEvents } from './event/DomainEvents';
 import { ID } from './valueObject';
-import { DomainEvent } from './event';
 
-export abstract class AggregateRoot<EntityProps> extends Entity<EntityProps> {
-  private _domainEvents: DomainEvent[];
+export abstract class AggregateRoot<T> extends Entity<T> {
+  private _domainEvents: DomainEvent[] = [];
 
-  constructor(props: EntityProps, id?: ID) {
-    super(props, id);
-    this._domainEvents = [];
-  }
-
-  pullDomainEvents(): DomainEvent[] {
-    const domainEvents = this.domainEvents;
-    this.clearEvents();
-
-    return domainEvents;
+  get id(): ID {
+    return this._id;
   }
 
   get domainEvents(): DomainEvent[] {
     return this._domainEvents;
   }
 
-  record(domainEvent: DomainEvent): void {
-    this.domainEvents.push(domainEvent);
+  protected addDomainEvent(domainEvent: DomainEvent): void {
+    console.log(domainEvent);
+    console.log(this._domainEvents);
+    this._domainEvents.push(domainEvent);
+
+    DomainEvents.markAggregateForDispatch(this);
+    this.logDomainEventAdded(domainEvent);
   }
 
   public clearEvents(): void {
-    this._domainEvents = [];
+    this._domainEvents.splice(0, this._domainEvents.length);
+  }
+
+  private logDomainEventAdded(domainEvent: DomainEvent): void {
+    const thisClass = Reflect.getPrototypeOf(this);
+    const domainEventClass = Reflect.getPrototypeOf(domainEvent);
+    console.info(
+      `[Domain Event Created]:`,
+      thisClass.constructor.name,
+      '==>',
+      domainEventClass.constructor.name,
+    );
   }
 }

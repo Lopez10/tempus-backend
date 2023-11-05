@@ -1,1 +1,3 @@
-export * from './DomainEvent.base';
+export * from './DomainEvent';
+export * from './DomainEvents';
+export * from './Handle';

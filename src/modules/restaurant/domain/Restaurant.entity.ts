@@ -1,4 +1,5 @@
-import { AggregateRoot, Description, Email, ID, Name } from 'lib/common/src';
+import { AggregateRoot, Description, Email, ID, Name } from '@common';
+import { RestaurantCreated } from './events/RestaurantCreated';
 
 export type RestaurantProps = {
   name: Name;
@@ -14,12 +15,18 @@ type restaurantPrimitives = {
 };
 
 export class Restaurant extends AggregateRoot<RestaurantProps> {
-  constructor(props: RestaurantProps, id?: ID) {
+  private constructor(props: RestaurantProps, id?: ID) {
     super(props, id);
   }
 
   static create(props: RestaurantProps, id?: ID): Restaurant {
+    const isNewRestaurant = !!id === false;
+
     const restaurant = new Restaurant(props, id);
+
+    if (isNewRestaurant) {
+      restaurant.addDomainEvent(new RestaurantCreated(restaurant));
+    }
 
     return restaurant;
   }
@@ -37,7 +44,7 @@ export class Restaurant extends AggregateRoot<RestaurantProps> {
 
   toPrimitives() {
     return {
-      id: this.id.value,
+      id: this._id.value,
       name: this.props.name.value,
       email: this.props.email.value,
       description: this.props.description.value,
