@@ -1,6 +1,6 @@
 import { AggregateRoot, Description, Email, ID, Name } from 'lib/common/src';
 
-export type restaurantProps = {
+export type RestaurantProps = {
   name: Name;
   email: Email;
   description: Description;
@@ -13,12 +13,12 @@ type restaurantPrimitives = {
   description: string;
 };
 
-export class Restaurant extends AggregateRoot<restaurantProps> {
-  constructor(props: restaurantProps, id?: ID) {
+export class Restaurant extends AggregateRoot<RestaurantProps> {
+  constructor(props: RestaurantProps, id?: ID) {
     super(props, id);
   }
 
-  static create(props: restaurantProps, id?: ID): Restaurant {
+  static create(props: RestaurantProps, id?: ID): Restaurant {
     const restaurant = new Restaurant(props, id);
 
     return restaurant;
