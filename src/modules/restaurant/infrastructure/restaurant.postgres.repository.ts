@@ -12,12 +12,15 @@ export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
   findByRestaurantName(name: Name): Promise<Restaurant> {
     throw new Error('Method not implemented.');
   }
-  async insert(entity: Restaurant): Promise<void> {
-    // const restaurant: restaurantModel = entity.toPrimitives();
-    // await this.prisma.restaurant.create({ data: restaurant });
-    console.log(entity);
+  async insert(entity: Restaurant): Promise<Restaurant> {
+    const restaurant: restaurantModel = entity.toPrimitives();
+    const restaurantCreated = await this.prisma.restaurant.create({
+      data: restaurant,
+    });
+
+    return Restaurant.fromPrimitives(restaurantCreated);
   }
-  insertSome(entity: Restaurant[]): Promise<void> {
+  insertSome(entity: Restaurant[]): Promise<Restaurant[]> {
     throw new Error('Method not implemented.');
   }
   findOneById(id: ID): Promise<Restaurant> {

@@ -11,10 +11,11 @@ datasource db {
 }
 
 model Restaurant {
-  id    String @id @unique
-  email String @unique
-  name  String
-  Area  Area[]
+  id          String @id @unique
+  email       String @unique
+  name        String
+  description String
+  Area        Area[]
 }
 
 model Area {
