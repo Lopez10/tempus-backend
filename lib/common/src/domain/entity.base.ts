@@ -44,8 +44,6 @@ export abstract class Entity<T> {
     return Object.freeze(propsCopy);
   }
 
-  public abstract toPrimitives(): any;
-
   private validateProps(props: T): void {
     const MAX_PROPS = 50;
 

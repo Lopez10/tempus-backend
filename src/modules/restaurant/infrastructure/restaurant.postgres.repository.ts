@@ -3,6 +3,7 @@ import { RestaurantRepositoryPort } from '../domain/Restaurant.respository.port'
 import { Restaurant } from '../domain/Restaurant.entity';
 import { PrismaClient, Restaurant as restaurantModel } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
+import { RestaurantMapper } from '../Restaurant.mapper';
 
 export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
   private prisma: PrismaClient;
@@ -13,12 +14,12 @@ export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
     throw new Error('Method not implemented.');
   }
   async insert(entity: Restaurant): Promise<Restaurant> {
-    const restaurant: restaurantModel = entity.toPrimitives();
+    const restaurant: restaurantModel = RestaurantMapper.toDTO(entity);
     const restaurantCreated = await this.prisma.restaurant.create({
       data: restaurant,
     });
 
-    return Restaurant.fromPrimitives(restaurantCreated);
+    return RestaurantMapper.toDomain(restaurantCreated);
   }
   insertSome(entity: Restaurant[]): Promise<Restaurant[]> {
     throw new Error('Method not implemented.');

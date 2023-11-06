@@ -1,8 +1,7 @@
 import { Body, Controller, Inject, Post } from '@nestjs/common';
 import { RestaurantPostgresRepository } from '../infrastructure/restaurant.postgres.repository';
 import { CreateRestaurant } from '../application/Create/CreateRestaurant';
-import { RestaurantProps } from '../domain/Restaurant.entity';
-import { Description, Email, Name } from '@common';
+import { RestaurantDTO, RestaurantMapper } from '../Restaurant.mapper';
 
 @Controller('restaurant')
 export class RestaurantController {
@@ -12,16 +11,13 @@ export class RestaurantController {
   ) {}
 
   @Post()
-  async createRestaurant() {
-    const restaurantProps: RestaurantProps = {
-      name: new Name('Restaurant name'),
-      email: new Email('restaurant@prueba.com'),
-      description: new Description('Restaurant description'),
-    };
-    const restaurant = new CreateRestaurant(this.restaurantPostgresRepository);
-    const restaurantCreated = await restaurant.run(restaurantProps);
-    const restaurantDTO = restaurantCreated.toPrimitives();
+  async createRestaurant(@Body() restaurantDTO: RestaurantDTO) {
+    const createRestaurant = new CreateRestaurant(
+      this.restaurantPostgresRepository,
+    );
 
-    return restaurantDTO;
+    const restaurantCreated = await createRestaurant.run(restaurantDTO);
+
+    return RestaurantMapper.toDTO(restaurantCreated);
   }
 }

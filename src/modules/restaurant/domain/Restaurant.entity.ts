@@ -1,19 +1,11 @@
 import { AggregateRoot, Description, Email, ID, Name } from '@common';
 import { RestaurantCreated } from './events/RestaurantCreated';
 
-export type RestaurantProps = {
+export interface RestaurantProps {
   name: Name;
   email: Email;
   description: Description;
-};
-
-type restaurantPrimitives = {
-  id: string;
-  name: string;
-  email: string;
-  description: string;
-};
-
+}
 export class Restaurant extends AggregateRoot<RestaurantProps> {
   private constructor(props: RestaurantProps, id?: ID) {
     super(props, id);
@@ -29,26 +21,6 @@ export class Restaurant extends AggregateRoot<RestaurantProps> {
     }
 
     return restaurant;
-  }
-
-  static fromPrimitives(primitives: restaurantPrimitives) {
-    return new Restaurant(
-      {
-        name: new Name(primitives.name),
-        email: new Email(primitives.email),
-        description: new Description(primitives.description),
-      },
-      new ID(primitives.id),
-    );
-  }
-
-  toPrimitives() {
-    return {
-      id: this._id.value,
-      name: this.props.name.value,
-      email: this.props.email.value,
-      description: this.props.description.value,
-    };
   }
 
   updateEmail(email: Email) {
