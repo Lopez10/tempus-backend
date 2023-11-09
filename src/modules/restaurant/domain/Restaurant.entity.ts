@@ -22,8 +22,4 @@ export class Restaurant extends AggregateRoot<RestaurantProps> {
 
     return restaurant;
   }
-
-  updateEmail(email: Email) {
-    this.props.email = email;
-  }
 }

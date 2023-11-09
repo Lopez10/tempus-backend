@@ -5,16 +5,23 @@ import {
   RestaurantRepositoryPort,
 } from '../../domain/Restaurant.respository.port';
 import { Description, Email, Name, UseCase } from '@common';
-import { RestaurantDTO } from '../../Restaurant.mapper';
+
+export interface CreateRestaurantDTO {
+  name: string;
+  email: string;
+  description: string;
+}
 
 @Injectable()
-export class CreateRestaurant implements UseCase<RestaurantDTO, Restaurant> {
+export class CreateRestaurant
+  implements UseCase<CreateRestaurantDTO, Restaurant>
+{
   constructor(
     @Inject(RestaurantRepository)
     private readonly repository: RestaurantRepositoryPort,
   ) {}
 
-  async run(restaurantDTO: RestaurantDTO): Promise<Restaurant> {
+  async run(restaurantDTO: CreateRestaurantDTO): Promise<Restaurant> {
     const restaurantProps: RestaurantProps = {
       name: new Name(restaurantDTO.name),
       email: new Email(restaurantDTO.email),
