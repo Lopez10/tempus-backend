@@ -39,9 +39,10 @@ export class RestaurantController {
         this.restaurantPostgresRepository,
       );
 
-    const restaurantsPaginatedByCriteria =
-      retrieveRestaurantsPaginatedByCriteria.run(request);
+    const restaurantsDTO = await retrieveRestaurantsPaginatedByCriteria.run(
+      request,
+    );
 
-    return;
+    return restaurantsDTO;
   }
 }
