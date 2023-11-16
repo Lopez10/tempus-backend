@@ -3,12 +3,12 @@ import { RestaurantPostgresRepository } from '../infrastructure/restaurant.postg
 import {
   CreateRestaurant,
   CreateRestaurantDTO,
-} from '../application/Create/CreateRestaurant';
+} from '../application/UseCase/Create/CreateRestaurant';
 import { RestaurantDTO, RestaurantMapper } from '../Restaurant.mapper';
 import {
   RetrieveRestaurantsPaginatedByCriteria,
   RetrieveRestaurantsPaginatedByCriteriaDTO as RetrieveRestaurantsByPaginatedDTO,
-} from '../application/RetrieveAll/RetrieveAllRestaurants';
+} from '../application/UseCase/RetrieveAll/RetrieveAllRestaurants';
 
 @Controller('restaurant')
 export class RestaurantController {

@@ -1,6 +1,6 @@
 import { PaginatedQueryParams, UseCase } from '@common';
-import { RestaurantRepositoryPort } from '../../domain/Restaurant.respository.port';
-import { RestaurantDTO, RestaurantMapper } from '../../Restaurant.mapper';
+import { RestaurantRepositoryPort } from '../../../domain/Restaurant.respository.port';
+import { RestaurantDTO, RestaurantMapper } from '../../../Restaurant.mapper';
 
 export interface RetrieveRestaurantsPaginatedByCriteriaDTO {
   criteria: any;

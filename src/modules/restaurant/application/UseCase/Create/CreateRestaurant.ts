@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Restaurant, RestaurantProps } from '../../domain/Restaurant.entity';
+import { Restaurant, RestaurantProps } from '../../../domain/Restaurant.entity';
 import {
   RestaurantRepository,
   RestaurantRepositoryPort,
-} from '../../domain/Restaurant.respository.port';
+} from '../../../domain/Restaurant.respository.port';
 import { Description, Email, Name, UseCase } from '@common';
 
 export interface CreateRestaurantDTO {

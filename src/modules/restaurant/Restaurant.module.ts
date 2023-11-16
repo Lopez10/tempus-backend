@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { RestaurantController } from './http/Restaurant.controller';
 import { RestaurantPostgresRepository } from './infrastructure/restaurant.postgres.repository';
 import { RestaurantRepository } from './domain/Restaurant.respository.port';
-import { CreateRestaurant } from './application/Create/CreateRestaurant';
+import { CreateRestaurant } from './application/UseCase/Create/CreateRestaurant';
 
 @Module({
   imports: [],
