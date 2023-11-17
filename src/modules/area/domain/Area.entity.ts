@@ -2,6 +2,9 @@ import { AggregateRoot, ID, Name } from '@common';
 
 export interface AreaProps {
   name: Name;
+  maxCapacity: number;
+  restaurantId: ID;
+  books: ID[];
 }
 
 export class Area extends AggregateRoot<AreaProps> {

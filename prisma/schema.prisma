@@ -16,45 +16,45 @@ model Restaurant {
 }
 
 model Area {
-  id           String     @id @unique
+  id           String      @id @unique
   name         String
-  people       Int
-  restaurantId String     @unique
-  restaurant   Restaurant @relation(fields: [restaurantId], references: [id])
+  maxCapacity  Int
+  restaurantId String      @unique
+  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id])
   Book         Book[]
+  Available    Available[]
+}
+
+model Available {
+  id        String   @id @unique
+  date      DateTime
+  areaId    String
+  available Int
+  Area      Area     @relation(fields: [areaId], references: [id])
 }
 
 model Book {
-  id        String    @id @unique
-  people    Int
-  dateTime  DateTime
-  areaId    String
-  area      Area      @relation(fields: [areaId], references: [id])
-  ClientId  String    @unique
-  Client    Client    @relation(fields: [ClientId], references: [id])
-  Service   Service[]
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  tableId   String
+  id       String    @id @unique
+  people   Int
+  dateTime DateTime
+  areaId   String
+  area     Area      @relation(fields: [areaId], references: [id])
+  ClientId String    @unique
+  Client   Client    @relation(fields: [ClientId], references: [id])
+  Service  Service[]
+  tableId  String
 }
 
 model Service {
-  id        String    @id @unique
-  name      String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  Book      Book[]
+  id   String @id @unique
+  name String
+  Book Book[]
 }
 
 model Client {
-  id        String    @id @unique
-  name      String
-  email     String    @unique
-  phone     String    @unique
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
-  Book      Book[]
+  id    String @id @unique
+  name  String
+  email String @unique
+  phone String @unique
+  Book  Book[]
 }
