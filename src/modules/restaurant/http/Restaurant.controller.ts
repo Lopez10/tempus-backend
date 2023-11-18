@@ -9,7 +9,9 @@ import {
   RetrieveRestaurantsPaginatedByCriteria,
   RetrieveRestaurantsPaginatedByCriteriaDTO as RetrieveRestaurantsByPaginatedDTO,
 } from '../application/UseCase/RetrieveAll/RetrieveAllRestaurants';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('restaurant')
 @Controller('restaurant')
 export class RestaurantController {
   constructor(
@@ -31,6 +33,11 @@ export class RestaurantController {
   }
 
   @Get()
+  @ApiResponse({
+    status: 200,
+    description: 'The restaurants has been successfully retrieved.',
+    type: Promise<RestaurantDTO[]>,
+  })
   async getRestaurants(
     @Body() request: RetrieveRestaurantsByPaginatedDTO,
   ): Promise<RestaurantDTO[]> {
