@@ -33,11 +33,28 @@ export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
   delete(id: ID): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
-  findPaginatedByCriteria(
+  async findPaginatedByCriteria(
     criteria: any,
     params: PaginatedQueryParams,
   ): Promise<Paginated<Restaurant>> {
-    throw new Error('Method not implemented.');
+    const { page, limit: take } = params;
+
+    const restaurants = await this.prisma.restaurant.findMany({
+      skip: page * take,
+      take,
+      where: criteria,
+    });
+
+    const total = await this.prisma.restaurant.count({ where: criteria });
+
+    return {
+      data: restaurants.map((restaurant) =>
+        RestaurantMapper.toDomain(restaurant),
+      ),
+      page,
+      count: total,
+      limit: take,
+    };
   }
   update(entity: Restaurant): Promise<Restaurant> {
     throw new Error('Method not implemented.');
