@@ -31,6 +31,8 @@ model Available {
   available Int
   areaId    String
   Area      Area     @relation(fields: [areaId], references: [id])
+
+  @@index([areaId, date], name: "areaId_date")
 }
 
 model Book {
