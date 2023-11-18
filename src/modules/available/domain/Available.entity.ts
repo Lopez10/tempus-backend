@@ -1,7 +1,8 @@
-import { AggregateRoot, ID, Name } from '@common';
+import { AggregateRoot, ID } from '@common';
+import { DateTime } from '@common/domain/valueObject/valueObjects/DateTime.valueObject';
 
 export interface AvailableProps {
-  name: Name;
+  date: DateTime;
   areaId: ID;
   available: number;
 }
