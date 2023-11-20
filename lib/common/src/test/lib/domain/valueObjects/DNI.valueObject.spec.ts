@@ -1,4 +1,4 @@
-import { DNI } from 'lib/common/src';
+import { DNI } from '@common';
 
 describe('DNI Value object test', () => {
   const DNIValid = '12345678Z';

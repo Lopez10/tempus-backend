@@ -16,13 +16,14 @@ model Restaurant {
 }
 
 model Area {
-  id           String      @id @unique
-  name         String
-  maxCapacity  Int?
-  restaurantId String      @unique
-  restaurant   Restaurant  @relation(fields: [restaurantId], references: [id])
-  Book         Book[]
-  Available    Available[]
+  id                  String      @id @unique
+  name                String
+  maxCapacity         Int?
+  restaurantId        String      @unique
+  hoursPerReservation Int?
+  restaurant          Restaurant  @relation(fields: [restaurantId], references: [id])
+  Book                Book[]
+  Available           Available[]
 }
 
 model Available {

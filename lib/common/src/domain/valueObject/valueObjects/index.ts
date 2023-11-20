@@ -7,3 +7,4 @@ export * from './Name.valueObject';
 export * from './Description.valueObject';
 export * from './Token.valueObject';
 export * from './Role.valueObject';
+export * from './DateTime.valueObject';
