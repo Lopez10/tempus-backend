@@ -20,28 +20,4 @@ export class Available extends AggregateRoot<AvailableProps> {
   getHoursPerReservationByArea(area: Area): number {
     return area.hoursPerReservation;
   }
-
-  calculateNewAvailableStart(start: DateTime): Available {
-    throw new Error('Method not implemented.');
-  }
-
-  calculateNewAvailableFinish(finish: DateTime): Available {
-    throw new Error('Method not implemented.');
-  }
-
-  calculateNewAvailable(available: number): Available {
-    throw new Error('Method not implemented.');
-  }
-
-  recalculateOldAvailableStart(start: DateTime): Available {
-    throw new Error('Method not implemented.');
-  }
-
-  recalculateOldAvailableFinish(finish: DateTime): Available {
-    throw new Error('Method not implemented.');
-  }
-
-  recalculateOldAvailable(available: number): Available {
-    throw new Error('Method not implemented.');
-  }
 }

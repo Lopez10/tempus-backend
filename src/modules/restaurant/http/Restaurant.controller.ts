@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
-import { RestaurantPostgresRepository } from '../infrastructure/restaurant.postgres.repository';
+import { RestaurantPostgresRepository } from '../infrastructure/Restaurant.postgres.repository';
 import {
   CreateRestaurant,
   CreateRestaurantDTO,

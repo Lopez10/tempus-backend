@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { RestaurantController } from './http/Restaurant.controller';
-import { RestaurantPostgresRepository } from './infrastructure/restaurant.postgres.repository';
+import { RestaurantPostgresRepository } from './infrastructure/Restaurant.postgres.repository';
 import { RestaurantRepository } from './domain/Restaurant.respository.port';
 import { CreateRestaurant } from './application/UseCase/Create/CreateRestaurant';
 

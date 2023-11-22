@@ -7,8 +7,8 @@ import {
 import { Description, Email, Name, UseCase } from '@common';
 
 export interface CreateRestaurantDTO {
-  name: string;
   email: string;
+  name: string;
   description: string;
 }
 

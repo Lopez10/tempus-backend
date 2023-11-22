@@ -5,7 +5,6 @@ export interface AreaProps {
   maxCapacity: number;
   hoursPerReservation: number;
   restaurantId: ID;
-  books: ID[];
 }
 
 export class Area extends AggregateRoot<AreaProps> {
