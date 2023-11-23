@@ -5,4 +5,4 @@ export interface AvailableRepositoryPort extends RepositoryPort<Available> {
   findByAreaId(areaId: ID): Promise<Available | null>;
 }
 
-export const RestaurantRepository = Symbol('AvailableRepository');
+export const AvailableRepository = Symbol('AvailableRepository');

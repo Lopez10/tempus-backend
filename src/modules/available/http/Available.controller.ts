@@ -1,6 +1,11 @@
-import { Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AvailablePostgresRepository } from '../infrastructure/Available.postgres.repository';
+import {
+  CreateAvailableDTO,
+  CreateAvailableUseCase,
+} from '../application/CreateAvailable.useCase';
+import { AvailableDTO, AvailableMapper } from '../Available.mapper';
 
 @ApiTags('available')
 @Controller('available')
@@ -11,12 +16,15 @@ export class AvailableController {
   ) {}
 
   @Post()
-  async createAvailable(): Promise<void> {
-    // const createAvailable = new CreateAvailable(
-    //   this.availablePostgresRepository,
-    // );
-    // const availableCreated = await createAvailable.run();
-    // return AvailableMapper.toDTO(availableCreated);
+  async createAvailable(
+    @Body() createAvailableDTO: CreateAvailableDTO,
+  ): Promise<AvailableDTO> {
+    const createAvailable = new CreateAvailableUseCase(
+      this.availablePostgresRepository,
+    );
+    const available = await createAvailable.run(createAvailableDTO);
+
+    return AvailableMapper.toDTO(available);
   }
 
   @Get('/:areaId')
