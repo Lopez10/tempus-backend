@@ -14,7 +14,7 @@ export interface CreateAreaDTO {
 }
 
 @Injectable()
-export class CreateArea implements UseCase<CreateAreaDTO, Area> {
+export class CreateAreaUseCase implements UseCase<CreateAreaDTO, Area> {
   constructor(
     @Inject(AreaRepository)
     private readonly repository: AreaRepositoryPort,

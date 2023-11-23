@@ -5,7 +5,11 @@ import {
   RetrieveAreaDTO,
   RetrieveAreaUseCase,
 } from '../application/UseCases/RetrieveArea.useCase';
-import { AreaDTO } from '../Area.mapper';
+import { AreaDTO, AreaMapper } from '../Area.mapper';
+import {
+  CreateAreaUseCase,
+  CreateAreaDTO,
+} from '../application/UseCases/CreateArea.useCase';
 
 @ApiTags('area')
 @Controller('area')
@@ -16,10 +20,11 @@ export class AreaController {
   ) {}
 
   @Post()
-  async createArea(): Promise<void> {
-    // const createArea = new CreateArea(this.areaPostgresRepository);
-    // const areaCreated = await createArea.run();
-    // return AreaMapper.toDTO(areaCreated);
+  async createArea(@Body() createAreaDTO: CreateAreaDTO): Promise<AreaDTO> {
+    const createArea = new CreateAreaUseCase(this.areaPostgresRepository);
+    const areaCreated = await createArea.run(createAreaDTO);
+
+    return AreaMapper.toDTO(areaCreated);
   }
 
   @Get('/:id')
