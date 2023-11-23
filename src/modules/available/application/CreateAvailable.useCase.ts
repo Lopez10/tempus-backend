@@ -1,6 +1,5 @@
 import { DateTime, ID, UseCase } from '@common';
 import { Inject, Injectable } from '@nestjs/common';
-import { AvailableDTO } from '../Available.mapper';
 import {
   AvailableRepository,
   AvailableRepositoryPort,
@@ -9,8 +8,7 @@ import { Available } from '../domain/Available.entity';
 
 export interface CreateAvailableDTO {
   areaId: string;
-  start: Date;
-  finish: Date;
+  date: Date;
   available: number;
 }
 
@@ -26,8 +24,7 @@ export class CreateAvailableUseCase
   async run(createAvailableDTO: CreateAvailableDTO): Promise<Available> {
     const availableProps = {
       areaId: new ID(createAvailableDTO.areaId),
-      start: new DateTime(createAvailableDTO.start),
-      finish: new DateTime(createAvailableDTO.finish),
+      date: new DateTime(createAvailableDTO.date),
       available: createAvailableDTO.available,
     };
 

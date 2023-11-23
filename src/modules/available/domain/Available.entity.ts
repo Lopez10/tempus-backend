@@ -3,8 +3,7 @@ import { Area } from 'src/modules/area/domain/Area.entity';
 
 export interface AvailableProps {
   areaId: ID;
-  start: DateTime;
-  finish: DateTime;
+  date: DateTime;
   available: number;
 }
 

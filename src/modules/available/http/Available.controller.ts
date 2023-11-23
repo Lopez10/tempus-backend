@@ -28,7 +28,7 @@ export class AvailableController {
   }
 
   @Get('/:areaId')
-  async getAvailable(): Promise<void> {
+  async getAvailable(): Promise<AvailableDTO> {
     // const retrieveAvailablePaginatedByCriteria =
     //   new RetrieveAvailablePaginatedByCriteria(
     //     this.availablePostgresRepository,
