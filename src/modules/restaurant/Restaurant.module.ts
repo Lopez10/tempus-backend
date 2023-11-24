@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { RestaurantController } from './http/Restaurant.controller';
 import { RestaurantPostgresRepository } from './infrastructure/Restaurant.postgres.repository';
 import { RestaurantRepository } from './domain/Restaurant.respository.port';
-import { CreateRestaurant } from './application/UseCase/Create/CreateRestaurant';
+import { CreateRestaurantUseCase } from './application/UseCase/CreateRestaurant/CreateRestaurant.useCase';
+import { RetrieveRestaurantsPaginatedByCriteriaUseCase } from './application/UseCase/RetrieveRestaurantsPaginatedByCriteria/RetrieveRestaurantsPaginatedByCriteria.useCase';
 
 @Module({
   imports: [],
@@ -14,7 +15,8 @@ import { CreateRestaurant } from './application/UseCase/Create/CreateRestaurant'
       provide: RestaurantRepository,
       useClass: RestaurantPostgresRepository,
     },
-    CreateRestaurant,
+    CreateRestaurantUseCase,
+    RetrieveRestaurantsPaginatedByCriteriaUseCase,
   ],
   exports: [],
 })

@@ -1,11 +1,17 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AvailablePostgresRepository } from '../infrastructure/Available.postgres.repository';
-import {
-  CreateAvailableDTO,
-  CreateAvailableUseCase,
-} from '../application/CreateAvailable.useCase';
+import { CreateAvailableUseCase } from '../application/CreateAvailable/CreateAvailable.useCase';
 import { AvailableDTO, AvailableMapper } from '../Available.mapper';
+import {
+  RetrieveAvailableDTO,
+  RetrieveAvailableUseCase,
+} from '../application/RetrieveAvailable/RetrieveAvailable.useCase';
+import {
+  CreateMultipleAvailableByDateDTO,
+  CreateMultipleAvailableByDateUseCase,
+} from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDate.useCase';
+import { CreateAvailableDTO } from '../application/CreateAvailable/CreateAvailableDTO';
 
 @ApiTags('available')
 @Controller('available')
@@ -16,6 +22,12 @@ export class AvailableController {
   ) {}
 
   @Post()
+  @ApiResponse({
+    status: 200,
+    description: 'The available has been successfully created.',
+    schema: {},
+    type: Promise<AvailableDTO>,
+  })
   async createAvailable(
     @Body() createAvailableDTO: CreateAvailableDTO,
   ): Promise<AvailableDTO> {
@@ -28,12 +40,36 @@ export class AvailableController {
   }
 
   @Get('/:areaId')
-  async getAvailable(): Promise<AvailableDTO> {
-    // const retrieveAvailablePaginatedByCriteria =
-    //   new RetrieveAvailablePaginatedByCriteria(
-    //     this.availablePostgresRepository,
-    //   );
-    // const availableDTO = await retrieveAvailablePaginatedByCriteria.run();
-    // return availableDTO;
+  async retrieveAvailableById(
+    @Body() retrieveAvailableDTO: RetrieveAvailableDTO,
+  ): Promise<AvailableDTO> {
+    const retrieveAvailableById = new RetrieveAvailableUseCase(
+      this.availablePostgresRepository,
+    );
+    const availableDTO = await retrieveAvailableById.run(retrieveAvailableDTO);
+
+    return availableDTO;
+  }
+
+  @Post('/multiple')
+  @ApiResponse({
+    status: 200,
+    description: 'The availables has been successfully created.',
+    schema: {},
+    type: Promise<AvailableDTO[]>,
+  })
+  async createMultipleAvailable(
+    @Body()
+    createMultipleAvailableByDateDTO: CreateMultipleAvailableByDateDTO,
+  ): Promise<AvailableDTO[]> {
+    const createMultipleAvailableByDateUseCase =
+      new CreateMultipleAvailableByDateUseCase(
+        this.availablePostgresRepository,
+      );
+    const availablesDTO = await createMultipleAvailableByDateUseCase.run(
+      createMultipleAvailableByDateDTO,
+    );
+
+    return availablesDTO;
   }
 }

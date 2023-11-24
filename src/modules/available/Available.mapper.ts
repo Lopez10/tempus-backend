@@ -5,8 +5,7 @@ export interface AvailableDTO {
   id: string;
   areaId: string;
   available: number;
-  start: Date;
-  finish: Date;
+  date: Date;
 }
 
 export class AvailableMapper {
@@ -15,8 +14,7 @@ export class AvailableMapper {
       {
         areaId: new ID(availableDTO.areaId),
         available: availableDTO.available,
-        start: new DateTime(availableDTO.start),
-        finish: new DateTime(availableDTO.finish),
+        date: new DateTime(availableDTO.date),
       },
       new ID(availableDTO.id),
     );
@@ -27,8 +25,7 @@ export class AvailableMapper {
       id: available.id.value,
       areaId: available.getPropsCopy().areaId.value,
       available: available.getPropsCopy().available,
-      start: available.getPropsCopy().start.value,
-      finish: available.getPropsCopy().finish.value,
+      date: available.getPropsCopy().date.value,
     };
   }
 }

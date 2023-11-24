@@ -1,14 +1,14 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { RestaurantPostgresRepository } from '../infrastructure/Restaurant.postgres.repository';
 import {
-  CreateRestaurant,
+  CreateRestaurantUseCase,
   CreateRestaurantDTO,
-} from '../application/UseCase/Create/CreateRestaurant';
+} from '../application/UseCase/CreateRestaurant/CreateRestaurant.useCase';
 import { RestaurantDTO, RestaurantMapper } from '../Restaurant.mapper';
 import {
-  RetrieveRestaurantsPaginatedByCriteria,
+  RetrieveRestaurantsPaginatedByCriteriaUseCase,
   RetrieveRestaurantsPaginatedByCriteriaDTO as RetrieveRestaurantsByPaginatedDTO,
-} from '../application/UseCase/RetrieveAll/RetrieveAllRestaurants';
+} from '../application/UseCase/RetrieveRestaurantsPaginatedByCriteria/RetrieveRestaurantsPaginatedByCriteria.useCase';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('restaurant')
@@ -23,7 +23,7 @@ export class RestaurantController {
   async createRestaurant(
     @Body() createRestaurantDTO: CreateRestaurantDTO,
   ): Promise<RestaurantDTO> {
-    const createRestaurant = new CreateRestaurant(
+    const createRestaurant = new CreateRestaurantUseCase(
       this.restaurantPostgresRepository,
     );
 
@@ -42,7 +42,7 @@ export class RestaurantController {
     @Body() request: RetrieveRestaurantsByPaginatedDTO,
   ): Promise<RestaurantDTO[]> {
     const retrieveRestaurantsPaginatedByCriteria =
-      new RetrieveRestaurantsPaginatedByCriteria(
+      new RetrieveRestaurantsPaginatedByCriteriaUseCase(
         this.restaurantPostgresRepository,
       );
 

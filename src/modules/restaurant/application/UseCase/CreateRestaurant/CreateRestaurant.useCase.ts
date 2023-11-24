@@ -13,7 +13,7 @@ export interface CreateRestaurantDTO {
 }
 
 @Injectable()
-export class CreateRestaurant
+export class CreateRestaurantUseCase
   implements UseCase<CreateRestaurantDTO, Restaurant>
 {
   constructor(

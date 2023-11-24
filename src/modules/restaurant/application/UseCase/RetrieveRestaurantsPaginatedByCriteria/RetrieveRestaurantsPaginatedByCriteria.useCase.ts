@@ -7,7 +7,7 @@ export interface RetrieveRestaurantsPaginatedByCriteriaDTO {
   paginated: PaginatedQueryParams;
 }
 
-export class RetrieveRestaurantsPaginatedByCriteria
+export class RetrieveRestaurantsPaginatedByCriteriaUseCase
   implements
     UseCase<RetrieveRestaurantsPaginatedByCriteriaDTO, RestaurantDTO[]>
 {

@@ -3,29 +3,25 @@ import { Inject, Injectable } from '@nestjs/common';
 import {
   AvailableRepository,
   AvailableRepositoryPort,
-} from '../domain/Available.repository.port';
-import { Available } from '../domain/Available.entity';
+} from '../../domain/Available.repository.port';
+import { AvailableDTO, AvailableMapper } from '../../Available.mapper';
 
 export interface RetrieveAvailableDTO {
   availableId: string;
-  //   areaId: string;
-  //   start: Date;
-  //   finish: Date;
-  //   available: number;
 }
 
 @Injectable()
 export class RetrieveAvailableUseCase
-  implements UseCase<RetrieveAvailableDTO, Available>
+  implements UseCase<RetrieveAvailableDTO, AvailableDTO>
 {
   constructor(
     @Inject(AvailableRepository)
     private readonly repository: AvailableRepositoryPort,
   ) {}
-  async run(retrieveAvailableDTO: RetrieveAvailableDTO): Promise<Available> {
+  async run(retrieveAvailableDTO: RetrieveAvailableDTO): Promise<AvailableDTO> {
     const id = new ID(retrieveAvailableDTO.availableId);
     const available = await this.repository.findOneById(id);
 
-    return available;
+    return AvailableMapper.toDTO(available);
   }
 }
