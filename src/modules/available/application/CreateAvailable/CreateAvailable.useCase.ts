@@ -5,12 +5,7 @@ import {
   AvailableRepositoryPort,
 } from '../../domain/Available.repository.port';
 import { Available } from '../../domain/Available.entity';
-
-export interface CreateAvailableDTO {
-  areaId: string;
-  date: Date;
-  available: number;
-}
+import { CreateAvailableDTO } from './CreateAvailableDTO';
 
 @Injectable()
 export class CreateAvailableUseCase

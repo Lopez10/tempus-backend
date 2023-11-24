@@ -7,11 +7,9 @@ import {
   RetrieveAvailableDTO,
   RetrieveAvailableUseCase,
 } from '../application/RetrieveAvailable/RetrieveAvailable.useCase';
-import {
-  CreateMultipleAvailableByDateDTO,
-  CreateMultipleAvailableByDateUseCase,
-} from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDate.useCase';
+import { CreateMultipleAvailableByDateUseCase } from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDate.useCase';
 import { CreateAvailableDTO } from '../application/CreateAvailable/CreateAvailableDTO';
+import { CreateMultipleAvailableByDateDTO } from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDate';
 
 @ApiTags('available')
 @Controller('available')
