@@ -9,7 +9,7 @@ import {
 } from '../application/RetrieveAvailable/RetrieveAvailable.useCase';
 import { CreateMultipleAvailableByDateUseCase } from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDate.useCase';
 import { CreateAvailableDTO } from '../application/CreateAvailable/CreateAvailableDTO';
-import { CreateMultipleAvailableByDateDTO } from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDate';
+import { CreateMultipleAvailableByDateDTO } from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDateDTO';
 
 @ApiTags('available')
 @Controller('available')
