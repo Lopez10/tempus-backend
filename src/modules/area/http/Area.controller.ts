@@ -10,6 +10,7 @@ import {
   CreateAreaUseCase,
   CreateAreaDTO,
 } from '../application/UseCases/CreateArea.useCase';
+import { RetrieveAreasDTO } from '../application/UseCases/RetrieveAreas/RetrieveAreasDTO';
 
 @ApiTags('area')
 @Controller('area')
@@ -35,5 +36,12 @@ export class AreaController {
     const area = await retrieveArea.run(retrieveAreaDTO);
 
     return area;
+  }
+
+  @Get('/restaurant/:id')
+  async getAreasByRestaurantId(
+    @Body() retrieveAreasDTO: RetrieveAreasDTO,
+  ): Promise<AreaDTO[]> {
+    throw new Error('Method not implemented.');
   }
 }
