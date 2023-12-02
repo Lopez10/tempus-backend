@@ -5,12 +5,7 @@ import {
   RestaurantRepositoryPort,
 } from '../../../domain/Restaurant.respository.port';
 import { Description, Email, Name, UseCase } from '@common';
-
-export interface CreateRestaurantDTO {
-  email: string;
-  name: string;
-  description: string;
-}
+import { CreateRestaurantDTO } from './CreateRestaurantDTO';
 
 @Injectable()
 export class CreateRestaurantUseCase
