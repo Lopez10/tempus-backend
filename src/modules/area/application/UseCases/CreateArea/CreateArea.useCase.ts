@@ -1,17 +1,11 @@
 import { UseCase, Name, ID } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
-import { AreaProps, Area } from '../../domain/Area.entity';
+import { AreaProps, Area } from '../../../domain/Area.entity';
 import {
   AreaRepository,
   AreaRepositoryPort,
-} from '../../domain/Area.repository.port';
-
-export interface CreateAreaDTO {
-  name: string;
-  maxCapacity: number;
-  hoursPerReservation: number;
-  restaurantId: string;
-}
+} from '../../../domain/Area.repository.port';
+import { CreateAreaDTO } from './CreateAreaDTO';
 
 @Injectable()
 export class CreateAreaUseCase implements UseCase<CreateAreaDTO, Area> {

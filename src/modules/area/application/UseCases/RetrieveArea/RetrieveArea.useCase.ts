@@ -1,12 +1,9 @@
 import { ID, UseCase } from '@common';
-import { AreaDTO, AreaMapper } from '../../Area.mapper';
-import { AreaPostgresRepository } from '../../infrastructure/Area.postgre.repository';
+import { AreaDTO, AreaMapper } from '../../../Area.mapper';
+import { AreaPostgresRepository } from '../../../infrastructure/Area.postgre.repository';
 import { Inject } from '@nestjs/common';
-import { AreaRepository } from '../../domain/Area.repository.port';
-
-export interface RetrieveAreaDTO {
-  id: string;
-}
+import { AreaRepository } from '../../../domain/Area.repository.port';
+import { RetrieveAreaDTO } from './RetrieveAreaDTO';
 
 export class RetrieveAreaUseCase implements UseCase<RetrieveAreaDTO, AreaDTO> {
   constructor(
