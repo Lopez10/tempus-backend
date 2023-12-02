@@ -1,4 +1,4 @@
-import { ID, PaginatedQueryParams, Paginated } from '@common';
+import { ID, PaginationQueryParams, Paginated } from '@common';
 import { Area } from '../domain/Area.entity';
 import { AreaRepositoryPort } from '../domain/Area.repository.port';
 
@@ -21,9 +21,9 @@ export class AreaPostgresRepository implements AreaRepositoryPort {
   delete(id: ID): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
-  findPaginatedByCriteria(
+  findPaginationByCriteria(
     criteria: any,
-    params: PaginatedQueryParams,
+    params: PaginationQueryParams,
   ): Promise<Paginated<Area>> {
     throw new Error('Method not implemented.');
   }

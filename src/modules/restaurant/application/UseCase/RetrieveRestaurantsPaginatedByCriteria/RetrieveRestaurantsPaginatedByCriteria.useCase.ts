@@ -1,10 +1,10 @@
-import { PaginatedQueryParams, UseCase } from '@common';
+import { PaginationQueryParams, UseCase } from '@common';
 import { RestaurantRepositoryPort } from '../../../domain/Restaurant.respository.port';
 import { RestaurantDTO, RestaurantMapper } from '../../../Restaurant.mapper';
 
 export interface RetrieveRestaurantsPaginatedByCriteriaDTO {
-  criteria: any;
-  paginated: PaginatedQueryParams;
+  criteria?: any;
+  pagination: PaginationQueryParams;
 }
 
 export class RetrieveRestaurantsPaginatedByCriteriaUseCase
@@ -16,9 +16,9 @@ export class RetrieveRestaurantsPaginatedByCriteriaUseCase
   async run(
     request: RetrieveRestaurantsPaginatedByCriteriaDTO,
   ): Promise<RestaurantDTO[]> {
-    const { data } = await this.repository.findPaginatedByCriteria(
+    const { data } = await this.repository.findPaginationByCriteria(
       request.criteria,
-      request.paginated,
+      request.pagination,
     );
 
     const restaurantsDTO = data.map(RestaurantMapper.toDTO);

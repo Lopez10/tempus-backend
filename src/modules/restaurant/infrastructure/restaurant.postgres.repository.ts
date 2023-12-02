@@ -1,4 +1,9 @@
-import { ID, Name, Paginated, PaginatedQueryParams } from '@common/domain';
+import {
+  ID,
+  Name,
+  Paginated,
+  PaginationQueryParams as PaginationQueryParams,
+} from '@common/domain';
 import { RestaurantRepositoryPort } from '../domain/Restaurant.respository.port';
 import { Restaurant } from '../domain/Restaurant.entity';
 import { PrismaClient, Restaurant as restaurantModel } from '@prisma/client';
@@ -33,11 +38,11 @@ export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
   delete(id: ID): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
-  async findPaginatedByCriteria(
-    criteria: any,
-    params: PaginatedQueryParams,
+  async findPaginationByCriteria(
+    pagination: PaginationQueryParams,
+    criteria?: any,
   ): Promise<Paginated<Restaurant>> {
-    const { page, limit: take } = params;
+    const { page, limit: take } = pagination;
 
     const restaurants = await this.prisma.restaurant.findMany({
       skip: page * take,

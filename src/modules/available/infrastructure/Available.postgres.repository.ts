@@ -1,4 +1,4 @@
-import { ID, PaginatedQueryParams, Paginated } from '@common';
+import { ID, PaginationQueryParams, Paginated } from '@common';
 import { Available } from '../domain/Available.entity';
 import { AvailableRepositoryPort } from '../domain/Available.repository.port';
 
@@ -21,9 +21,9 @@ export class AvailablePostgresRepository implements AvailableRepositoryPort {
   delete(id: ID): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
-  findPaginatedByCriteria(
+  findPaginationByCriteria(
     criteria: any,
-    params: PaginatedQueryParams,
+    params: PaginationQueryParams,
   ): Promise<Paginated<Available>> {
     throw new Error('Method not implemented.');
   }
