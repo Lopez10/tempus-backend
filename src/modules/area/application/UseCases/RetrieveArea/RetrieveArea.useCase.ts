@@ -1,19 +1,28 @@
 import { ID, UseCase } from '@common';
 import { AreaDTO, AreaMapper } from '../../../Area.mapper';
-import { AreaPostgresRepository } from '../../../infrastructure/Area.postgre.repository';
 import { Inject } from '@nestjs/common';
-import { AreaRepository } from '../../../domain/Area.repository.port';
+import {
+  AreaRepository,
+  AreaRepositoryPort,
+} from '../../../domain/Area.repository.port';
 import { RetrieveAreaDTO } from './RetrieveAreaDTO';
+import { Area } from 'src/modules/area/domain/Area.entity';
 
 export class RetrieveAreaUseCase implements UseCase<RetrieveAreaDTO, AreaDTO> {
   constructor(
     @Inject(AreaRepository)
-    private readonly areaPostgresRepository: AreaPostgresRepository,
+    private readonly areaPostgresRepository: AreaRepositoryPort,
   ) {}
-  async run(retrieveAreaDTO: RetrieveAreaDTO): Promise<AreaDTO> {
+  async run(retrieveAreaDTO: RetrieveAreaDTO): Promise<AreaDTO | null> {
     try {
       const id = new ID(retrieveAreaDTO.id);
-      const area = await this.areaPostgresRepository.findOneById(id);
+
+      const area: Area | null = await this.areaPostgresRepository.findOneById(
+        id,
+      );
+
+      if (!area) throw new Error('Area not found');
+
       return AreaMapper.toDTO(area);
     } catch (error) {
       throw new Error(error);
