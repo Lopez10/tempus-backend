@@ -5,10 +5,7 @@ import {
   AvailableRepositoryPort,
 } from '../../domain/Available.repository.port';
 import { AvailableDTO, AvailableMapper } from '../../Available.mapper';
-
-export interface RetrieveAvailableDTO {
-  availableId: string;
-}
+import { RetrieveAvailableDTO } from './RetrieveAvailableDTO';
 
 @Injectable()
 export class RetrieveAvailableUseCase

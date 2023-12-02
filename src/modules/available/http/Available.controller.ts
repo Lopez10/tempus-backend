@@ -3,13 +3,11 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AvailablePostgresRepository } from '../infrastructure/Available.postgres.repository';
 import { CreateAvailableUseCase } from '../application/CreateAvailable/CreateAvailable.useCase';
 import { AvailableDTO, AvailableMapper } from '../Available.mapper';
-import {
-  RetrieveAvailableDTO,
-  RetrieveAvailableUseCase,
-} from '../application/RetrieveAvailable/RetrieveAvailable.useCase';
+import { RetrieveAvailableUseCase } from '../application/RetrieveAvailable/RetrieveAvailable.useCase';
 import { CreateMultipleAvailableByDateUseCase } from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDate.useCase';
 import { CreateAvailableDTO } from '../application/CreateAvailable/CreateAvailableDTO';
 import { CreateMultipleAvailableByDateDTO } from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDateDTO';
+import { RetrieveAvailableDTO } from '../application/RetrieveAvailable/RetrieveAvailableDTO';
 
 @ApiTags('available')
 @Controller('available')
