@@ -1,9 +1,4 @@
-import {
-  ID,
-  Name,
-  Paginated,
-  PaginationQueryParams as PaginationQueryParams,
-} from '@common/domain';
+import { ID, Name, Paginated, PaginationQueryParams } from '@common/domain';
 import { RestaurantRepositoryPort } from '../domain/Restaurant.respository.port';
 import { Restaurant } from '../domain/Restaurant.entity';
 import { PrismaClient, Restaurant as restaurantModel } from '@prisma/client';

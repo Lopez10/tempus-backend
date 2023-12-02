@@ -1,8 +1,8 @@
-import { RepositoryPort } from '@common';
+import { ID, RepositoryPort } from '@common';
 import { Area } from './Area.entity';
 
 export interface AreaRepositoryPort extends RepositoryPort<Area> {
-  findByAreaName(name: string): Promise<Area | null>;
+  findByRestaurantId(restaurantId: ID): Promise<Area[]>;
 }
 
 export const AreaRepository = Symbol('AreaRepository');

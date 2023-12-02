@@ -5,11 +5,9 @@ import {
   CreateRestaurantDTO,
 } from '../application/UseCase/CreateRestaurant/CreateRestaurant.useCase';
 import { RestaurantDTO, RestaurantMapper } from '../Restaurant.mapper';
-import {
-  RetrieveRestaurantsPaginatedByCriteriaUseCase,
-  RetrieveRestaurantsPaginatedByCriteriaDTO as RetrieveRestaurantsByPaginatedDTO,
-} from '../application/UseCase/RetrieveRestaurantsPaginatedByCriteria/RetrieveRestaurantsPaginatedByCriteria.useCase';
+import { RetrieveRestaurantsUseCase } from '../application/UseCase/RetrieveRestaurants/RetrieveRestaurants.useCase';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import { RetrieveRestaurantsDTO } from '../application/UseCase/RetrieveRestaurants/RetrieveRestaurantsDTO';
 
 @ApiTags('restaurant')
 @Controller('restaurant')
@@ -39,15 +37,14 @@ export class RestaurantController {
     type: Promise<RestaurantDTO[]>,
   })
   async getRestaurants(
-    @Body() request: RetrieveRestaurantsByPaginatedDTO,
+    @Body() retrieveRestaurantsDTO: RetrieveRestaurantsDTO,
   ): Promise<RestaurantDTO[]> {
-    const retrieveRestaurantsPaginatedByCriteria =
-      new RetrieveRestaurantsPaginatedByCriteriaUseCase(
-        this.restaurantPostgresRepository,
-      );
+    const retrieveRestaurants = new RetrieveRestaurantsUseCase(
+      this.restaurantPostgresRepository,
+    );
 
-    const restaurantsDTO = await retrieveRestaurantsPaginatedByCriteria.run(
-      request,
+    const restaurantsDTO = await retrieveRestaurants.run(
+      retrieveRestaurantsDTO,
     );
 
     return restaurantsDTO;

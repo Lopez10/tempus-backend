@@ -1,13 +1,31 @@
 import { ID, PaginationQueryParams, Paginated } from '@common';
 import { Area } from '../domain/Area.entity';
+import { PrismaClient, Area as areaModel } from '@prisma/client';
+import prisma from '@common/infrastructure/db';
 import { AreaRepositoryPort } from '../domain/Area.repository.port';
+import { AreaMapper } from '../Area.mapper';
 
 export class AreaPostgresRepository implements AreaRepositoryPort {
-  findByAreaName(name: string): Promise<Area> {
-    throw new Error('Method not implemented.');
+  private prisma: PrismaClient;
+  constructor() {
+    this.prisma = prisma;
   }
-  insert(entity: Area): Promise<Area> {
-    throw new Error('Method not implemented.');
+  async findByRestaurantId(restaurantId: ID): Promise<Area[]> {
+    const areasDTO: areaModel[] = await this.prisma.area.findMany({
+      where: { restaurantId: restaurantId.value },
+    });
+
+    const areas = areasDTO.map((area) => AreaMapper.toDomain(area));
+
+    return areas;
+  }
+  async insert(entity: Area): Promise<Area> {
+    const area: areaModel = AreaMapper.toDTO(entity);
+    const areaCreated = await this.prisma.area.create({
+      data: area,
+    });
+
+    return AreaMapper.toDomain(areaCreated);
   }
   insertSome(entity: Area[]): Promise<Area[]> {
     throw new Error('Method not implemented.');

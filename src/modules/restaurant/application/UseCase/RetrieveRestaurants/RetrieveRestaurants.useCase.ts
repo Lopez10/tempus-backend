@@ -1,24 +1,19 @@
-import { PaginationQueryParams, UseCase } from '@common';
+import { UseCase } from '@common';
 import { RestaurantRepositoryPort } from '../../../domain/Restaurant.respository.port';
 import { RestaurantDTO, RestaurantMapper } from '../../../Restaurant.mapper';
+import { RetrieveRestaurantsDTO } from './RetrieveRestaurantsDTO';
 
-export interface RetrieveRestaurantsPaginatedByCriteriaDTO {
-  criteria?: any;
-  pagination: PaginationQueryParams;
-}
-
-export class RetrieveRestaurantsPaginatedByCriteriaUseCase
-  implements
-    UseCase<RetrieveRestaurantsPaginatedByCriteriaDTO, RestaurantDTO[]>
+export class RetrieveRestaurantsUseCase
+  implements UseCase<RetrieveRestaurantsDTO, RestaurantDTO[]>
 {
   constructor(private readonly repository: RestaurantRepositoryPort) {}
 
   async run(
-    request: RetrieveRestaurantsPaginatedByCriteriaDTO,
+    retrieveRestaurantsDTO: RetrieveRestaurantsDTO,
   ): Promise<RestaurantDTO[]> {
     const { data } = await this.repository.findPaginationByCriteria(
-      request.criteria,
-      request.pagination,
+      retrieveRestaurantsDTO.criteria,
+      retrieveRestaurantsDTO.pagination,
     );
 
     const restaurantsDTO = data.map(RestaurantMapper.toDTO);
