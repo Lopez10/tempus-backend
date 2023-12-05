@@ -4,8 +4,8 @@ import { RetrieveAreasDTO } from './RetrieveAreasDTO';
 import {
   AreaRepository,
   AreaRepositoryPort,
-} from 'src/modules/area/domain/Area.repository.port';
-import { AreaDTO, AreaMapper } from 'src/modules/area/Area.mapper';
+} from '../../../../../modules/area/domain/Area.repository.port';
+import { AreaDTO, AreaMapper } from '../../../../../modules/area/Area.mapper';
 
 @Injectable()
 export class RetrieveAreasUseCase

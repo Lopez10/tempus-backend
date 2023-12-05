@@ -5,7 +5,13 @@ import { AreaRepositoryPort } from '../../modules/area/domain/Area.repository.po
 
 export class MockAreaRepository implements AreaRepositoryPort {
   findByRestaurantId(restaurantId: ID): Promise<Area[]> {
-    throw new Error('Method not implemented.');
+    const areasDTO = this.areasDTO.filter(
+      (area) => area.restaurantId === restaurantId.value,
+    );
+
+    const areas = areasDTO.map(AreaMapper.toDomain);
+
+    return Promise.resolve(areas);
   }
   insert(entity: Area): Promise<Area> {
     const areaDTO = AreaMapper.toDTO(entity);
@@ -30,11 +36,25 @@ export class MockAreaRepository implements AreaRepositoryPort {
   delete(id: ID): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
-  findPaginationByCriteria(
+  async findPaginationByCriteria(
     paginated: PaginationQueryParams,
     criteria?: any,
   ): Promise<Paginated<Area>> {
-    throw new Error('Method not implemented.');
+    const areasDTO = this.areasDTO.filter((area) => {
+      if (criteria?.restaurantId) {
+        return area.restaurantId === criteria.restaurantId;
+      }
+      return true;
+    });
+
+    const areas = areasDTO.map(AreaMapper.toDomain);
+
+    return {
+      data: areas,
+      count: areas.length,
+      limit: paginated.limit,
+      page: paginated.page,
+    };
   }
   update(entity: Area): Promise<Area> {
     throw new Error('Method not implemented.');
