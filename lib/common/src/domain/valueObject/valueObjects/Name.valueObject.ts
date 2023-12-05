@@ -15,5 +15,9 @@ export class Name extends ValueObject<string> {
     if (name.length > 50) {
       throw new Error(`Name "${name}" is too long`);
     }
+
+    if (name.length < 3) {
+      throw new Error(`Name "${name}" is too short`);
+    }
   }
 }

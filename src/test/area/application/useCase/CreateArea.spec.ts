@@ -31,4 +31,27 @@ describe('Create Area Use Case', () => {
       'Restaurant_1',
     );
   });
+
+  it(`
+        GIVEN an area data with invalid name
+        WHEN I call to the use case to create an area
+        THEN the area should not be created
+    `, async () => {
+    const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
+    mockAreaData(areaReposistory);
+    const action = new CreateAreaUseCase(areaReposistory);
+
+    // GIVEN
+    const areaRequestData = {
+      name: '',
+      maxCapacity: 10,
+      hoursPerReservation: 2,
+      restaurantId: 'Restaurant_1',
+    };
+    // WHEN
+    const areaCreated = action.run(areaRequestData);
+
+    // THEN
+    await expect(areaCreated).rejects.toThrowError('Name "" is too short');
+  });
 });
