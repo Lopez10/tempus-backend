@@ -1,0 +1,34 @@
+import { CreateAreaUseCase } from '../../../../modules/area/application/UseCases/CreateArea/CreateArea.useCase';
+import { AreaRepositoryPort } from '../../../../modules/area/domain/Area.repository.port';
+import { MockAreaRepository } from '../../MockAreaRepository';
+import { mockAreaData } from '../../mockAreaData';
+
+describe('Create Area Use Case', () => {
+  it(`
+        GIVEN an area data
+        WHEN I call to the use case to create an area
+        THEN the area should be created with the correct data
+    `, async () => {
+    const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
+    mockAreaData(areaReposistory);
+    const action = new CreateAreaUseCase(areaReposistory);
+
+    // GIVEN
+    const areaRequestData = {
+      name: 'Area 1',
+      maxCapacity: 10,
+      hoursPerReservation: 2,
+      restaurantId: 'Restaurant_1',
+    };
+    // WHEN
+    const areaCreated = await action.run(areaRequestData);
+
+    // THEN
+    expect(areaCreated.getPropsCopy().name.value).toEqual('Area 1');
+    expect(areaCreated.getPropsCopy().maxCapacity).toEqual(10);
+    expect(areaCreated.getPropsCopy().hoursPerReservation).toEqual(2);
+    expect(areaCreated.getPropsCopy().restaurantId.value).toEqual(
+      'Restaurant_1',
+    );
+  });
+});

@@ -8,7 +8,10 @@ export class MockAreaRepository implements AreaRepositoryPort {
     throw new Error('Method not implemented.');
   }
   insert(entity: Area): Promise<Area> {
-    throw new Error('Method not implemented.');
+    const areaDTO = AreaMapper.toDTO(entity);
+    this.areasDTO.push(areaDTO);
+
+    return Promise.resolve(entity);
   }
   async insertSome(entity: Area[]): Promise<Area[]> {
     const areasDTO = entity.map((area) => AreaMapper.toDTO(area));
