@@ -1,6 +1,5 @@
-import { Area } from '../../modules/area/domain/Area.entity';
 import { ID, Name } from '@common';
-import { AreaRepositoryPort } from '../../modules/area/domain/Area.repository.port';
+import { AreaRepositoryPort, Area } from '@modules';
 
 export async function mockAreaData(areaReposistory: AreaRepositoryPort) {
   return await areaReposistory.insertSome([

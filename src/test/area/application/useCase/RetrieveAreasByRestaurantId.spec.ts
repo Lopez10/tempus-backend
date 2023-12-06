@@ -1,7 +1,9 @@
 import { Name, ID } from '@common';
-import { Area } from '../../../../modules/area/domain/Area.entity';
-import { RetrieveAreasByRestaurantIdUseCase } from '../../../../modules/area/application/UseCases/RetrieveAreasByRestaurantId/RetrieveAreasByRestaurantId.useCase';
-import { AreaRepositoryPort } from '../../../../modules/area/domain/Area.repository.port';
+import {
+  Area,
+  RetrieveAreasByRestaurantIdUseCase,
+  AreaRepositoryPort,
+} from '@modules';
 import { MockAreaRepository } from '../../MockAreaRepository';
 
 describe('Retrieve Areas by restaurant Id Use Case', () => {

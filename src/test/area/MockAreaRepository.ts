@@ -1,7 +1,5 @@
 import { ID, PaginationQueryParams, Paginated } from '@common';
-import { AreaDTO, AreaMapper } from '../../modules/area/Area.mapper';
-import { Area } from '../../modules/area/domain/Area.entity';
-import { AreaRepositoryPort } from '../../modules/area/domain/Area.repository.port';
+import { AreaRepositoryPort, Area, AreaDTO, AreaMapper } from '@modules';
 
 export class MockAreaRepository implements AreaRepositoryPort {
   private areasDTO: AreaDTO[] = [];

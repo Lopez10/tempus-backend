@@ -11,6 +11,8 @@ const config: Config = {
     '^@common/(.*)$': '<rootDir>/lib/common/src/$1',
     '^@common$': '<rootDir>/lib/common/src',
     '^lib/(.*)$': '<rootDir>/lib/$1',
+    '^@modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@modules$': '<rootDir>/src/modules/',
   },
 };
 

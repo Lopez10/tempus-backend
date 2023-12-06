@@ -1,7 +1,6 @@
-import { RetrieveAreaUseCase } from '../../../../modules/area/application/UseCases/RetrieveArea/RetrieveArea.useCase';
+import { RetrieveAreaUseCase, AreaRepositoryPort } from '@modules';
 import { MockAreaRepository } from '../../MockAreaRepository';
 import { mockAreaData } from '../../mockAreaData';
-import { AreaRepositoryPort } from '../../../../modules/area/domain/Area.repository.port';
 
 describe('Retrieve Area Use Case', () => {
   it(`

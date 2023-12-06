@@ -1,5 +1,4 @@
-import { CreateAreaUseCase } from '../../../../modules/area/application/UseCases/CreateArea/CreateArea.useCase';
-import { AreaRepositoryPort } from '../../../../modules/area/domain/Area.repository.port';
+import { CreateAreaUseCase, AreaRepositoryPort } from '@modules';
 import { MockAreaRepository } from '../../MockAreaRepository';
 
 describe('Create Area Use Case', () => {

@@ -1,9 +1,11 @@
 import { ID, Name, PaginationQueryParams } from '@common';
-import { AreaRepositoryPort } from '../../../../modules/area/domain/Area.repository.port';
 import { MockAreaRepository } from '../../MockAreaRepository';
-import { RetrieveAreasDTO } from '../../../../modules/area/application/UseCases/RetrieveAreas/RetrieveAreasDTO';
-import { RetrieveAreasUseCase } from '../../../../modules/area/application/UseCases/RetrieveAreas/RetrieveAreas.useCase';
-import { Area } from '../../../../modules/area/domain/Area.entity';
+import {
+  Area,
+  AreaRepositoryPort,
+  RetrieveAreasDTO,
+  RetrieveAreasUseCase,
+} from '@modules';
 
 describe('Retrieve Areas Use Case', () => {
   it(`
