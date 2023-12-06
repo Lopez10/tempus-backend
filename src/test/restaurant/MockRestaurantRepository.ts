@@ -1,13 +1,22 @@
 import { Name, ID, PaginationQueryParams, Paginated } from '@common';
-import { Restaurant } from 'src/modules/restaurant/domain/Restaurant.entity';
-import { RestaurantRepositoryPort } from '../../../src/modules/restaurant/domain/Restaurant.respository.port';
+import { Restaurant } from '../../modules/restaurant/domain/Restaurant.entity';
+import { RestaurantRepositoryPort } from '../../modules/restaurant/domain/Restaurant.respository.port';
+import {
+  RestaurantDTO,
+  RestaurantMapper,
+} from '../../modules/restaurant/Restaurant.mapper';
 
 export class MockRestaurantRepository implements RestaurantRepositoryPort {
+  private restaurantsDTO: RestaurantDTO[] = [];
+
   findByRestaurantName(name: Name): Promise<Restaurant> {
     throw new Error('Method not implemented.');
   }
   insert(entity: Restaurant): Promise<Restaurant> {
-    throw new Error('Method not implemented.');
+    const restaurantDTO = RestaurantMapper.toDTO(entity);
+    this.restaurantsDTO.push(restaurantDTO);
+
+    return Promise.resolve(entity);
   }
   insertSome(entity: Restaurant[]): Promise<Restaurant[]> {
     throw new Error('Method not implemented.');

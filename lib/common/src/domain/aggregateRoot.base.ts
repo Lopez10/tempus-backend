@@ -15,8 +15,6 @@ export abstract class AggregateRoot<T> extends Entity<T> {
   }
 
   protected addDomainEvent(domainEvent: DomainEvent): void {
-    console.log(domainEvent);
-    console.log(this._domainEvents);
     this._domainEvents.push(domainEvent);
 
     DomainEvents.markAggregateForDispatch(this);

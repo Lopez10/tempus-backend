@@ -4,6 +4,8 @@ import { Area } from '../../modules/area/domain/Area.entity';
 import { AreaRepositoryPort } from '../../modules/area/domain/Area.repository.port';
 
 export class MockAreaRepository implements AreaRepositoryPort {
+  private areasDTO: AreaDTO[] = [];
+
   findByRestaurantId(restaurantId: ID): Promise<Area[]> {
     const areasDTO = this.areasDTO.filter(
       (area) => area.restaurantId === restaurantId.value,
@@ -62,5 +64,4 @@ export class MockAreaRepository implements AreaRepositoryPort {
   transaction<T>(handler: () => Promise<T>): Promise<T> {
     throw new Error('Method not implemented.');
   }
-  private areasDTO: AreaDTO[] = [];
 }

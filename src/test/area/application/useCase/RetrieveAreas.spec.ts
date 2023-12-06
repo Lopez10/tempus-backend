@@ -9,7 +9,7 @@ describe('Retrieve Areas Use Case', () => {
   it(`
         GIVEN there are many areas 
         WHEN the areas are retrieved
-        THEN the areas should be returned
+        THEN the areas should be retrieved
     `, async () => {
     const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
     const action = new RetrieveAreasUseCase(areaReposistory);

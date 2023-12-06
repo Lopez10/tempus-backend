@@ -1,7 +1,6 @@
 import { CreateAreaUseCase } from '../../../../modules/area/application/UseCases/CreateArea/CreateArea.useCase';
 import { AreaRepositoryPort } from '../../../../modules/area/domain/Area.repository.port';
 import { MockAreaRepository } from '../../MockAreaRepository';
-import { mockAreaData } from '../../mockAreaData';
 
 describe('Create Area Use Case', () => {
   it(`
@@ -10,7 +9,6 @@ describe('Create Area Use Case', () => {
         THEN the area should be created with the correct data
     `, async () => {
     const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
-    mockAreaData(areaReposistory);
     const action = new CreateAreaUseCase(areaReposistory);
 
     // GIVEN
@@ -20,6 +18,7 @@ describe('Create Area Use Case', () => {
       hoursPerReservation: 2,
       restaurantId: 'Restaurant_1',
     };
+
     // WHEN
     const areaCreated = await action.run(areaRequestData);
 
@@ -38,7 +37,6 @@ describe('Create Area Use Case', () => {
         THEN the area should not be created
     `, async () => {
     const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
-    mockAreaData(areaReposistory);
     const action = new CreateAreaUseCase(areaReposistory);
 
     // GIVEN
