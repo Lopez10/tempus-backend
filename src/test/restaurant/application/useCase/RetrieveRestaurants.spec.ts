@@ -1,8 +1,10 @@
-import { RestaurantRepositoryPort } from '../../../../modules/restaurant/domain/Restaurant.respository.port';
+import {
+  Restaurant,
+  RestaurantRepositoryPort,
+  RetrieveRestaurantsUseCase,
+} from '@modules';
 import { MockRestaurantRepository } from '../../MockRestaurantRepository';
-import { RetrieveRestaurantsUseCase } from '../../../../modules/restaurant/application/UseCase/RetrieveRestaurants/RetrieveRestaurants.useCase';
 import { Description, Email, ID, Name, PaginationQueryParams } from '@common';
-import { Restaurant } from '../../../../modules/restaurant/domain/Restaurant.entity';
 
 describe('Retrieve Restaurants Use Case', () => {
   it(`

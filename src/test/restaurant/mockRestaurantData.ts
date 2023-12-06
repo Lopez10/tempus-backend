@@ -1,6 +1,5 @@
 import { Name, ID, Description, Email } from '@common';
-import { Restaurant } from 'src/modules/restaurant/domain/Restaurant.entity';
-import { RestaurantRepositoryPort } from '../../modules/restaurant/domain/Restaurant.respository.port';
+import { RestaurantRepositoryPort, Restaurant } from '@modules';
 
 export async function mockRestaurantData(
   restaurantRepository: RestaurantRepositoryPort,

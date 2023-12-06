@@ -1,7 +1,9 @@
-import { CreateRestaurantUseCase } from '../../../../modules/restaurant/application/UseCase/CreateRestaurant/CreateRestaurant.useCase';
-import { RestaurantRepositoryPort } from '../../../../modules/restaurant/domain/Restaurant.respository.port';
+import {
+  CreateRestaurantDTO,
+  CreateRestaurantUseCase,
+  RestaurantRepositoryPort,
+} from '@modules';
 import { MockRestaurantRepository } from '../../MockRestaurantRepository';
-import { CreateRestaurantDTO } from '../../../../modules/restaurant/application/UseCase/CreateRestaurant/CreateRestaurantDTO';
 
 describe('Create Restaurant Use Case', () => {
   it(`

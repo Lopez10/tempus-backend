@@ -1,10 +1,10 @@
 import { Name, ID, PaginationQueryParams, Paginated } from '@common';
-import { Restaurant } from '../../modules/restaurant/domain/Restaurant.entity';
-import { RestaurantRepositoryPort } from '../../modules/restaurant/domain/Restaurant.respository.port';
 import {
+  Restaurant,
   RestaurantDTO,
   RestaurantMapper,
-} from '../../modules/restaurant/Restaurant.mapper';
+  RestaurantRepositoryPort,
+} from '@modules';
 
 export class MockRestaurantRepository implements RestaurantRepositoryPort {
   private restaurantsDTO: RestaurantDTO[] = [];
