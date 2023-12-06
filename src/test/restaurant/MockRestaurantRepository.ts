@@ -19,7 +19,12 @@ export class MockRestaurantRepository implements RestaurantRepositoryPort {
     return Promise.resolve(entity);
   }
   insertSome(entity: Restaurant[]): Promise<Restaurant[]> {
-    throw new Error('Method not implemented.');
+    const restaurantsDTO = entity.map((restaurant) =>
+      RestaurantMapper.toDTO(restaurant),
+    );
+    this.restaurantsDTO.push(...restaurantsDTO);
+
+    return Promise.resolve(entity);
   }
   findOneById(id: ID): Promise<Restaurant> {
     throw new Error('Method not implemented.');
@@ -34,7 +39,21 @@ export class MockRestaurantRepository implements RestaurantRepositoryPort {
     paginated: PaginationQueryParams,
     criteria?: any,
   ): Promise<Paginated<Restaurant>> {
-    throw new Error('Method not implemented.');
+    const restaurantsDTO = this.restaurantsDTO.filter((restaurant) => {
+      if (criteria?.restaurantId) {
+        return restaurant.id === criteria.restaurantId;
+      }
+      return true;
+    });
+
+    const restaurants = restaurantsDTO.map(RestaurantMapper.toDomain);
+
+    return Promise.resolve({
+      data: restaurants,
+      count: restaurants.length,
+      limit: paginated.limit,
+      page: paginated.page,
+    });
   }
   update(entity: Restaurant): Promise<Restaurant> {
     throw new Error('Method not implemented.');
