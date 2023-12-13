@@ -3,8 +3,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import {
   AvailableRepository,
   AvailableRepositoryPort,
-} from '../../domain/Available.repository.port';
-import { Available } from '../../domain/Available.entity';
+} from '../../../domain/Available.repository.port';
+import { Available } from '../../../domain/Available.entity';
 import { CreateAvailableDTO } from './CreateAvailableDTO';
 
 @Injectable()

@@ -1,13 +1,13 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AvailablePostgresRepository } from '../infrastructure/Available.postgres.repository';
-import { CreateAvailableUseCase } from '../application/CreateAvailable/CreateAvailable.useCase';
+import { CreateAvailableUseCase } from '../application/useCase/CreateAvailable/CreateAvailable.useCase';
 import { AvailableDTO, AvailableMapper } from '../Available.mapper';
-import { RetrieveAvailableUseCase } from '../application/RetrieveAvailable/RetrieveAvailable.useCase';
-import { CreateMultipleAvailableByDateUseCase } from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDate.useCase';
-import { CreateAvailableDTO } from '../application/CreateAvailable/CreateAvailableDTO';
-import { CreateMultipleAvailableByDateDTO } from '../application/CreateMultipleAvailableByDate/CreateMultipleAvailableByDateDTO';
-import { RetrieveAvailableDTO } from '../application/RetrieveAvailable/RetrieveAvailableDTO';
+import { RetrieveAvailableUseCase } from '../application/useCase/RetrieveAvailable/RetrieveAvailable.useCase';
+import { CreateMultipleAvailableByDateUseCase } from '../application/useCase/CreateMultipleAvailableByDate/CreateMultipleAvailableByDate.useCase';
+import { CreateAvailableDTO } from '../application/useCase/CreateAvailable/CreateAvailableDTO';
+import { CreateMultipleAvailableByDateDTO } from '../application/useCase/CreateMultipleAvailableByDate/CreateMultipleAvailableByDateDTO';
+import { RetrieveAvailableDTO } from '../application/useCase/RetrieveAvailable/RetrieveAvailableDTO';
 
 @ApiTags('available')
 @Controller('available')

@@ -1,7 +1,7 @@
 import { DateTime, ID, UseCase } from '@common';
-import { AvailableDTO, AvailableMapper } from '../../Available.mapper';
-import { AvailablePostgresRepository } from '../../infrastructure/Available.postgres.repository';
-import { Available } from '../../domain/Available.entity';
+import { AvailableDTO, AvailableMapper } from '../../../Available.mapper';
+import { AvailablePostgresRepository } from '../../../infrastructure/Available.postgres.repository';
+import { Available } from '../../../domain/Available.entity';
 import { CreateMultipleAvailableByDateDTO } from './CreateMultipleAvailableByDateDTO';
 
 export class CreateMultipleAvailableByDateUseCase
