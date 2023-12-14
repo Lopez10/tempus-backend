@@ -21,6 +21,7 @@ export class CreateRestaurantUseCase
       name: new Name(restaurantDTO.name),
       email: new Email(restaurantDTO.email),
       description: new Description(restaurantDTO.description),
+      capacity: restaurantDTO.capacity,
     };
     const restaurant = Restaurant.create(restaurantProps);
     await this.repository.insert(restaurant);

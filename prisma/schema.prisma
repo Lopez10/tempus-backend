@@ -12,6 +12,7 @@ model Restaurant {
   email       String @unique
   name        String
   description String
+  capacity    Int
   Area        Area[]
 }
 

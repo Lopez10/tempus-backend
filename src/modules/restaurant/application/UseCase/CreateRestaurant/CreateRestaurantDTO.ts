@@ -9,4 +9,7 @@ export class CreateRestaurantDTO {
 
   @ApiProperty()
   description: string;
+
+  @ApiProperty()
+  capacity: number;
 }

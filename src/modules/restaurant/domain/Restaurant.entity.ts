@@ -5,10 +5,15 @@ export interface RestaurantProps {
   name: Name;
   email: Email;
   description: Description;
+  capacity: number;
 }
 export class Restaurant extends AggregateRoot<RestaurantProps> {
   private constructor(props: RestaurantProps, id?: ID) {
     super(props, id);
+  }
+
+  updateCapacity(newCapacity: number): void {
+    this.props.capacity = newCapacity;
   }
 
   static create(props: RestaurantProps, id?: ID): Restaurant {
