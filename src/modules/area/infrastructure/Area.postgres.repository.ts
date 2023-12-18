@@ -19,6 +19,7 @@ export class AreaPostgresRepository implements AreaRepositoryPort {
 
     return areas;
   }
+
   async insert(entity: Area): Promise<Area> {
     const area: areaModel = AreaMapper.toDTO(entity);
     const areaCreated = await this.prisma.area.create({
@@ -30,9 +31,17 @@ export class AreaPostgresRepository implements AreaRepositoryPort {
   insertSome(entity: Area[]): Promise<Area[]> {
     throw new Error('Method not implemented.');
   }
-  findOneById(id: ID): Promise<Area> {
-    throw new Error('Method not implemented.');
+
+  async findOneById(id: ID): Promise<Area> {
+    const areaDTO = await this.prisma.area.findUnique({
+      where: { id: id.value },
+    });
+
+    const area = AreaMapper.toDomain(areaDTO);
+
+    return area;
   }
+
   findAll(): Promise<Area[]> {
     throw new Error('Method not implemented.');
   }
