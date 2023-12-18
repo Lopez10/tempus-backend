@@ -1,8 +1,8 @@
-import { Name, ID, PaginationQueryParams, Paginated } from '@common';
+import { Name, ID, PaginationQueryParams, Paginated, DateTime } from '@common';
 import { PrismaClient, Book as bookModel } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
 import { Book, BookRepositoryPort } from '../domain';
-import { BookMapper } from '../Book.mapper';
+import { BookDTO, BookMapper } from '../Book.mapper';
 
 export class BookPostgresRepository implements BookRepositoryPort {
   private prisma: PrismaClient;
@@ -10,8 +10,17 @@ export class BookPostgresRepository implements BookRepositoryPort {
     this.prisma = prisma;
   }
 
-  findByBookName(name: Name): Promise<Book> {
-    throw new Error('Method not implemented.');
+  async retrieveByDateAndAreaId(date: DateTime, areaId: ID): Promise<Book[]> {
+    const booksDTO: BookDTO[] = await this.prisma.book.findMany({
+      where: {
+        dateTime: date.value,
+        areaId: areaId.value,
+      },
+    });
+
+    const books = booksDTO.map((book) => BookMapper.toDomain(book));
+
+    return books;
   }
 
   async insert(entity: Book): Promise<Book> {
