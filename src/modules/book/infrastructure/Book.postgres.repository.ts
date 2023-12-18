@@ -1,8 +1,8 @@
-import { Name, ID, PaginationQueryParams, Paginated, DateTime } from '@common';
+import { ID, PaginationQueryParams, Paginated, DateTime } from '@common';
 import { PrismaClient, Book as bookModel } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
-import { Book, BookRepositoryPort } from '../domain';
 import { BookDTO, BookMapper } from '../Book.mapper';
+import { BookRepositoryPort, Book } from '../domain';
 
 export class BookPostgresRepository implements BookRepositoryPort {
   private prisma: PrismaClient;
