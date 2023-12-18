@@ -1,4 +1,4 @@
-import { UseCase } from '@common';
+import { DateTime, UseCase } from '@common';
 import {
   Book,
   BookProps,
@@ -18,7 +18,7 @@ export class CreateBookUseCase implements UseCase<CreateBookDTO, Book> {
   async run(bookDTO: CreateBookDTO): Promise<Book> {
     const bookProps: BookProps = {
       people: bookDTO.people,
-      dateTime: bookDTO.dateTime,
+      dateTime: new DateTime(bookDTO.dateTime),
       areaId: bookDTO.areaId,
       clientId: bookDTO.clientId,
       tableId: bookDTO.tableId,

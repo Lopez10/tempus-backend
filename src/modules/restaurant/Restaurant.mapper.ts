@@ -23,7 +23,7 @@ export class RestaurantMapper {
 
   static toDTO(restaurant: Restaurant): RestaurantDTO {
     return {
-      id: restaurant.id.value,
+      id: restaurant.getPropsCopy().id.value,
       name: restaurant.getPropsCopy().name.value,
       email: restaurant.getPropsCopy().email.value,
       description: restaurant.getPropsCopy().description.value,

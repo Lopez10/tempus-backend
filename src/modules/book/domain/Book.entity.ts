@@ -1,8 +1,8 @@
-import { AggregateRoot, ID } from '@common';
+import { AggregateRoot, DateTime, ID } from '@common';
 
 export interface BookProps {
   people: number;
-  dateTime: Date;
+  dateTime: DateTime;
   areaId: string;
   clientId: string;
   tableId: string;
