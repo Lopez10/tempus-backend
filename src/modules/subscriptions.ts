@@ -1,0 +1,1 @@
+import './modules/restaurant/subscriptions';

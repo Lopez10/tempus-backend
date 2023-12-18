@@ -4,7 +4,7 @@ import { BookPostgresRepository } from './infrastructure';
 import {
   CreateBookUseCase,
   RetrieveBookUseCase,
-  RetrieveBooksByAreaUseCase,
+  RetrieveBooksUseCase,
 } from './application';
 
 @Module({
@@ -18,7 +18,7 @@ import {
     },
     CreateBookUseCase,
     RetrieveBookUseCase,
-    RetrieveBooksByAreaUseCase,
+    RetrieveBooksUseCase,
   ],
 })
 export class BookModule {}

@@ -28,7 +28,7 @@ export class RestaurantController {
     return RestaurantMapper.toDTO(restaurantCreated);
   }
 
-  @Get()
+  @Get('multiple')
   @ApiResponse({
     status: 200,
     description: 'The restaurants has been successfully retrieved.',

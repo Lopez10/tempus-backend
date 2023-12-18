@@ -5,9 +5,7 @@ import { BookRepository, BookRepositoryPort } from '@modules/book/domain';
 import { BookDTO, BookMapper } from '@modules/book/Book.mapper';
 
 @Injectable()
-export class RetrieveBooksByAreaUseCase
-  implements UseCase<RetrieveBooks, BookDTO[]>
-{
+export class RetrieveBooksUseCase implements UseCase<RetrieveBooks, BookDTO[]> {
   constructor(
     @Inject(BookRepository)
     private readonly repository: BookRepositoryPort,

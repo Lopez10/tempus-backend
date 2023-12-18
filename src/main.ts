@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import './modules/restaurant/subscriptions';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import './modules/subscriptions';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

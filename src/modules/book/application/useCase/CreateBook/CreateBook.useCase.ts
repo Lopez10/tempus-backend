@@ -7,26 +7,26 @@ import {
 } from '@modules/book/domain';
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateBookDTO } from './CreateBookDTO';
+import { BookDTO, BookMapper } from '@modules/book/Book.mapper';
 
 @Injectable()
-export class CreateBookUseCase implements UseCase<CreateBookDTO, Book> {
+export class CreateBookUseCase implements UseCase<CreateBookDTO, BookDTO> {
   constructor(
     @Inject(BookRepository)
     private readonly repository: BookRepositoryPort,
   ) {}
 
-  async run(bookDTO: CreateBookDTO): Promise<Book> {
+  async run(bookDTO: CreateBookDTO): Promise<BookDTO> {
     const bookProps: BookProps = {
       people: bookDTO.people,
       dateTime: new DateTime(bookDTO.dateTime),
       areaId: bookDTO.areaId,
       clientId: bookDTO.clientId,
       tableId: bookDTO.tableId,
-      serviceIds: bookDTO.serviceIds,
     };
     const book = Book.create(bookProps);
-    await this.repository.insert(book);
+    const bookDomain = await this.repository.insert(book);
 
-    return book;
+    return BookMapper.toDTO(bookDomain);
   }
 }
