@@ -6,7 +6,6 @@ export interface BookProps {
   areaId: string;
   clientId: string;
   tableId: string;
-  serviceIds: string[];
 }
 
 export class Book extends AggregateRoot<BookProps> {

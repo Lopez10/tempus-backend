@@ -42,9 +42,9 @@ model Book {
   people   Int
   dateTime DateTime
   areaId   String
-  area     Area      @relation(fields: [areaId], references: [id])
-  ClientId String    @unique
-  Client   Client    @relation(fields: [ClientId], references: [id])
+  Area     Area      @relation(fields: [areaId], references: [id])
+  clientId String    @unique
+  Client   Client    @relation(fields: [clientId], references: [id])
   Service  Service[]
   tableId  String
 }

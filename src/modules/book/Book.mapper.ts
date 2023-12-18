@@ -8,7 +8,6 @@ export interface BookDTO {
   areaId: string;
   clientId: string;
   tableId: string;
-  serviceIds: string[];
 }
 
 export class BookMapper {
@@ -20,7 +19,6 @@ export class BookMapper {
         areaId: bookDTO.areaId,
         clientId: bookDTO.clientId,
         tableId: bookDTO.tableId,
-        serviceIds: bookDTO.serviceIds,
       },
       new ID(bookDTO.id),
     );
@@ -33,7 +31,6 @@ export class BookMapper {
       areaId: book.getPropsCopy().areaId,
       clientId: book.getPropsCopy().clientId,
       tableId: book.getPropsCopy().tableId,
-      serviceIds: book.getPropsCopy().serviceIds,
     };
   }
 }
