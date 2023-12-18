@@ -1,13 +1,13 @@
 import { ID, UseCase } from '@common';
 import { AreaDTO, AreaMapper } from '../../../Area.mapper';
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import {
   AreaRepository,
   AreaRepositoryPort,
 } from '../../../domain/Area.repository.port';
 import { RetrieveAreaDTO } from './RetrieveAreaDTO';
-import { Area } from 'src/modules/area/domain/Area.entity';
 
+@Injectable()
 export class RetrieveAreaUseCase implements UseCase<RetrieveAreaDTO, AreaDTO> {
   constructor(
     @Inject(AreaRepository)
@@ -17,9 +17,7 @@ export class RetrieveAreaUseCase implements UseCase<RetrieveAreaDTO, AreaDTO> {
     try {
       const id = new ID(retrieveAreaDTO.id);
 
-      const area: Area | null = await this.areaPostgresRepository.findOneById(
-        id,
-      );
+      const area = await this.areaPostgresRepository.findOneById(id);
 
       if (!area) throw new Error('Area not found');
 

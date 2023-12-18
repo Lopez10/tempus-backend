@@ -20,6 +20,7 @@ describe('Create Restaurant Use Case', () => {
       name: 'Restaurant 1',
       description: 'Restaurant 1 description',
       email: 'restaurant1@gmail.com',
+      capacity: 10,
     };
 
     // WHEN

@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { AreaRepository } from './domain/Area.repository.port';
-import { AreaPostgresRepository } from './infrastructure/Area.postgre.repository';
+import { AreaPostgresRepository } from './infrastructure/Area.postgres.repository';
 import { AreaController } from './http/Area.controller';
-import { RetrieveAreaUseCase } from './application/UseCases/RetrieveArea/RetrieveArea.useCase';
-import { RetrieveAreasByRestaurantIdUseCase } from './application/UseCases/RetrieveAreasByRestaurantId/RetrieveAreasByRestaurantId.useCase';
-import { CreateAreaUseCase } from './application/UseCases/CreateArea/CreateArea.useCase';
-import { RetrieveAreasUseCase } from './application/UseCases/RetrieveAreas/RetrieveAreas.useCase';
+import {
+  RetrieveAreaUseCase,
+  RetrieveAreasByRestaurantIdUseCase,
+  CreateAreaUseCase,
+  RetrieveAreasUseCase,
+} from './application';
 
 @Module({
   controllers: [AreaController],

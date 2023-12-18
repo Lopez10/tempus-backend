@@ -1,1 +1,1 @@
-export * from './Area.postgre.repository';
+export * from './Area.postgres.repository';

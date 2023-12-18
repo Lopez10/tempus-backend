@@ -1,13 +1,15 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AreaPostgresRepository } from '../infrastructure/Area.postgre.repository';
-import { RetrieveAreaUseCase } from '../application/UseCases/RetrieveArea/RetrieveArea.useCase';
+import { AreaPostgresRepository } from '../infrastructure/Area.postgres.repository';
 import { AreaDTO, AreaMapper } from '../Area.mapper';
-import { CreateAreaUseCase } from '../application/UseCases/CreateArea/CreateArea.useCase';
-import { RetrieveAreasByRestaurantIdDTO } from '../application/UseCases/RetrieveAreasByRestaurantId/RetrieveAreasByRestaurantIdDTO';
-import { RetrieveAreasByRestaurantIdUseCase } from '../application/UseCases/RetrieveAreasByRestaurantId/RetrieveAreasByRestaurantId.useCase';
-import { CreateAreaDTO } from '../application/UseCases/CreateArea/CreateAreaDTO';
-import { RetrieveAreaDTO } from '../application/UseCases/RetrieveArea/RetrieveAreaDTO';
+import {
+  CreateAreaDTO,
+  CreateAreaUseCase,
+  RetrieveAreaDTO,
+  RetrieveAreaUseCase,
+  RetrieveAreasByRestaurantIdDTO,
+  RetrieveAreasByRestaurantIdUseCase,
+} from '../application';
 
 @ApiTags('area')
 @Controller('area')
