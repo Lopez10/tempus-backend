@@ -1,11 +1,13 @@
 import { UseCase, Name, ID } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
-import { AreaProps, Area } from '../../../domain/Area.entity';
+
+import { CreateAreaDTO } from './CreateAreaDTO';
 import {
   AreaRepository,
   AreaRepositoryPort,
-} from '../../../domain/Area.repository.port';
-import { CreateAreaDTO } from './CreateAreaDTO';
+  AreaProps,
+  Area,
+} from '@modules/area/domain';
 
 @Injectable()
 export class CreateAreaUseCase implements UseCase<CreateAreaDTO, Area> {
