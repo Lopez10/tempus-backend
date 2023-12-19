@@ -1,13 +1,13 @@
 import {
   RestaurantModule,
   AreaModule,
-  BookModule,
+  BookingModule,
   AvailableModule,
 } from '@modules';
 import { Module } from '@nestjs/common';
 
 @Module({
-  imports: [RestaurantModule, AvailableModule, AreaModule, BookModule],
+  imports: [RestaurantModule, AvailableModule, AreaModule, BookingModule],
   controllers: [],
   providers: [],
 })

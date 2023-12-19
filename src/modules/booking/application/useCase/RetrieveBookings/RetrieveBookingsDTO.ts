@@ -1,7 +1,7 @@
 import { PaginationQueryParams } from '@common';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class RetrieveBooksDTO {
+export class RetrieveBookingsDTO {
   @ApiProperty()
   criteria?: any;
 

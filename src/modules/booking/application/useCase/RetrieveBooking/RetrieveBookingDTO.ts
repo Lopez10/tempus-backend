@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class RetrieveBookDTO {
+export class RetrieveBookingDTO {
   @ApiProperty()
   id: string;
 }

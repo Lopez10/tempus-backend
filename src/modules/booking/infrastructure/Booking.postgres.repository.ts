@@ -1,44 +1,47 @@
 import { ID, PaginationQueryParams, Paginated, DateTime } from '@common';
 import { PrismaClient, Book as bookModel } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
-import { BookDTO, BookMapper } from '../Book.mapper';
-import { BookRepositoryPort, Book } from '../domain';
+import { BookingDTO, BookingMapper } from '../Booking.mapper';
+import { BookingRepositoryPort, Booking } from '../domain';
 
-export class BookPostgresRepository implements BookRepositoryPort {
+export class BookingPostgresRepository implements BookingRepositoryPort {
   private prisma: PrismaClient;
   constructor() {
     this.prisma = prisma;
   }
 
-  async retrieveByDateAndAreaId(date: DateTime, areaId: ID): Promise<Book[]> {
-    const booksDTO: BookDTO[] = await this.prisma.book.findMany({
+  async retrieveByDateAndAreaId(
+    date: DateTime,
+    areaId: ID,
+  ): Promise<Booking[]> {
+    const booksDTO: BookingDTO[] = await this.prisma.book.findMany({
       where: {
         dateTime: date.value,
         areaId: areaId.value,
       },
     });
 
-    const books = booksDTO.map((book) => BookMapper.toDomain(book));
+    const books = booksDTO.map((book) => BookingMapper.toDomain(book));
 
     return books;
   }
 
-  async insert(entity: Book): Promise<Book> {
-    const book: bookModel = BookMapper.toDTO(entity);
+  async insert(entity: Booking): Promise<Booking> {
+    const book: bookModel = BookingMapper.toDTO(entity);
     const bookCreated = await this.prisma.book.create({
       data: book,
     });
 
-    return BookMapper.toDomain(bookCreated);
+    return BookingMapper.toDomain(bookCreated);
   }
 
-  insertSome(entity: Book[]): Promise<Book[]> {
+  insertSome(entity: Booking[]): Promise<Booking[]> {
     throw new Error('Method not implemented.');
   }
-  findOneById(id: ID): Promise<Book> {
+  findOneById(id: ID): Promise<Booking> {
     throw new Error('Method not implemented.');
   }
-  findAll(): Promise<Book[]> {
+  findAll(): Promise<Booking[]> {
     throw new Error('Method not implemented.');
   }
   delete(id: ID): Promise<boolean> {
@@ -47,10 +50,10 @@ export class BookPostgresRepository implements BookRepositoryPort {
   findPaginationByCriteria(
     paginated: PaginationQueryParams,
     criteria?: any,
-  ): Promise<Paginated<Book>> {
+  ): Promise<Paginated<Booking>> {
     throw new Error('Method not implemented.');
   }
-  update(entity: Book): Promise<Book> {
+  update(entity: Booking): Promise<Booking> {
     throw new Error('Method not implemented.');
   }
   transaction<T>(handler: () => Promise<T>): Promise<T> {

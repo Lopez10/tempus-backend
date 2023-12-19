@@ -1,7 +1,7 @@
 import { DateTime, ID } from '@common';
-import { Book } from './domain';
+import { Booking } from './domain';
 
-export interface BookDTO {
+export interface BookingDTO {
   id: string;
   people: number;
   dateTime: Date;
@@ -10,9 +10,9 @@ export interface BookDTO {
   tableId: string;
 }
 
-export class BookMapper {
-  static toDomain(bookDTO: BookDTO): Book {
-    return Book.create(
+export class BookingMapper {
+  static toDomain(bookDTO: BookingDTO): Booking {
+    return Booking.create(
       {
         people: bookDTO.people,
         dateTime: new DateTime(bookDTO.dateTime),
@@ -23,7 +23,7 @@ export class BookMapper {
       new ID(bookDTO.id),
     );
   }
-  static toDTO(book: Book): BookDTO {
+  static toDTO(book: Booking): BookingDTO {
     return {
       id: book.getPropsCopy().id.value,
       people: book.getPropsCopy().people,
