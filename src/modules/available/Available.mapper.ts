@@ -1,8 +1,8 @@
-import { ID, DateTime } from '@common';
+import { ID, CustomDate } from '@common';
 import { Available } from './domain/Available.entity';
 
 export interface AvailableDTO {
-  id: string;
+  id?: string;
   areaId: string;
   available: number;
   date: Date;
@@ -14,7 +14,7 @@ export class AvailableMapper {
       {
         areaId: new ID(availableDTO.areaId),
         available: availableDTO.available,
-        date: new DateTime(availableDTO.date),
+        date: new CustomDate(availableDTO.date),
       },
       new ID(availableDTO.id),
     );

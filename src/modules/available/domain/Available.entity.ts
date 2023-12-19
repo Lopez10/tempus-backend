@@ -1,9 +1,9 @@
-import { AggregateRoot, DateTime, ID } from '@common';
+import { AggregateRoot, CustomDate, ID } from '@common';
 import { Area } from 'src/modules/area/domain/Area.entity';
 
 export interface AvailableProps {
   areaId: ID;
-  date: DateTime;
+  date: CustomDate;
   available: number;
 }
 

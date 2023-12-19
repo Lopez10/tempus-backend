@@ -1,4 +1,4 @@
-import { DateTime, ID, UseCase } from '@common';
+import { CustomDate, ID, UseCase } from '@common';
 import { Inject, Injectable } from '@nestjs/common';
 import {
   AvailableRepository,
@@ -19,7 +19,7 @@ export class CreateAvailableUseCase
   async run(createAvailableDTO: CreateAvailableDTO): Promise<Available> {
     const availableProps = {
       areaId: new ID(createAvailableDTO.areaId),
-      date: new DateTime(createAvailableDTO.date),
+      date: new CustomDate(createAvailableDTO.date),
       available: createAvailableDTO.available,
     };
 

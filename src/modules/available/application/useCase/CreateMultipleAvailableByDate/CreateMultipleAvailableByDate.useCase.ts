@@ -1,4 +1,4 @@
-import { DateTime, ID, UseCase } from '@common';
+import { CustomDate, ID, UseCase } from '@common';
 import { AvailableDTO, AvailableMapper } from '../../../Available.mapper';
 import { AvailablePostgresRepository } from '../../../infrastructure/Available.postgres.repository';
 import { Available } from '../../../domain/Available.entity';
@@ -19,7 +19,7 @@ export class CreateMultipleAvailableByDateUseCase
     const availablesCreated = dates.map((date) =>
       Available.create({
         areaId: new ID(areaId),
-        date: new DateTime(date),
+        date: new CustomDate(date),
         available,
       }),
     );

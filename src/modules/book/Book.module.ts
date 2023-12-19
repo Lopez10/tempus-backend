@@ -6,6 +6,7 @@ import {
   RetrieveBookUseCase,
   RetrieveBooksUseCase,
 } from './application';
+import { BookRepository } from './domain';
 
 @Module({
   controllers: [BookController],
@@ -13,7 +14,7 @@ import {
     BookController,
     BookPostgresRepository,
     {
-      provide: BookPostgresRepository,
+      provide: BookRepository,
       useValue: BookPostgresRepository,
     },
     CreateBookUseCase,
