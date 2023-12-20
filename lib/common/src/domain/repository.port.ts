@@ -16,7 +16,7 @@ export class Paginated<T> {
 
 export type OrderBy = { field: string; param: 'asc' | 'desc' };
 
-export type PaginatedQueryParams = {
+export type PaginationQueryParams = {
   limit: number;
   page: number;
   offset: number;
@@ -24,14 +24,14 @@ export type PaginatedQueryParams = {
 };
 
 export interface RepositoryPort<Entity> {
-  insert(entity: Entity): Promise<void>;
-  insertSome(entity: Entity[]): Promise<void>;
+  insert(entity: Entity): Promise<Entity>;
+  insertSome(entity: Entity[]): Promise<Entity[]>;
   findOneById(id: ID): Promise<Entity | null>;
   findAll(): Promise<Entity[]>;
   delete(id: ID): Promise<boolean>;
-  findPaginatedByCriteria(
-    criteria: any,
-    params: PaginatedQueryParams,
+  findPaginationByCriteria(
+    paginated: PaginationQueryParams,
+    criteria?: any,
   ): Promise<Paginated<Entity>>;
   update(entity: Entity): Promise<Entity>;
   transaction<T>(handler: () => Promise<T>): Promise<T>;

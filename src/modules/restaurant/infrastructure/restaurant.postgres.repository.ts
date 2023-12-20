@@ -1,8 +1,9 @@
-import { ID, Name, Paginated, PaginatedQueryParams } from '@common/domain';
+import { ID, Name, Paginated, PaginationQueryParams } from '@common/domain';
 import { RestaurantRepositoryPort } from '../domain/Restaurant.respository.port';
 import { Restaurant } from '../domain/Restaurant.entity';
 import { PrismaClient, Restaurant as restaurantModel } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
+import { RestaurantMapper } from '../Restaurant.mapper';
 
 export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
   private prisma: PrismaClient;
@@ -12,11 +13,15 @@ export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
   findByRestaurantName(name: Name): Promise<Restaurant> {
     throw new Error('Method not implemented.');
   }
-  async insert(entity: Restaurant): Promise<void> {
-    const restaurant: restaurantModel = entity.toPrimitives();
-    await this.prisma.restaurant.create({ data: restaurant });
+  async insert(entity: Restaurant): Promise<Restaurant> {
+    const restaurant: restaurantModel = RestaurantMapper.toDTO(entity);
+    const restaurantCreated = await this.prisma.restaurant.create({
+      data: restaurant,
+    });
+
+    return RestaurantMapper.toDomain(restaurantCreated);
   }
-  insertSome(entity: Restaurant[]): Promise<void> {
+  insertSome(entity: Restaurant[]): Promise<Restaurant[]> {
     throw new Error('Method not implemented.');
   }
   findOneById(id: ID): Promise<Restaurant> {
@@ -28,11 +33,28 @@ export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
   delete(id: ID): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
-  findPaginatedByCriteria(
-    criteria: any,
-    params: PaginatedQueryParams,
+  async findPaginationByCriteria(
+    pagination: PaginationQueryParams,
+    criteria?: any,
   ): Promise<Paginated<Restaurant>> {
-    throw new Error('Method not implemented.');
+    const { page, limit: take } = pagination;
+
+    const restaurants = await this.prisma.restaurant.findMany({
+      skip: page * take,
+      take,
+      where: criteria,
+    });
+
+    const total = await this.prisma.restaurant.count({ where: criteria });
+
+    return {
+      data: restaurants.map((restaurant) =>
+        RestaurantMapper.toDomain(restaurant),
+      ),
+      page,
+      count: total,
+      limit: take,
+    };
   }
   update(entity: Restaurant): Promise<Restaurant> {
     throw new Error('Method not implemented.');

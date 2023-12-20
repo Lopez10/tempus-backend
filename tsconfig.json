@@ -24,6 +24,12 @@
       "@common/*": [
         "./lib/common/src/*"
       ],
-    },
+      "@modules":[
+        "./src/modules"
+      ],
+      "@modules/*":[
+        "./src/modules/*"
+      ],
+    }
   }
 }

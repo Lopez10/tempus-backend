@@ -1,12 +1,11 @@
 import { Module } from '@nestjs/common';
 import { RestaurantController } from './http/Restaurant.controller';
-import { RestaurantPostgresRepository } from './infrastructure/restaurant.postgres.repository';
+import { RestaurantPostgresRepository } from './infrastructure/Restaurant.postgres.repository';
 import { RestaurantRepository } from './domain/Restaurant.respository.port';
-import { RestaurantCreator } from './application/Create/RestaurantCreator';
-import { InMemoryEventBus } from '@common/infrastructure/event/InMemoryEventBus';
+import { CreateRestaurantUseCase } from './application/UseCase/CreateRestaurant/CreateRestaurant.useCase';
+import { RetrieveRestaurantsUseCase } from './application/UseCase/RetrieveRestaurants/RetrieveRestaurants.useCase';
 
 @Module({
-  imports: [],
   controllers: [RestaurantController],
   providers: [
     RestaurantController,
@@ -15,7 +14,8 @@ import { InMemoryEventBus } from '@common/infrastructure/event/InMemoryEventBus'
       provide: RestaurantRepository,
       useClass: RestaurantPostgresRepository,
     },
-    RestaurantCreator,
+    CreateRestaurantUseCase,
+    RetrieveRestaurantsUseCase,
   ],
   exports: [],
 })
