@@ -1,7 +1,7 @@
 import { ID, PaginationQueryParams, Paginated, DateTime } from '@common';
-import { PrismaClient, Book as bookModel } from '@prisma/client';
+import { PrismaClient, Booking as bookModel } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
-import { BookingDTO, BookingMapper } from '../Booking.mapper';
+import { BookingMapper } from '../Booking.mapper';
 import { BookingRepositoryPort, Booking } from '../domain';
 
 export class BookingPostgresRepository implements BookingRepositoryPort {
@@ -9,27 +9,23 @@ export class BookingPostgresRepository implements BookingRepositoryPort {
   constructor() {
     this.prisma = prisma;
   }
-
-  async retrieveByDateAndAreaId(
-    date: DateTime,
-    areaId: ID,
-  ): Promise<Booking[]> {
-    const booksDTO: BookingDTO[] = await this.prisma.book.findMany({
+  async retrieveByDayAndAreaId(day: DateTime, areaId: ID): Promise<Booking[]> {
+    const bookings = await this.prisma.booking.findMany({
       where: {
-        dateTime: date.value,
         areaId: areaId.value,
+        day: day.value,
       },
     });
 
-    const books = booksDTO.map((book) => BookingMapper.toDomain(book));
+    const bookingsDomain = bookings.map((book) => BookingMapper.toDomain(book));
 
-    return books;
+    return bookingsDomain;
   }
 
   async insert(entity: Booking): Promise<Booking> {
-    const book: bookModel = BookingMapper.toDTO(entity);
-    const bookCreated = await this.prisma.book.create({
-      data: book,
+    const booking: bookModel = BookingMapper.toDTO(entity);
+    const bookCreated = await this.prisma.booking.create({
+      data: booking,
     });
 
     return BookingMapper.toDomain(bookCreated);

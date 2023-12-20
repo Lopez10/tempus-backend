@@ -31,6 +31,15 @@ export class DateTime extends ValueObject<Date> {
     return this.props.value.getFullYear();
   }
 
+  createDayDate(): DateTime {
+    const dayDate = new Date(this.year, this.month, this.day);
+    return new DateTime(dayDate);
+  }
+
+  isBefore(date: DateTime): boolean {
+    return this.props.value.getTime() < date.value.getTime();
+  }
+
   protected validate({ value }: { value: Date }): void {
     if (!value) {
       throw new Error('Date is required');

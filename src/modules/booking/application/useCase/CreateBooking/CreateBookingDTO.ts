@@ -5,7 +5,10 @@ export class CreateBookingDTO {
   people: number;
 
   @ApiProperty()
-  dateTime: Date;
+  start: Date;
+
+  @ApiProperty()
+  end: Date;
 
   @ApiProperty()
   areaId: string;

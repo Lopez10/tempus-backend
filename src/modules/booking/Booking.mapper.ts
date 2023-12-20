@@ -4,33 +4,39 @@ import { Booking } from './domain';
 export interface BookingDTO {
   id: string;
   people: number;
-  dateTime: Date;
+  day: Date;
+  start: Date;
+  end: Date;
   areaId: string;
   clientId: string;
   tableId: string;
 }
 
 export class BookingMapper {
-  static toDomain(bookDTO: BookingDTO): Booking {
+  static toDomain(bookingDTO: BookingDTO): Booking {
     return Booking.create(
       {
-        people: bookDTO.people,
-        dateTime: new DateTime(bookDTO.dateTime),
-        areaId: bookDTO.areaId,
-        clientId: bookDTO.clientId,
-        tableId: bookDTO.tableId,
+        people: bookingDTO.people,
+        day: new DateTime(bookingDTO.day),
+        start: new DateTime(bookingDTO.start),
+        end: new DateTime(bookingDTO.end),
+        areaId: new ID(bookingDTO.areaId),
+        clientId: new ID(bookingDTO.clientId),
+        tableId: new ID(bookingDTO.tableId),
       },
-      new ID(bookDTO.id),
+      new ID(bookingDTO.id),
     );
   }
-  static toDTO(book: Booking): BookingDTO {
+  static toDTO(booking: Booking): BookingDTO {
     return {
-      id: book.getPropsCopy().id.value,
-      people: book.getPropsCopy().people,
-      dateTime: book.getPropsCopy().dateTime.value,
-      areaId: book.getPropsCopy().areaId,
-      clientId: book.getPropsCopy().clientId,
-      tableId: book.getPropsCopy().tableId,
+      id: booking.getPropsCopy().id.value,
+      people: booking.getPropsCopy().people,
+      day: booking.getPropsCopy().day.value,
+      start: booking.getPropsCopy().start.value,
+      end: booking.getPropsCopy().end.value,
+      areaId: booking.getPropsCopy().areaId.value,
+      clientId: booking.getPropsCopy().clientId.value,
+      tableId: booking.getPropsCopy().tableId.value,
     };
   }
 }

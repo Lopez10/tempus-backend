@@ -29,6 +29,7 @@ model Area {
 model Booking {
   id       String    @id @unique
   people   Int
+  day      DateTime
   start    DateTime
   end      DateTime
   areaId   String
@@ -38,7 +39,7 @@ model Booking {
   Service  Service[]
   tableId  String
 
-  @@index([areaId, start], name: "areaId_date")
+  @@index([areaId, day], name: "areaId_date")
 }
 
 model Service {
