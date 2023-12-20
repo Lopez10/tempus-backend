@@ -29,8 +29,8 @@ model Area {
 model Booking {
   id       String    @id @unique
   people   Int
-  init     DateTime
-  finish   DateTime
+  start    DateTime
+  end      DateTime
   areaId   String
   Area     Area      @relation(fields: [areaId], references: [id])
   clientId String    @unique
@@ -38,7 +38,7 @@ model Booking {
   Service  Service[]
   tableId  String
 
-  @@index([areaId, init], name: "areaId_date")
+  @@index([areaId, start], name: "areaId_date")
 }
 
 model Service {

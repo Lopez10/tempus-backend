@@ -2,7 +2,8 @@ import { AggregateRoot, DateTime, ID } from '@common';
 
 export interface BookProps {
   people: number;
-  dateTime: DateTime;
+  start: DateTime;
+  end: DateTime;
   areaId: string;
   clientId: string;
   tableId: string;
