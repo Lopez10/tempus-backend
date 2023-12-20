@@ -17,48 +17,40 @@ model Restaurant {
 }
 
 model Area {
-  id                  String      @id @unique
+  id                  String     @id @unique
   name                String
   maxCapacity         Int?
-  restaurantId        String      @unique
+  restaurantId        String     @unique
   hoursPerReservation Int?
-  restaurant          Restaurant  @relation(fields: [restaurantId], references: [id])
-  Book                Book[]
-  Available           Available[]
+  restaurant          Restaurant @relation(fields: [restaurantId], references: [id])
+  Booking             Booking[]
 }
 
-model Available {
-  id        String   @id @unique
-  date      DateTime
-  available Int
-  areaId    String
-  Area      Area     @relation(fields: [areaId], references: [id])
-
-  @@index([areaId, date], name: "areaId_date")
-}
-
-model Book {
+model Booking {
   id       String    @id @unique
   people   Int
-  dateTime DateTime
+  init     DateTime
+  finish   DateTime
   areaId   String
   Area     Area      @relation(fields: [areaId], references: [id])
   clientId String    @unique
   Client   Client    @relation(fields: [clientId], references: [id])
   Service  Service[]
   tableId  String
+
+  @@index([areaId, init], name: "areaId_date")
 }
 
 model Service {
-  id   String @id @unique
-  name String
-  Book Book[]
+  id      String    @id @unique
+  name    String
+  Booking Booking[]
 }
 
 model Client {
-  id    String @id @unique
-  name  String
-  email String @unique
-  phone String @unique
-  Book  Book[]
+  id      String    @id @unique
+  name    String
+  email   String    @unique
+  phone   String    @unique
+  Booking Booking[]
 }
