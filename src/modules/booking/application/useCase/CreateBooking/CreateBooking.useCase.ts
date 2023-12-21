@@ -7,7 +7,7 @@ import {
 } from '@modules/booking/domain';
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateBookingDTO } from './CreateBookingDTO';
-import { BookingDTO, BookingMapper } from '@modules/booking/mappers/Booking.mapper';
+import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
 
 @Injectable()
 export class CreateBookingUseCase

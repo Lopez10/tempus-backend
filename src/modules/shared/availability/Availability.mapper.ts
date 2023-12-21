@@ -1,5 +1,5 @@
 import { DateTime } from '@common';
-import { AvailabilityServiceProps } from '../domain';
+import { AvailabilityServiceProps } from '../../booking/domain';
 
 export interface AvailabilityDTO {
   hour: Date;

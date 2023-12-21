@@ -1,7 +1,7 @@
 import { ID, PaginationQueryParams, Paginated, DateTime } from '@common';
 import { PrismaClient, Booking as bookModel } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
-import { BookingMapper } from '../mappers/Booking.mapper';
+import { BookingMapper } from '../Booking.mapper';
 import { BookingRepositoryPort, Booking } from '../domain';
 
 export class BookingPostgresRepository implements BookingRepositoryPort {
@@ -9,12 +9,23 @@ export class BookingPostgresRepository implements BookingRepositoryPort {
   constructor() {
     this.prisma = prisma;
   }
-  retrieveByDayAreaIdAndPeople(
+
+  async retrieveByDayAreaIdAndPeople(
     day: DateTime,
     areaId: ID,
     people: number,
   ): Promise<Booking[]> {
-    throw new Error('Method not implemented.');
+    const bookings = await this.prisma.booking.findMany({
+      where: {
+        day: day.value,
+        areaId: areaId.value,
+        people,
+      },
+    });
+
+    const bookingsDomain = bookings.map((book) => BookingMapper.toDomain(book));
+
+    return bookingsDomain;
   }
   async retrieveByDayAndAreaId(day: DateTime, areaId: ID): Promise<Booking[]> {
     const bookings = await this.prisma.booking.findMany({

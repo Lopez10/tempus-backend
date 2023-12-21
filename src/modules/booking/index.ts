@@ -1,4 +1,4 @@
-export * from './mappers/Booking.mapper';
+export * from './Booking.mapper';
 export * from './Booking.module';
 export * from './application';
 export * from './domain';

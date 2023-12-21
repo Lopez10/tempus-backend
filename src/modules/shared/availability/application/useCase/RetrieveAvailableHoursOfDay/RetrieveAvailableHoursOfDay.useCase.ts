@@ -1,10 +1,15 @@
 import { UseCase, DateTime, ID } from '@common';
-import { BookRepository, BookingRepositoryPort } from '@modules/booking/domain';
 import { Injectable, Inject } from '@nestjs/common';
 import { RetrieveAvailableHoursOfDayDTO } from './RetrieveAvailableHoursOfDayDTO';
 import { HoursAvailableDTO } from './HoursAvailableDTO';
-import { AvailabilityService } from '@modules/booking/domain/services/Availability.service';
-import { AvailabilityMapper } from '@modules/booking/mappers/Availability.mapper';
+import {
+  AreaRepository,
+  AreaRepositoryPort,
+  BookRepository,
+  BookingRepositoryPort,
+  AvailabilityService,
+} from '@modules';
+import { AvailabilityMapper } from '@modules/shared/availability/Availability.mapper';
 
 @Injectable()
 export class RetrieveAvailableHoursOfDayUseCase
@@ -12,7 +17,11 @@ export class RetrieveAvailableHoursOfDayUseCase
 {
   constructor(
     @Inject(BookRepository)
-    private readonly repository: BookingRepositoryPort,
+    private readonly bookingRepository: BookingRepositoryPort,
+
+    @Inject(AreaRepository)
+    private readonly areaRepository: AreaRepositoryPort,
+
     private readonly availabilityService: AvailabilityService,
   ) {}
 
@@ -23,14 +32,24 @@ export class RetrieveAvailableHoursOfDayUseCase
     const areaId = new ID(retrieveAvailableHoursOfDayDTO.areaId);
     const people = retrieveAvailableHoursOfDayDTO.people;
 
-    const bookings = await this.repository.retrieveByDayAreaIdAndPeople(
+    const bookings = await this.bookingRepository.retrieveByDayAreaIdAndPeople(
       day,
       areaId,
       people,
     );
 
-    const hoursAvailable =
-      this.availabilityService.calculateAvailableHours(bookings);
+    const startAndPeopleOfBookings = bookings.map((booking) => ({
+      start: booking.getPropsCopy().start,
+      people: booking.getPropsCopy().people,
+    }));
+
+    const area = await this.areaRepository.findOneById(areaId);
+    const maxCapacity = area.getPropsCopy().maxCapacity;
+
+    const hoursAvailable = this.availabilityService.calculateAvailableHours(
+      startAndPeopleOfBookings,
+      maxCapacity,
+    );
 
     const hoursAvailableDTO = hoursAvailable.map((availability) =>
       AvailabilityMapper.toDTO(availability),

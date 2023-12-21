@@ -9,7 +9,7 @@ import {
   RetrieveBookingsDTO,
   RetrieveBookingsUseCase,
 } from '../application';
-import { BookingDTO } from '../mappers/Booking.mapper';
+import { BookingDTO } from '../Booking.mapper';
 
 @ApiTags('book')
 @Controller('book')
