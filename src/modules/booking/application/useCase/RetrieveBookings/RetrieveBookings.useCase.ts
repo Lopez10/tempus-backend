@@ -2,7 +2,10 @@ import { UseCase } from '@common';
 import { Inject, Injectable } from '@nestjs/common';
 import { RetrieveBookingsDTO as RetrieveBookingsDTO } from './RetrieveBookingsDTO';
 import { BookRepository, BookingRepositoryPort } from '@modules/booking/domain';
-import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
+import {
+  BookingDTO,
+  BookingMapper,
+} from '@modules/booking/mappers/Booking.mapper';
 
 @Injectable()
 export class RetrieveBookingsUseCase

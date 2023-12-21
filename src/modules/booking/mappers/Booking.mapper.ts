@@ -1,5 +1,5 @@
 import { DateTime, ID } from '@common';
-import { Booking } from './domain';
+import { Booking } from '../domain';
 
 export interface BookingDTO {
   id: string;

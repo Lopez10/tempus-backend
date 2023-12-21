@@ -1,6 +1,6 @@
 import { ID, UseCase } from '@common';
 import { RetrieveBookingDTO } from './RetrieveBookingDTO';
-import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
+import { BookingDTO, BookingMapper } from '@modules/booking/mappers/Booking.mapper';
 import { Inject, Injectable } from '@nestjs/common';
 import { BookRepository, BookingRepositoryPort } from '@modules/booking/domain';
 

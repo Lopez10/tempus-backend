@@ -1,6 +1,6 @@
 import { AggregateRoot, DateTime, ID } from '@common';
 
-export interface BookProps {
+export interface BookingProps {
   people: number;
   day: DateTime;
   start: DateTime;
@@ -10,12 +10,12 @@ export interface BookProps {
   tableId: ID;
 }
 
-export class Booking extends AggregateRoot<BookProps> {
-  private constructor(props: BookProps, id?: ID) {
+export class Booking extends AggregateRoot<BookingProps> {
+  private constructor(props: BookingProps, id?: ID) {
     super(props, id);
   }
 
-  static create(props: BookProps, id?: ID): Booking {
+  static create(props: BookingProps, id?: ID): Booking {
     const book = new Booking(props, id);
 
     return book;

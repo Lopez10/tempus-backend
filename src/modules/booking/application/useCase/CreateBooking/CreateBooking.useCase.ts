@@ -1,13 +1,13 @@
 import { DateTime, ID, UseCase } from '@common';
 import {
   Booking,
-  BookProps,
+  BookingProps,
   BookRepository,
   BookingRepositoryPort,
 } from '@modules/booking/domain';
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateBookingDTO } from './CreateBookingDTO';
-import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
+import { BookingDTO, BookingMapper } from '@modules/booking/mappers/Booking.mapper';
 
 @Injectable()
 export class CreateBookingUseCase
@@ -19,7 +19,7 @@ export class CreateBookingUseCase
   ) {}
 
   async run(bookingDTO: CreateBookingDTO): Promise<BookingDTO> {
-    const bookingProps: BookProps = {
+    const bookingProps: BookingProps = {
       people: bookingDTO.people,
       day: new DateTime(bookingDTO.start).createDayDate(),
       start: new DateTime(bookingDTO.start),
