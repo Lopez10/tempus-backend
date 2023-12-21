@@ -15,6 +15,9 @@ describe('Create Area Use Case', () => {
       name: 'Area 1',
       maxCapacity: 10,
       hoursPerReservation: 2,
+      startTime: '10:00',
+      endTime: '22:00',
+      interval: 30,
       restaurantId: 'Restaurant_1',
     };
 
@@ -43,6 +46,9 @@ describe('Create Area Use Case', () => {
       name: '',
       maxCapacity: 10,
       hoursPerReservation: 2,
+      startTime: '10:00',
+      endTime: '22:00',
+      interval: 30,
       restaurantId: 'Restaurant_1',
     };
     // WHEN

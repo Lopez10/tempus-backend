@@ -20,8 +20,11 @@ model Area {
   id                  String     @id @unique
   name                String
   maxCapacity         Int?
-  restaurantId        String     @unique
   hoursPerReservation Int?
+  startTime           String?
+  endTime             String?
+  interval            Int?
+  restaurantId        String     @unique
   restaurant          Restaurant @relation(fields: [restaurantId], references: [id])
   Booking             Booking[]
 }
@@ -29,9 +32,9 @@ model Area {
 model Booking {
   id       String    @id @unique
   people   Int
-  day      DateTime
-  start    DateTime
-  end      DateTime
+  day      String
+  start    String
+  end      String
   areaId   String
   Area     Area      @relation(fields: [areaId], references: [id])
   clientId String    @unique

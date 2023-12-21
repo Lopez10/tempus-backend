@@ -1,8 +1,9 @@
+import { Time } from '@common';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class HoursAvailableDTO {
   @ApiProperty()
-  hour: Date;
+  hour: Time;
 
   @ApiProperty()
   available: number;

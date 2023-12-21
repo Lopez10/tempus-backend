@@ -1,20 +1,30 @@
-import { DateTime } from '@common';
+import { Time } from '@common';
 
 export interface AvailabilityServiceProps {
-  hour: DateTime;
+  hour: Time;
   available: number;
 }
 
-export interface StartAndPeopleOfBookings {
-  start: DateTime;
+export interface timeAndPeopleOfBookings {
+  start: Time;
+  end: Time;
   people: number;
 }
 
 export class AvailabilityService {
-  calculateAvailableHours(
-    startAndPeopleOfBookings: StartAndPeopleOfBookings[],
-    maxCapacity: number,
-  ): AvailabilityServiceProps[] {
+  calculateAvailableHours({
+    timeAndPeopleOfBookings,
+    maxCapacity,
+    interval,
+    startTime,
+    endTime,
+  }: {
+    timeAndPeopleOfBookings: timeAndPeopleOfBookings[];
+    maxCapacity: number;
+    interval: number;
+    startTime: Time;
+    endTime: Time;
+  }): AvailabilityServiceProps[] {
     // TODO: calculate available hours based on the bookings of the day substrating the max capacity of the area
     // TODO: Add the rest of the time between the start and end times of the area
 

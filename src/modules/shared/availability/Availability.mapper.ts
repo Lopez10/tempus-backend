@@ -1,8 +1,8 @@
-import { DateTime } from '@common';
+import { Time } from '@common';
 import { AvailabilityServiceProps } from '../../booking/domain';
 
 export interface AvailabilityDTO {
-  hour: Date;
+  hour: string;
   available: number;
 }
 
@@ -16,7 +16,7 @@ export class AvailabilityMapper {
 
   static toDomain(availabilityDTO: AvailabilityDTO): AvailabilityServiceProps {
     return {
-      hour: new DateTime(availabilityDTO.hour),
+      hour: new Time(availabilityDTO.hour),
       available: availabilityDTO.available,
     };
   }

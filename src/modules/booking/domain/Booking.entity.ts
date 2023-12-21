@@ -1,10 +1,10 @@
-import { AggregateRoot, DateTime, ID } from '@common';
+import { AggregateRoot, DateVO, ID, Time } from '@common';
 
 export interface BookingProps {
   people: number;
-  day: DateTime;
-  start: DateTime;
-  end: DateTime;
+  day: DateVO;
+  start: Time;
+  end: Time;
   areaId: ID;
   clientId: ID;
   tableId: ID;

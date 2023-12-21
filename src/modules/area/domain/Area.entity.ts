@@ -1,9 +1,12 @@
-import { AggregateRoot, ID, Name } from '@common';
+import { AggregateRoot, ID, Name, Time } from '@common';
 
 export interface AreaProps {
   name: Name;
   maxCapacity: number;
   hoursPerReservation: number;
+  startTime: Time;
+  endTime: Time;
+  interval: number;
   restaurantId: ID;
 }
 

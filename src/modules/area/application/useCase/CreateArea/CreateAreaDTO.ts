@@ -11,5 +11,14 @@ export class CreateAreaDTO {
   hoursPerReservation: number;
 
   @ApiProperty()
+  startTime: string;
+
+  @ApiProperty()
+  endTime: string;
+
+  @ApiProperty()
+  interval: number;
+
+  @ApiProperty()
   restaurantId: string;
 }

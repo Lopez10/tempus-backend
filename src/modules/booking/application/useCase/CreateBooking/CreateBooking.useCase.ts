@@ -1,4 +1,4 @@
-import { DateTime, ID, UseCase } from '@common';
+import { DateVO, ID, Time, UseCase } from '@common';
 import {
   Booking,
   BookingProps,
@@ -21,9 +21,9 @@ export class CreateBookingUseCase
   async run(bookingDTO: CreateBookingDTO): Promise<BookingDTO> {
     const bookingProps: BookingProps = {
       people: bookingDTO.people,
-      day: new DateTime(bookingDTO.start).createDayDate(),
-      start: new DateTime(bookingDTO.start),
-      end: new DateTime(bookingDTO.end),
+      day: new DateVO(bookingDTO.start),
+      start: new Time(bookingDTO.start),
+      end: new Time(bookingDTO.end),
       areaId: new ID(bookingDTO.areaId),
       clientId: new ID(bookingDTO.clientId),
       tableId: new ID(bookingDTO.tableId),

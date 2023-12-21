@@ -1,10 +1,10 @@
-import { RepositoryPort, DateTime, ID } from '@common';
+import { RepositoryPort, ID, DateVO } from '@common';
 import { Booking } from './Booking.entity';
 
 export interface BookingRepositoryPort extends RepositoryPort<Booking> {
-  retrieveByDayAndAreaId(day: DateTime, areaId: ID): Promise<Booking[]>;
+  retrieveByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]>;
   retrieveByDayAreaIdAndPeople(
-    day: DateTime,
+    day: DateVO,
     areaId: ID,
     people: number,
   ): Promise<Booking[]>;

@@ -8,4 +8,5 @@ export * from './Description.valueObject';
 export * from './Token.valueObject';
 export * from './Role.valueObject';
 export * from './DateTime.valueObject';
-export * from './CustomDate.valueObject';
+export * from './Time.valueObject';
+export * from './Date.valueObject';

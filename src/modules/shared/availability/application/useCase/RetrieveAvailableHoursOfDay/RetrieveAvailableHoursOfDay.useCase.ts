@@ -1,4 +1,4 @@
-import { UseCase, DateTime, ID } from '@common';
+import { UseCase, DateTime, ID, DateVO } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
 import { RetrieveAvailableHoursOfDayDTO } from './RetrieveAvailableHoursOfDayDTO';
 import { HoursAvailableDTO } from './HoursAvailableDTO';
@@ -28,7 +28,7 @@ export class RetrieveAvailableHoursOfDayUseCase
   async run(
     retrieveAvailableHoursOfDayDTO: RetrieveAvailableHoursOfDayDTO,
   ): Promise<HoursAvailableDTO[]> {
-    const day = new DateTime(retrieveAvailableHoursOfDayDTO.day);
+    const day = new DateVO(retrieveAvailableHoursOfDayDTO.day);
     const areaId = new ID(retrieveAvailableHoursOfDayDTO.areaId);
     const people = retrieveAvailableHoursOfDayDTO.people;
 
@@ -38,23 +38,26 @@ export class RetrieveAvailableHoursOfDayUseCase
       people,
     );
 
-    const startAndPeopleOfBookings = bookings.map((booking) => ({
+    const timeAndPeopleOfBookings = bookings.map((booking) => ({
       start: booking.getPropsCopy().start,
+      end: booking.getPropsCopy().end,
       people: booking.getPropsCopy().people,
     }));
 
     const area = await this.areaRepository.findOneById(areaId);
-    const maxCapacity = area.getPropsCopy().maxCapacity;
 
-    const hoursAvailable = this.availabilityService.calculateAvailableHours(
-      startAndPeopleOfBookings,
-      maxCapacity,
-    );
+    const hoursAvailable = this.availabilityService.calculateAvailableHours({
+      endTime: area.getPropsCopy().endTime,
+      startTime: area.getPropsCopy().startTime,
+      interval: area.getPropsCopy().interval,
+      maxCapacity: area.getPropsCopy().maxCapacity,
+      timeAndPeopleOfBookings,
+    });
 
     const hoursAvailableDTO = hoursAvailable.map((availability) =>
       AvailabilityMapper.toDTO(availability),
     );
 
-    return hoursAvailableDTO;
+    return [];
   }
 }

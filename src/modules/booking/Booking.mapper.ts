@@ -1,12 +1,12 @@
-import { DateTime, ID } from '@common';
+import { DateVO, ID, Time } from '@common';
 import { Booking } from './domain';
 
 export interface BookingDTO {
   id: string;
   people: number;
-  day: Date;
-  start: Date;
-  end: Date;
+  day: string;
+  start: string;
+  end: string;
   areaId: string;
   clientId: string;
   tableId: string;
@@ -17,9 +17,9 @@ export class BookingMapper {
     return Booking.create(
       {
         people: bookingDTO.people,
-        day: new DateTime(bookingDTO.day),
-        start: new DateTime(bookingDTO.start),
-        end: new DateTime(bookingDTO.end),
+        day: new DateVO(bookingDTO.day),
+        start: new Time(bookingDTO.start),
+        end: new Time(bookingDTO.end),
         areaId: new ID(bookingDTO.areaId),
         clientId: new ID(bookingDTO.clientId),
         tableId: new ID(bookingDTO.tableId),

@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class RetrieveAvailableHoursOfDayDTO {
   @ApiProperty()
-  day: Date;
+  day: string;
 
   @ApiProperty()
   areaId: string;

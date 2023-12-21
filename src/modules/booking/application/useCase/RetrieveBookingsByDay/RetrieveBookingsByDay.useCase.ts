@@ -1,8 +1,5 @@
-import { DateTime, ID, UseCase } from '@common';
-import {
-  BookingDTO,
-  BookingMapper,
-} from '@modules/booking/Booking.mapper';
+import { DateVO, ID, UseCase } from '@common';
+import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
 import { Inject, Injectable } from '@nestjs/common';
 import { RetrieveBookingsByDayDTO } from './RetrieveBookingsByDayDTO';
 import { BookRepository, BookingRepositoryPort } from '@modules/booking/domain';
@@ -19,7 +16,7 @@ export class RetrieveBookingsByDayUseCase
   async run(
     retrieveBookingsByDayDTO: RetrieveBookingsByDayDTO,
   ): Promise<BookingDTO[]> {
-    const day = new DateTime(retrieveBookingsByDayDTO.day);
+    const day = new DateVO(retrieveBookingsByDayDTO.day);
     const areaId = new ID(retrieveBookingsByDayDTO.areaId);
 
     const bookings = await this.repository.retrieveByDayAndAreaId(day, areaId);
