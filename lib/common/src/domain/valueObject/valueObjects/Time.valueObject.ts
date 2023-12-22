@@ -19,6 +19,18 @@ export class Time extends ValueObject<string> {
     return parseInt(this.props.value.split(':')[1]);
   }
 
+  addMinutes(minutes: number): Time {
+    let hour = this.hour;
+    let minute = this.minute + minutes;
+
+    if (minute >= 60) {
+      hour += Math.floor(minute / 60);
+      minute = minute % 60;
+    }
+
+    return new Time(`${hour}:${minute}`);
+  }
+
   isBefore(time: Time): boolean {
     return (
       this.hour < time.hour ||
