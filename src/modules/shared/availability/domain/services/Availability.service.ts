@@ -38,6 +38,11 @@ export class AvailabilityService {
       });
 
       const availableCapacity = maxCapacity - capacityUsed;
+
+      if (availableCapacity < 0) {
+        throw new Error('Capacity exceeded');
+      }
+
       availability.push({
         hour: interval,
         available: Math.max(0, availableCapacity),
@@ -55,7 +60,7 @@ export class AvailabilityService {
     const intervals: Time[] = [];
     let currentTime = startTime;
 
-    while (currentTime < endTime) {
+    while (currentTime.isBefore(endTime)) {
       intervals.push(currentTime);
       currentTime = currentTime.addMinutes(interval);
     }
