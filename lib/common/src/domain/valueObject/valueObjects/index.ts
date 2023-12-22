@@ -1,5 +1,5 @@
 export * from './Email.valueObject';
-export * from './DNI.valueObject';
+export * from './Dni.valueObject';
 export * from './Phone.valueObject';
 export * from './Id.valueObject';
 export * from './Password.valueObject';
