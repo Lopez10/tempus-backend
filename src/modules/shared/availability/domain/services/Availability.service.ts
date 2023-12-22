@@ -25,9 +25,45 @@ export class AvailabilityService {
     startTime: Time;
     endTime: Time;
   }): AvailabilityServiceProps[] {
-    // TODO: calculate available hours based on the bookings of the day substrating the max capacity of the area
-    // TODO: Add the rest of the time between the start and end times of the area
+    const intervals = this.generateIntervals(startTime, endTime, interval);
+    const availability: AvailabilityServiceProps[] = [];
 
-    return [];
+    intervals.forEach((interval) => {
+      let capacityUsed = 0;
+
+      timeAndPeopleOfBookings.forEach((booking) => {
+        if (this.isOverlap(interval, booking.start, booking.end)) {
+          capacityUsed += booking.people;
+        }
+      });
+
+      const availableCapacity = maxCapacity - capacityUsed;
+      availability.push({
+        hour: interval,
+        available: Math.max(0, availableCapacity),
+      });
+    });
+
+    return availability;
+  }
+
+  private generateIntervals(
+    startTime: Time,
+    endTime: Time,
+    interval: number,
+  ): Time[] {
+    const intervals: Time[] = [];
+    let currentTime = startTime;
+
+    while (currentTime < endTime) {
+      intervals.push(currentTime);
+      currentTime = currentTime.addMinutes(interval);
+    }
+
+    return intervals;
+  }
+
+  private isOverlap(interval: Time, startTime: Time, endTime: Time): boolean {
+    return interval.isAfter(startTime) && interval.isBefore(endTime);
   }
 }
