@@ -4,8 +4,8 @@ export interface AreaProps {
   name: Name;
   maxCapacity: number;
   hoursPerReservation: number;
-  startTime: Time;
-  endTime: Time;
+  open: Time;
+  close: Time;
   interval: number;
   restaurantId: ID;
 }

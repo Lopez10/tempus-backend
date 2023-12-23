@@ -21,8 +21,8 @@ model Area {
   name                String
   maxCapacity         Int?
   hoursPerReservation Int?
-  startTime           String?
-  endTime             String?
+  open                String?
+  close               String?
   interval            Int?
   restaurantId        String     @unique
   restaurant          Restaurant @relation(fields: [restaurantId], references: [id])

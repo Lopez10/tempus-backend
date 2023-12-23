@@ -11,10 +11,10 @@ export class CreateAreaDTO {
   hoursPerReservation: number;
 
   @ApiProperty()
-  startTime: string;
+  open: string;
 
   @ApiProperty()
-  endTime: string;
+  close: string;
 
   @ApiProperty()
   interval: number;

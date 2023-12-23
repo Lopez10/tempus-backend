@@ -6,8 +6,8 @@ export interface AreaDTO {
   name: string;
   maxCapacity: number;
   hoursPerReservation: number;
-  startTime: string;
-  endTime: string;
+  open: string;
+  close: string;
   interval: number;
   restaurantId: string;
 }
@@ -19,8 +19,8 @@ export class AreaMapper {
         name: new Name(areaDTO.name),
         maxCapacity: areaDTO.maxCapacity,
         hoursPerReservation: areaDTO.hoursPerReservation,
-        startTime: new Time(areaDTO.startTime),
-        endTime: new Time(areaDTO.endTime),
+        open: new Time(areaDTO.open),
+        close: new Time(areaDTO.close),
         interval: areaDTO.interval,
         restaurantId: new ID(areaDTO.restaurantId),
       },
@@ -34,8 +34,8 @@ export class AreaMapper {
       name: area.getPropsCopy().name.value,
       maxCapacity: area.getPropsCopy().maxCapacity,
       hoursPerReservation: area.getPropsCopy().hoursPerReservation,
-      startTime: area.getPropsCopy().startTime.value,
-      endTime: area.getPropsCopy().endTime.value,
+      open: area.getPropsCopy().open.value,
+      close: area.getPropsCopy().close.value,
       interval: area.getPropsCopy().interval,
       restaurantId: area.getPropsCopy().restaurantId.value,
     };

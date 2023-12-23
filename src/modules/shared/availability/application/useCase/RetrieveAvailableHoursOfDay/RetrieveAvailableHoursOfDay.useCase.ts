@@ -1,4 +1,4 @@
-import { UseCase, DateTime, ID, DateVO } from '@common';
+import { UseCase, ID, DateVO } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
 import { RetrieveAvailableHoursOfDayDTO } from './RetrieveAvailableHoursOfDayDTO';
 import { HoursAvailableDTO } from './HoursAvailableDTO';
@@ -8,6 +8,7 @@ import {
   BookRepository,
   BookingRepositoryPort,
   AvailabilityService,
+  timeAndPeopleOfBookings,
 } from '@modules';
 import { AvailabilityMapper } from '@modules/shared/availability/Availability.mapper';
 
@@ -38,17 +39,19 @@ export class RetrieveAvailableHoursOfDayUseCase
       people,
     );
 
-    const timeAndPeopleOfBookings = bookings.map((booking) => ({
-      start: booking.getPropsCopy().start,
-      end: booking.getPropsCopy().end,
-      people: booking.getPropsCopy().people,
-    }));
+    const timeAndPeopleOfBookings: timeAndPeopleOfBookings[] = bookings.map(
+      (booking) => ({
+        start: booking.getPropsCopy().start,
+        end: booking.getPropsCopy().end,
+        people: booking.getPropsCopy().people,
+      }),
+    );
 
     const area = await this.areaRepository.findOneById(areaId);
 
     const hoursAvailable = this.availabilityService.calculateAvailableHours({
-      endTime: area.getPropsCopy().endTime,
-      startTime: area.getPropsCopy().startTime,
+      endTime: area.getPropsCopy().close,
+      startTime: area.getPropsCopy().open,
       interval: area.getPropsCopy().interval,
       maxCapacity: area.getPropsCopy().maxCapacity,
       timeAndPeopleOfBookings,

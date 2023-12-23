@@ -21,8 +21,8 @@ export class CreateAreaUseCase implements UseCase<CreateAreaDTO, Area> {
       name: new Name(createAreaDTO.name),
       maxCapacity: createAreaDTO.maxCapacity,
       hoursPerReservation: createAreaDTO.hoursPerReservation,
-      startTime: new Time(createAreaDTO.startTime),
-      endTime: new Time(createAreaDTO.endTime),
+      open: new Time(createAreaDTO.open),
+      close: new Time(createAreaDTO.close),
       interval: createAreaDTO.interval,
       restaurantId: new ID(createAreaDTO.restaurantId),
     };
