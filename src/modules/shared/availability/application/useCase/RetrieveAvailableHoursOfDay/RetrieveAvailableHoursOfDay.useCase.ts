@@ -61,6 +61,6 @@ export class RetrieveAvailableHoursOfDayUseCase
       AvailabilityMapper.toDTO(availability),
     );
 
-    return [];
+    return hoursAvailableDTO;
   }
 }
