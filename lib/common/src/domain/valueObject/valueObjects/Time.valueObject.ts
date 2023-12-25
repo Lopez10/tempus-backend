@@ -28,7 +28,11 @@ export class Time extends ValueObject<string> {
       minute = minute % 60;
     }
 
-    return new Time(`${hour}:${minute}`);
+    return new Time(
+      `${hour.toString().padStart(2, '0')}:${minute
+        .toString()
+        .padStart(2, '0')}`,
+    );
   }
 
   isBefore(time: Time): boolean {

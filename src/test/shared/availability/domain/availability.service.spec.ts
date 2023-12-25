@@ -33,11 +33,6 @@ describe('Availability Service test', () => {
         end: new Time('15:00'),
         people: 3,
       },
-      // {
-      //   start: new Time('13:00'),
-      //   end: new Time('15:00'),
-      //   people: 5,
-      // },
     ];
 
     // WHEN
