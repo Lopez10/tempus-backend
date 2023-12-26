@@ -42,6 +42,14 @@ export class Time extends ValueObject<string> {
     );
   }
 
+  isEqual(time: Time): boolean {
+    return this.hour === time.hour && this.minute === time.minute;
+  }
+
+  isBeforeOrEqual(time: Time): boolean {
+    return this.isBefore(time) || this.isEqual(time);
+  }
+
   isAfter(time: Time): boolean {
     return (
       this.hour > time.hour ||

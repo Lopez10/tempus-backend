@@ -60,7 +60,7 @@ export class AvailabilityService {
     const intervals: Time[] = [];
     let currentTime = startTime;
 
-    while (currentTime.isBefore(endTime)) {
+    while (currentTime.isBeforeOrEqual(endTime)) {
       intervals.push(currentTime);
       currentTime = currentTime.addMinutes(interval);
     }

@@ -9,7 +9,7 @@ export async function mockAreaData(areaReposistory: AreaRepositoryPort) {
         maxCapacity: 10,
         hoursPerReservation: 1,
         open: new Time('10:00'),
-        close: new Time('15:30'),
+        close: new Time('15:00'),
         interval: 30,
         restaurantId: new ID('Restaurant_1'),
       },
