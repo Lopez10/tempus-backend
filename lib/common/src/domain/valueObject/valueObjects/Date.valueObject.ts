@@ -4,7 +4,7 @@ export class DateVO extends ValueObject<string> {
   constructor(value: string) {
     super({ value });
     this.validate({ value });
-    this.props.value = value;
+    this.props.value = this.fixFormat(value);
   }
 
   get value(): string {
@@ -43,6 +43,12 @@ export class DateVO extends ValueObject<string> {
     );
   }
 
+  fixFormat(value: string): string {
+    const [day, month, year] = value.split('/');
+
+    return `${day.padStart(2, '0')}/${month.padStart(2, '0')}/${year}`;
+  }
+
   private validateDate(day: number, month: number, year: number) {
     const date = new Date(year, month - 1, day);
     return (
@@ -77,7 +83,7 @@ export class DateVO extends ValueObject<string> {
 
     const yearNumber = parseInt(year);
 
-    if (yearNumber < 2021) {
+    if (yearNumber < 2000) {
       throw new Error('Year is invalid');
     }
 
