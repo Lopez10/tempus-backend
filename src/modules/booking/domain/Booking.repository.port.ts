@@ -6,7 +6,7 @@ export interface BookingRepositoryPort extends RepositoryPort<Booking> {
   retrieveByDayAreaIdAndPeople(
     day: DateVO,
     areaId: ID,
-    people: number,
+    // people: number,
   ): Promise<Booking[]>;
 }
 

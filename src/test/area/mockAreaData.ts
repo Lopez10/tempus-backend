@@ -5,11 +5,11 @@ export async function mockAreaData(areaReposistory: AreaRepositoryPort) {
   return await areaReposistory.insertSome([
     Area.create(
       {
-        name: new Name('Area_1'),
+        name: new Name('Area_1_Name'),
         maxCapacity: 10,
         hoursPerReservation: 1,
         open: new Time('10:00'),
-        close: new Time('22:00'),
+        close: new Time('15:30'),
         interval: 30,
         restaurantId: new ID('Restaurant_1'),
       },

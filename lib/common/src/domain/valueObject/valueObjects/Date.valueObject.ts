@@ -54,13 +54,13 @@ export class DateVO extends ValueObject<string> {
 
   protected validate(props: DomainPrimitive<string>): void {
     if (!props.value) {
-      throw new Error('Date is required');
+      throw new Error(`${props.value} Date is required`);
     }
 
     const [day, month, year] = props.value.split('/');
 
     if (!day || !month || !year) {
-      throw new Error('Date is incomplete');
+      throw new Error(`${props.value} Date is incomplete`);
     }
 
     const dayNumber = parseInt(day);

@@ -15,8 +15,8 @@ describe('Availability Service test', () => {
     const availabilityService = new AvailabilityService();
     const maxCapacity = 10;
     const interval = 15;
-    const startTime = new Time('12:00');
-    const endTime = new Time('16:00');
+    const open = new Time('12:00');
+    const close = new Time('16:00');
     const bookings: timeAndPeopleOfBookings[] = [
       {
         start: new Time('12:00'),
@@ -40,8 +40,8 @@ describe('Availability Service test', () => {
       timeAndPeopleOfBookings: bookings,
       maxCapacity,
       interval,
-      startTime,
-      endTime,
+      open,
+      close,
     });
 
     // THEN

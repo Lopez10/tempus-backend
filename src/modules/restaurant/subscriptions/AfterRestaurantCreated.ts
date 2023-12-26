@@ -21,13 +21,13 @@ export class AfterRestaurantCreated implements Handle<RestaurantCreated> {
 
     try {
       // await this.useCaseExample.execute(restaurant);
-      console.log(
-        `[AfterRestaurantCreated]: Successfully executed UseCaseExample after RestaurantCreated event.`,
-      );
+      // console.log(
+      // `[AfterRestaurantCreated]: Successfully executed UseCaseExample after RestaurantCreated event.`,
+      // );
     } catch (err) {
-      console.log(
-        `[AfterRestaurantCreated]: Failed to execute UseCaseExample after RestaurantCreated event.`,
-      );
+      // console.log(
+      //   `[AfterRestaurantCreated]: Failed to execute UseCaseExample after RestaurantCreated event.`,
+      // );
     }
   }
 }

@@ -13,13 +13,13 @@ export class BookingPostgresRepository implements BookingRepositoryPort {
   async retrieveByDayAreaIdAndPeople(
     day: DateVO,
     areaId: ID,
-    people: number,
+    // people: number,
   ): Promise<Booking[]> {
     const bookings = await this.prisma.booking.findMany({
       where: {
         day: day.value,
         areaId: areaId.value,
-        people,
+        // people,
       },
     });
 

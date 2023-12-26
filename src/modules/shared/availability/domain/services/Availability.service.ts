@@ -16,16 +16,16 @@ export class AvailabilityService {
     timeAndPeopleOfBookings,
     maxCapacity,
     interval,
-    startTime,
-    endTime,
+    open,
+    close,
   }: {
     timeAndPeopleOfBookings: timeAndPeopleOfBookings[];
     maxCapacity: number;
     interval: number;
-    startTime: Time;
-    endTime: Time;
+    open: Time;
+    close: Time;
   }): AvailabilityServiceProps[] {
-    const intervals = this.generateIntervals(startTime, endTime, interval);
+    const intervals = this.generateIntervals(open, close, interval);
     const availability: AvailabilityServiceProps[] = [];
 
     intervals.forEach((interval) => {

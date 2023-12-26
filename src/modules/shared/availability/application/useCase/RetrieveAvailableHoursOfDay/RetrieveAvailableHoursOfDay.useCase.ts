@@ -5,9 +5,9 @@ import { HoursAvailableDTO } from './HoursAvailableDTO';
 import {
   AreaRepository,
   AreaRepositoryPort,
+  AvailabilityService,
   BookRepository,
   BookingRepositoryPort,
-  AvailabilityService,
   timeAndPeopleOfBookings,
 } from '@modules';
 import { AvailabilityMapper } from '@modules/shared/availability/Availability.mapper';
@@ -16,14 +16,14 @@ import { AvailabilityMapper } from '@modules/shared/availability/Availability.ma
 export class RetrieveAvailableHoursOfDayUseCase
   implements UseCase<RetrieveAvailableHoursOfDayDTO, HoursAvailableDTO[]>
 {
+  private readonly availabilityService: AvailabilityService =
+    new AvailabilityService();
   constructor(
     @Inject(BookRepository)
     private readonly bookingRepository: BookingRepositoryPort,
 
     @Inject(AreaRepository)
     private readonly areaRepository: AreaRepositoryPort,
-
-    private readonly availabilityService: AvailabilityService,
   ) {}
 
   async run(
@@ -36,22 +36,21 @@ export class RetrieveAvailableHoursOfDayUseCase
     const bookings = await this.bookingRepository.retrieveByDayAreaIdAndPeople(
       day,
       areaId,
-      people,
     );
 
     const timeAndPeopleOfBookings: timeAndPeopleOfBookings[] = bookings.map(
       (booking) => ({
         start: booking.getPropsCopy().start,
         end: booking.getPropsCopy().end,
-        people: booking.getPropsCopy().people,
+        people,
       }),
     );
 
     const area = await this.areaRepository.findOneById(areaId);
 
     const hoursAvailable = this.availabilityService.calculateAvailableHours({
-      endTime: area.getPropsCopy().close,
-      startTime: area.getPropsCopy().open,
+      close: area.getPropsCopy().close,
+      open: area.getPropsCopy().open,
       interval: area.getPropsCopy().interval,
       maxCapacity: area.getPropsCopy().maxCapacity,
       timeAndPeopleOfBookings,
