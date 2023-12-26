@@ -37,4 +37,69 @@ describe('Date Value Object test', () => {
     expect(date.month).toEqual(1);
     expect(date.year).toEqual(2020);
   });
+
+  it(`
+      GIVEN an invalid date data with bad day
+      WHEN I create a new Date
+      THEN the Date value object is not created      
+      `, () => {
+    // GIVEN
+    const invalidDate = '0/1/2020';
+    // WHEN
+    const invalidDateCreation = () => new DateVO(invalidDate);
+    // THEN
+    expect(invalidDateCreation).toThrowError('Day is invalid');
+  });
+
+  it(`
+      GIVEN an invalid date data with bad month
+      WHEN I create a new Date
+      THEN the Date value object is not created      
+      `, () => {
+    // GIVEN
+    const invalidDate = '1/13/2020';
+    // WHEN
+    const invalidDateCreation = () => new DateVO(invalidDate);
+    // THEN
+    expect(invalidDateCreation).toThrowError('Month is invalid');
+  });
+
+  it(`
+      GIVEN an incomplete date data 
+      WHEN I create a new Date
+      THEN the Date value object is not created      
+      `, () => {
+    // GIVEN
+    const invalidDate = '1/12';
+    // WHEN
+    const invalidDateCreation = () => new DateVO(invalidDate);
+    // THEN
+    expect(invalidDateCreation).toThrowError('Date is incomplete');
+  });
+
+  it(`
+      GIVEN an empty date data
+      WHEN I create a new Date
+      THEN the Date value object is not created      
+      `, () => {
+    // GIVEN
+    const invalidDate = '';
+    // WHEN
+    const invalidDateCreation = () => new DateVO(invalidDate);
+    // THEN
+    expect(invalidDateCreation).toThrowError('Date is required');
+  });
+
+  it(`
+      GIVEN an invalid date data with an incorrect day in February
+      WHEN I create a new Date
+      THEN the Date value object is not created      
+      `, () => {
+    // GIVEN
+    const invalidDate = '30/02/2023';
+    // WHEN
+    const invalidDateCreation = () => new DateVO(invalidDate);
+    // THEN
+    expect(invalidDateCreation).toThrowError('Date is invalid');
+  });
 });
