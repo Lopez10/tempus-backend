@@ -17,12 +17,12 @@ export async function mockAreaData(areaReposistory: AreaRepositoryPort) {
     ),
     Area.create(
       {
-        name: new Name('Area_2'),
+        name: new Name('Area_2_Name'),
         maxCapacity: 10,
-        hoursPerReservation: 1,
-        open: new Time('10:00'),
-        close: new Time('22:00'),
-        interval: 30,
+        hoursPerReservation: 2,
+        open: new Time('12:00'),
+        close: new Time('15:00'),
+        interval: 15,
         restaurantId: new ID('Restaurant_2'),
       },
       new ID('Area_2'),

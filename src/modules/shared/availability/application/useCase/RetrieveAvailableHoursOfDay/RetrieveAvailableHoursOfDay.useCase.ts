@@ -31,7 +31,6 @@ export class RetrieveAvailableHoursOfDayUseCase
   ): Promise<HoursAvailableDTO[]> {
     const day = new DateVO(retrieveAvailableHoursOfDayDTO.day);
     const areaId = new ID(retrieveAvailableHoursOfDayDTO.areaId);
-    const people = retrieveAvailableHoursOfDayDTO.people;
 
     const bookings = await this.bookingRepository.retrieveByDayAreaIdAndPeople(
       day,
@@ -42,7 +41,7 @@ export class RetrieveAvailableHoursOfDayUseCase
       (booking) => ({
         start: booking.getPropsCopy().start,
         end: booking.getPropsCopy().end,
-        people,
+        people: booking.getPropsCopy().people,
       }),
     );
 

@@ -6,14 +6,17 @@ import {
 import { MockAreaRepository } from '../../../../area/MockAreaRepository';
 import { MockBookingRepository } from '../../../../booking/MockBookingRepository';
 import { mockAreaData } from '../../../../area/mockAreaData';
-import { mockBookingData } from '../../../../booking/mockBookingData';
+import {
+  mockMultipleBookingData,
+  mockSimpleBookingData,
+} from '../../../../booking/mockBookingData';
 
 describe('Retrieve Available Hours Of Day Use Case', () => {
   it(`
     GIVEN an area data of restaurant
     AND a booking to this area
-    WHEN I call to the use case to retrieve the available hours of the day
-    THEN the available hours of the day should be retrieved
+    WHEN I retrieve the available hours of the day
+    THEN the available hours of the day should be retrieved correctly
   `, async () => {
     // GIVEN
     const areaRepository: AreaRepositoryPort = new MockAreaRepository();
@@ -21,7 +24,7 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
 
     const bookingRepository: BookingRepositoryPort =
       new MockBookingRepository();
-    await mockBookingData(bookingRepository);
+    await mockSimpleBookingData(bookingRepository);
 
     const action = new RetrieveAvailableHoursOfDayUseCase(
       bookingRepository,
@@ -31,7 +34,6 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
     const retrieveAvailableHoursOfDayDTO = {
       day: '01/01/2024',
       areaId: 'Area_1',
-      people: 1,
     };
 
     // WHEN
@@ -45,15 +47,15 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
       },
       {
         hour: '10:30',
-        available: 9,
+        available: 7,
       },
       {
         hour: '11:00',
-        available: 9,
+        available: 7,
       },
       {
         hour: '11:30',
-        available: 9,
+        available: 7,
       },
       {
         hour: '12:00',
@@ -107,7 +109,6 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
     const retrieveAvailableHoursOfDayDTO = {
       day: '01/01/2024',
       areaId: 'Area_1',
-      people: 1,
     };
 
     // WHEN
@@ -158,6 +159,90 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
       {
         hour: '15:00',
         available: 10,
+      },
+    ]);
+  });
+
+  it(`
+    GIVEN an area data of restaurant
+    AND there are some bookings to this area and this day
+    WHEN I retrieve the available hours of the day
+    THEN the available hours of the day should be retrieved correctly
+  `, async () => {
+    // GIVEN
+    const areaRepository: AreaRepositoryPort = new MockAreaRepository();
+    await mockAreaData(areaRepository);
+
+    const bookingRepository: BookingRepositoryPort =
+      new MockBookingRepository();
+    await mockMultipleBookingData(bookingRepository);
+
+    const action = new RetrieveAvailableHoursOfDayUseCase(
+      bookingRepository,
+      areaRepository,
+    );
+
+    const retrieveAvailableHoursOfDayDTO = {
+      day: '01/01/2024',
+      areaId: 'Area_2',
+    };
+
+    // WHEN
+    const hoursAvailable = await action.run(retrieveAvailableHoursOfDayDTO);
+
+    // THEN
+    expect(hoursAvailable).toEqual([
+      {
+        hour: '12:00',
+        available: 10,
+      },
+      {
+        hour: '12:15',
+        available: 10,
+      },
+      {
+        hour: '12:30',
+        available: 10,
+      },
+      {
+        hour: '12:45',
+        available: 7,
+      },
+      {
+        hour: '13:00',
+        available: 4,
+      },
+      {
+        hour: '13:15',
+        available: 4,
+      },
+      {
+        hour: '13:30',
+        available: 4,
+      },
+      {
+        hour: '13:45',
+        available: 4,
+      },
+      {
+        hour: '14:00',
+        available: 4,
+      },
+      {
+        hour: '14:15',
+        available: 4,
+      },
+      {
+        hour: '14:30',
+        available: 4,
+      },
+      {
+        hour: '14:45',
+        available: 7,
+      },
+      {
+        hour: '15:00',
+        available: 7,
       },
     ]);
   });

@@ -29,7 +29,10 @@ export class MockBookingRepository implements BookingRepositoryPort {
     return Promise.resolve(bookingsDomain);
   }
   insert(entity: Booking): Promise<Booking> {
-    throw new Error('Method not implemented.');
+    const bookingDTO = BookingMapper.toDTO(entity);
+    this.bookingsDTO.push(bookingDTO);
+
+    return Promise.resolve(entity);
   }
 
   insertSome(entities: Booking[]): Promise<Booking[]> {

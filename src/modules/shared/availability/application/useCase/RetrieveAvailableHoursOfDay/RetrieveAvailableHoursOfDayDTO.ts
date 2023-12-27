@@ -6,7 +6,4 @@ export class RetrieveAvailableHoursOfDayDTO {
 
   @ApiProperty()
   areaId: string;
-
-  @ApiProperty()
-  people: number;
 }
