@@ -41,21 +41,21 @@ export class CreateBookingUseCase
     const people = bookingDTO.people;
 
     try {
-      const bookingsOfDay = await this.repository.retrieveByDayAndAreaId(
+      const bookingsOfDayFounded = await this.repository.retrieveByDayAndAreaId(
         day,
         areaId,
       );
 
-      const area = await this.areaRepository.findOneById(areaId);
+      const areaFounded = await this.areaRepository.findOneById(areaId);
 
       const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] =
-        bookingsOfDay.map((booking) =>
+        bookingsOfDayFounded.map((booking) =>
           AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
         );
 
       // Check interval HOW?
       // Check client HOW?
-      const { close, open, interval, maxCapacity } = area.getPropsCopy();
+      const { close, open, interval, maxCapacity } = areaFounded.getPropsCopy();
       const hoursAndAvailability =
         this.availabilityService.calculateAvailableHours({
           close,
@@ -76,9 +76,9 @@ export class CreateBookingUseCase
         hoursAndAvailability,
       });
 
-      this.validateBooking(area, start, end, isAvailable);
+      this.validateBooking(areaFounded, start, end, isAvailable);
 
-      const booking = Booking.create({
+      const bookingDomain = Booking.create({
         people,
         start,
         end,
@@ -88,9 +88,9 @@ export class CreateBookingUseCase
         tableId: new ID(bookingDTO.tableId),
       });
 
-      const bookDomain = await this.repository.insert(booking);
+      const bookingInserted = await this.repository.insert(bookingDomain);
 
-      return BookingMapper.toDTO(bookDomain);
+      return BookingMapper.toDTO(bookingInserted);
     } catch (error) {
       throw new CreateBookingError(error.message);
     }
