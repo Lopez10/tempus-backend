@@ -65,6 +65,13 @@ export class Time extends ValueObject<string> {
     return this.isAfterOrEqual(start) && this.isBeforeOrEqual(end);
   }
 
+  diffInHours(time: Time): number {
+    const diffHour = this.hour - time.hour;
+    const diffMinute = this.minute - time.minute;
+
+    return (diffHour * 60 + diffMinute) / 60;
+  }
+
   protected validate({ value }: { value: string }): void {
     if (!value) {
       throw new Error('Time is required');

@@ -11,6 +11,9 @@ export class CreateBookingDTO {
   end: string;
 
   @ApiProperty()
+  day: string;
+
+  @ApiProperty()
   areaId: string;
 
   @ApiProperty()

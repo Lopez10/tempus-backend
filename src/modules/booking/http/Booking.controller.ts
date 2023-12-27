@@ -2,8 +2,6 @@ import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BookingPostgresRepository } from '../infrastructure';
 import {
-  CreateBookingDTO,
-  CreateBookingUseCase,
   RetrieveBookingDTO,
   RetrieveBookingUseCase,
   RetrieveBookingsDTO,
@@ -46,13 +44,5 @@ export class BookingController {
     const booksDTO = retrieveBooks.run(RetrieveBooksDTO);
 
     return booksDTO;
-  }
-
-  @Post()
-  async createBook(@Body() createBookDTO: CreateBookingDTO): Promise<BookingDTO> {
-    const createBook = new CreateBookingUseCase(this.bookPostgresRepository);
-    const bookCreated = createBook.run(createBookDTO);
-
-    return bookCreated;
   }
 }

@@ -1,11 +1,7 @@
 import { Module } from '@nestjs/common';
 import { BookingController } from './http';
 import { BookingPostgresRepository } from './infrastructure';
-import {
-  CreateBookingUseCase,
-  RetrieveBookingUseCase,
-  RetrieveBookingsUseCase,
-} from './application';
+import { RetrieveBookingUseCase, RetrieveBookingsUseCase } from './application';
 import { BookRepository } from './domain';
 
 @Module({
@@ -17,7 +13,6 @@ import { BookRepository } from './domain';
       provide: BookRepository,
       useValue: BookingPostgresRepository,
     },
-    CreateBookingUseCase,
     RetrieveBookingUseCase,
     RetrieveBookingsUseCase,
   ],

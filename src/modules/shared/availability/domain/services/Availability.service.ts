@@ -5,7 +5,7 @@ export interface AvailabilityServiceProps {
   available: number;
 }
 
-export interface timeAndPeopleOfBookings {
+export interface timeAndPeopleOfBooking {
   start: Time;
   end: Time;
   people: number;
@@ -19,7 +19,7 @@ export class AvailabilityService {
     open,
     close,
   }: {
-    timeAndPeopleOfBookings: timeAndPeopleOfBookings[];
+    timeAndPeopleOfBookings: timeAndPeopleOfBooking[];
     maxCapacity: number;
     interval: number;
     open: Time;
@@ -51,20 +51,20 @@ export class AvailabilityService {
   }
 
   checkAvailability({
-    timeAndPeopleOfBookings,
-    availability,
+    timeAndPeopleOfBooking,
+    hoursAndAvailability,
   }: {
-    timeAndPeopleOfBookings: timeAndPeopleOfBookings;
-    availability: AvailabilityServiceProps[];
+    timeAndPeopleOfBooking: timeAndPeopleOfBooking;
+    hoursAndAvailability: AvailabilityServiceProps[];
   }): boolean {
-    availability.forEach((available) => {
+    hoursAndAvailability.forEach((available) => {
       if (
         this.isOverlap(
           available.hour,
-          timeAndPeopleOfBookings.start,
-          timeAndPeopleOfBookings.end,
+          timeAndPeopleOfBooking.start,
+          timeAndPeopleOfBooking.end,
         ) &&
-        available.available < timeAndPeopleOfBookings.people
+        available.available < timeAndPeopleOfBooking.people
       ) {
         return false;
       }
@@ -74,7 +74,7 @@ export class AvailabilityService {
   }
 
   private calculateCapacityUsed(
-    timeAndPeopleOfBookings: timeAndPeopleOfBookings[],
+    timeAndPeopleOfBookings: timeAndPeopleOfBooking[],
     interval: Time,
   ) {
     return timeAndPeopleOfBookings.reduce((totalCapacity, booking) => {

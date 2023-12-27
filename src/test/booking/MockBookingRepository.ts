@@ -13,11 +13,7 @@ export class MockBookingRepository implements BookingRepositoryPort {
     throw new Error('Method not implemented.');
   }
 
-  retrieveByDayAreaIdAndPeople(
-    day: DateVO,
-    areaId: ID,
-    // people: number,
-  ): Promise<Booking[]> {
+  retrieveByDayAreaIdAndPeople(day: DateVO, areaId: ID): Promise<Booking[]> {
     const bookings = this.bookingsDTO.filter(
       (booking) => booking.day === day.value && booking.areaId === areaId.value,
     );

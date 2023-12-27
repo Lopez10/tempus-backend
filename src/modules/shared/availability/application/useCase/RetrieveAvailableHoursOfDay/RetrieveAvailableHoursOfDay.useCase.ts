@@ -8,7 +8,7 @@ import {
   AvailabilityService,
   BookRepository,
   BookingRepositoryPort,
-  timeAndPeopleOfBookings,
+  timeAndPeopleOfBooking,
 } from '@modules';
 import { AvailabilityMapper } from '@modules/shared/availability/Availability.mapper';
 
@@ -37,12 +37,8 @@ export class RetrieveAvailableHoursOfDayUseCase
       areaId,
     );
 
-    const timeAndPeopleOfBookings: timeAndPeopleOfBookings[] = bookings.map(
-      (booking) => ({
-        start: booking.getPropsCopy().start,
-        end: booking.getPropsCopy().end,
-        people: booking.getPropsCopy().people,
-      }),
+    const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] = bookings.map(
+      (booking) => AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
     );
 
     const area = await this.areaRepository.findOneById(areaId);

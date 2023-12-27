@@ -2,7 +2,7 @@ import { Time } from '@common';
 import {
   AvailabilityService,
   AvailabilityServiceProps,
-  timeAndPeopleOfBookings,
+  timeAndPeopleOfBooking,
 } from '@modules';
 
 describe('Availability Service test', () => {
@@ -17,7 +17,7 @@ describe('Availability Service test', () => {
     const interval = 15;
     const open = new Time('12:00');
     const close = new Time('16:00');
-    const bookings: timeAndPeopleOfBookings[] = [
+    const bookings: timeAndPeopleOfBooking[] = [
       {
         start: new Time('12:00'),
         end: new Time('14:00'),

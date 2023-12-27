@@ -1,5 +1,9 @@
 import { Time } from '@common';
-import { AvailabilityServiceProps } from '../../booking/domain';
+import {
+  AvailabilityServiceProps,
+  Booking,
+  timeAndPeopleOfBooking,
+} from '../../booking/domain';
 import { HoursAvailableDTO } from './application';
 
 export class AvailabilityMapper {
@@ -16,6 +20,14 @@ export class AvailabilityMapper {
     return {
       hour: new Time(availabilityDTO.hour),
       available: availabilityDTO.available,
+    };
+  }
+
+  static toTimeAndPeopleOfBookings(booking: Booking): timeAndPeopleOfBooking {
+    return {
+      start: booking.getPropsCopy().start,
+      end: booking.getPropsCopy().end,
+      people: booking.getPropsCopy().people,
     };
   }
 }
