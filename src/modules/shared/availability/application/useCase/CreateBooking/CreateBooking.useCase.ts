@@ -8,6 +8,7 @@ import {
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateBookingDTO } from './CreateBookingDTO';
 import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
+import { AreaRepository, AreaRepositoryPort } from '@modules/area';
 
 @Injectable()
 export class CreateBookingUseCase
@@ -16,6 +17,9 @@ export class CreateBookingUseCase
   constructor(
     @Inject(BookRepository)
     private readonly repository: BookingRepositoryPort,
+
+    @Inject(AreaRepository)
+    private readonly areaRepository: AreaRepositoryPort,
   ) {}
 
   async run(bookingDTO: CreateBookingDTO): Promise<BookingDTO> {
