@@ -26,30 +26,40 @@ export class AvailabilityService {
     close: Time;
   }): AvailabilityServiceProps[] {
     const intervals = this.generateIntervals(open, close, interval);
-    const availability: AvailabilityServiceProps[] = [];
 
-    intervals.forEach((interval) => {
-      let capacityUsed = 0;
+    const availability: AvailabilityServiceProps[] = intervals.map(
+      (interval) => {
+        const capacityUsed = this.calculateCapacityUsed(
+          timeAndPeopleOfBookings,
+          interval,
+        );
 
-      timeAndPeopleOfBookings.forEach((booking) => {
-        if (this.isOverlap(interval, booking.start, booking.end)) {
-          capacityUsed += booking.people;
+        const availableCapacity = maxCapacity - capacityUsed;
+
+        if (availableCapacity < 0) {
+          throw new Error('Capacity exceeded');
         }
-      });
 
-      const availableCapacity = maxCapacity - capacityUsed;
-
-      if (availableCapacity < 0) {
-        throw new Error('Capacity exceeded');
-      }
-
-      availability.push({
-        hour: interval,
-        available: Math.max(0, availableCapacity),
-      });
-    });
+        return {
+          hour: interval,
+          available: Math.max(0, availableCapacity),
+        };
+      },
+    );
 
     return availability;
+  }
+
+  private calculateCapacityUsed(
+    timeAndPeopleOfBookings: timeAndPeopleOfBookings[],
+    interval: Time,
+  ) {
+    return timeAndPeopleOfBookings.reduce((totalCapacity, booking) => {
+      if (this.isOverlap(interval, booking.start, booking.end)) {
+        return totalCapacity + booking.people;
+      }
+      return totalCapacity;
+    }, 0);
   }
 
   private generateIntervals(
