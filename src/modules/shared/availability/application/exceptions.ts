@@ -23,3 +23,11 @@ export class InvalidBookingAvailable extends ExceptionBase {
   }
   readonly code = 'INVALID_BOOKING_AVAILABLE';
 }
+
+export class CreateBookingError extends ExceptionBase {
+  static readonly message = 'Error creating booking';
+  constructor(message = CreateBookingError.message) {
+    super(message);
+  }
+  readonly code = 'CREATE_BOOKING_ERROR';
+}

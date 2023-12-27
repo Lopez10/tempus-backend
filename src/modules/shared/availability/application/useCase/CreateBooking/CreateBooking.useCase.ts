@@ -10,9 +10,10 @@ import {
 import { Inject, Injectable } from '@nestjs/common';
 import { CreateBookingDTO } from './CreateBookingDTO';
 import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
-import { AreaRepository, AreaRepositoryPort } from '@modules/area';
+import { Area, AreaRepository, AreaRepositoryPort } from '@modules/area';
 import { AvailabilityMapper } from '@modules/shared/availability/Availability.mapper';
 import {
+  CreateBookingError,
   InvalidBookingAvailable,
   InvalidBookingHours,
   InvalidBookingInterval,
@@ -22,14 +23,14 @@ import {
 export class CreateBookingUseCase
   implements UseCase<CreateBookingDTO, BookingDTO>
 {
-  private readonly availabilityService: AvailabilityService =
-    new AvailabilityService();
   constructor(
     @Inject(BookRepository)
     private readonly repository: BookingRepositoryPort,
 
     @Inject(AreaRepository)
     private readonly areaRepository: AreaRepositoryPort,
+
+    private readonly availabilityService: AvailabilityService,
   ) {}
 
   async run(bookingDTO: CreateBookingDTO): Promise<BookingDTO> {
@@ -39,17 +40,68 @@ export class CreateBookingUseCase
     const day = new DateVO(bookingDTO.day);
     const people = bookingDTO.people;
 
-    const bookingsOfDay = await this.repository.retrieveByDayAndAreaId(
-      day,
-      areaId,
-    );
+    try {
+      const bookingsOfDay = await this.repository.retrieveByDayAndAreaId(
+        day,
+        areaId,
+      );
 
-    const area = await this.areaRepository.findOneById(areaId);
+      const area = await this.areaRepository.findOneById(areaId);
 
-    const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] = bookingsOfDay.map(
-      (booking) => AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
-    );
+      const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] =
+        bookingsOfDay.map((booking) =>
+          AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
+        );
 
+      // Check interval HOW?
+      // Check client HOW?
+      const { close, open, interval, maxCapacity } = area.getPropsCopy();
+      const hoursAndAvailability =
+        this.availabilityService.calculateAvailableHours({
+          close,
+          open,
+          interval,
+          maxCapacity,
+          timeAndPeopleOfBookings,
+        });
+
+      const timeAndPeopleOfBooking: timeAndPeopleOfBooking = {
+        start,
+        end,
+        people,
+      };
+
+      const isAvailable = this.availabilityService.checkAvailability({
+        timeAndPeopleOfBooking,
+        hoursAndAvailability,
+      });
+
+      this.validateBooking(area, start, end, isAvailable);
+
+      const booking = Booking.create({
+        people,
+        start,
+        end,
+        areaId,
+        day,
+        clientId: new ID(bookingDTO.clientId),
+        tableId: new ID(bookingDTO.tableId),
+      });
+
+      const bookDomain = await this.repository.insert(booking);
+
+      return BookingMapper.toDTO(bookDomain);
+    } catch (error) {
+      throw new CreateBookingError(error.message);
+    }
+  }
+
+  private validateBooking(
+    area: Area,
+    start: Time,
+    end: Time,
+    isAvailable: boolean,
+  ) {
     if (!area.validateHours(start, end)) {
       throw new InvalidBookingHours();
     }
@@ -58,47 +110,8 @@ export class CreateBookingUseCase
       throw new InvalidBookingInterval();
     }
 
-    // Check interval WHY?
-    // Check client WHY?
-
-    const hoursAndAvailability =
-      this.availabilityService.calculateAvailableHours({
-        close: area.getPropsCopy().close,
-        open: area.getPropsCopy().open,
-        interval: area.getPropsCopy().interval,
-        maxCapacity: area.getPropsCopy().maxCapacity,
-        timeAndPeopleOfBookings,
-      });
-
-    const timeAndPeopleOfBooking: timeAndPeopleOfBooking = {
-      start,
-      end,
-      people,
-    };
-
-    const isAvailable = this.availabilityService.checkAvailability({
-      timeAndPeopleOfBooking,
-      hoursAndAvailability,
-    });
-
     if (!isAvailable) {
       throw new InvalidBookingAvailable();
     }
-
-    const bookingProps: BookingProps = {
-      people,
-      start,
-      end,
-      areaId,
-      day,
-      clientId: new ID(bookingDTO.clientId),
-      tableId: new ID(bookingDTO.tableId),
-    };
-
-    const booking = Booking.create(bookingProps);
-
-    const bookDomain = await this.repository.insert(booking);
-
-    return BookingMapper.toDTO(bookDomain);
   }
 }
