@@ -39,7 +39,12 @@ export class CreateBookingUseCase
       booking.getPropsCopy().day,
       booking.getPropsCopy().areaId,
     );
-    // Check if the start date solap with other booking the summary people is below the max capacity of the area
+    // Check the availability of the area (AvailabilityService)
+    // Check the area hoursPerReservation (Area)
+    // Check open and close hours of the area (Area)
+    // Check the interval of the area
+
+    // Check the client
 
     const bookDomain = await this.repository.insert(booking);
 

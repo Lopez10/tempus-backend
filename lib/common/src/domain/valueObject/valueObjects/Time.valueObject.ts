@@ -57,6 +57,14 @@ export class Time extends ValueObject<string> {
     );
   }
 
+  isAfterOrEqual(time: Time): boolean {
+    return this.isAfter(time) || this.isEqual(time);
+  }
+
+  isBetween(start: Time, end: Time): boolean {
+    return this.isAfterOrEqual(start) && this.isBeforeOrEqual(end);
+  }
+
   protected validate({ value }: { value: string }): void {
     if (!value) {
       throw new Error('Time is required');

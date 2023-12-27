@@ -19,6 +19,14 @@ export class Area extends AggregateRoot<AreaProps> {
     return this.props.hoursPerReservation;
   }
 
+  get interval(): number {
+    return this.getPropsCopy().interval;
+  }
+
+  isInOpenHours(time: Time): boolean {
+    return time.isBetween(this.props.open, this.props.close);
+  }
+
   static create(props: AreaProps, id?: ID): Area {
     const isNewArea = !!id === false;
 
