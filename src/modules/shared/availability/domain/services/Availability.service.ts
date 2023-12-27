@@ -50,6 +50,29 @@ export class AvailabilityService {
     return availability;
   }
 
+  checkAvailability({
+    timeAndPeopleOfBookings,
+    availability,
+  }: {
+    timeAndPeopleOfBookings: timeAndPeopleOfBookings;
+    availability: AvailabilityServiceProps[];
+  }): boolean {
+    availability.forEach((available) => {
+      if (
+        this.isOverlap(
+          available.hour,
+          timeAndPeopleOfBookings.start,
+          timeAndPeopleOfBookings.end,
+        ) &&
+        available.available < timeAndPeopleOfBookings.people
+      ) {
+        return false;
+      }
+    });
+
+    return true;
+  }
+
   private calculateCapacityUsed(
     timeAndPeopleOfBookings: timeAndPeopleOfBookings[],
     interval: Time,
