@@ -16,14 +16,13 @@ import { AvailabilityMapper } from '@modules/shared/availability/Availability.ma
 export class RetrieveAvailableHoursOfDayUseCase
   implements UseCase<RetrieveAvailableHoursOfDayDTO, HoursAvailableDTO[]>
 {
-  private readonly availabilityService: AvailabilityService =
-    new AvailabilityService();
   constructor(
     @Inject(BookRepository)
     private readonly bookingRepository: BookingRepositoryPort,
 
     @Inject(AreaRepository)
     private readonly areaRepository: AreaRepositoryPort,
+    private readonly availabilityService: AvailabilityService,
   ) {}
 
   async run(

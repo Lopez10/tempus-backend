@@ -17,7 +17,7 @@ import {
   AvailabilityMapper,
   CreateBookingDTO,
 } from '@modules/shared';
-import { Area, AreaRepository, AreaRepositoryPort } from '@modules/area';
+import { AreaRepository, AreaRepositoryPort } from '@modules/area';
 
 @Injectable()
 export class CreateBookingUseCase
@@ -40,78 +40,67 @@ export class CreateBookingUseCase
     const day = new DateVO(bookingDTO.day);
     const people = bookingDTO.people;
 
-    try {
-      const bookingsOfDayFounded = await this.repository.retrieveByDayAndAreaId(
-        day,
-        areaId,
-      );
+    const bookingsOfDayFounded = await this.repository.retrieveByDayAndAreaId(
+      day,
+      areaId,
+    );
 
-      const areaFounded = await this.areaRepository.findOneById(areaId);
+    const areaFounded = await this.areaRepository.findOneById(areaId);
 
-      const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] =
-        bookingsOfDayFounded.map((booking) =>
-          AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
-        );
-
-      // Check interval HOW?
-      // Check client HOW?
-      const { close, open, interval, maxCapacity } = areaFounded.getPropsCopy();
-      const hoursAndAvailability =
-        this.availabilityService.calculateAvailableHours({
-          close,
-          open,
-          interval,
-          maxCapacity,
-          timeAndPeopleOfBookings,
-        });
-
-      const timeAndPeopleOfBooking: timeAndPeopleOfBooking = {
-        start,
-        end,
-        people,
-      };
-
-      const isAvailable = this.availabilityService.checkAvailability({
-        timeAndPeopleOfBooking,
-        hoursAndAvailability,
-      });
-
-      this.validateBooking(areaFounded, start, end, isAvailable);
-
-      const bookingDomain = Booking.create({
-        people,
-        start,
-        end,
-        areaId,
-        day,
-        clientId: new ID(bookingDTO.clientId),
-        tableId: new ID(bookingDTO.tableId),
-      });
-
-      const bookingInserted = await this.repository.insert(bookingDomain);
-
-      return BookingMapper.toDTO(bookingInserted);
-    } catch (error) {
-      throw new CreateBookingError(error.message);
+    if (!areaFounded) {
+      throw new CreateBookingError('Area not found');
     }
-  }
 
-  private validateBooking(
-    area: Area,
-    start: Time,
-    end: Time,
-    isAvailable: boolean,
-  ) {
-    if (!area.validateHours(start, end)) {
+    if (!areaFounded.validateHours(start, end)) {
       throw new InvalidBookingHours();
     }
 
-    if (!area.validateHoursPerBooking(start, end)) {
+    if (!areaFounded.validateHoursPerBooking(start, end)) {
       throw new InvalidBookingHoursPerBooking();
     }
+
+    const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] =
+      bookingsOfDayFounded.map((booking) =>
+        AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
+      );
+
+    const { close, open, interval, maxCapacity } = areaFounded.getPropsCopy();
+    const hoursAndAvailability =
+      this.availabilityService.calculateAvailableHours({
+        close,
+        open,
+        interval,
+        maxCapacity,
+        timeAndPeopleOfBookings,
+      });
+
+    const timeAndPeopleOfBooking: timeAndPeopleOfBooking = {
+      start,
+      end,
+      people,
+    };
+
+    const isAvailable = this.availabilityService.checkAvailability({
+      timeAndPeopleOfBooking,
+      hoursAndAvailability,
+    });
 
     if (!isAvailable) {
       throw new InvalidBookingAvailable();
     }
+
+    const bookingDomain = Booking.create({
+      people,
+      start,
+      end,
+      areaId,
+      day,
+      clientId: new ID(bookingDTO.clientId),
+      tableId: new ID(bookingDTO.tableId),
+    });
+
+    const bookingInserted = await this.repository.insert(bookingDomain);
+
+    return BookingMapper.toDTO(bookingInserted);
   }
 }

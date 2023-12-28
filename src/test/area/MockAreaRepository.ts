@@ -62,4 +62,8 @@ export class MockAreaRepository implements AreaRepositoryPort {
   transaction<T>(handler: () => Promise<T>): Promise<T> {
     throw new Error('Method not implemented.');
   }
+
+  clear() {
+    this.areasDTO = [];
+  }
 }

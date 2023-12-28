@@ -60,4 +60,8 @@ export class MockBookingRepository implements BookingRepositoryPort {
   transaction<T>(handler: () => Promise<T>): Promise<T> {
     throw new Error('Method not implemented.');
   }
+
+  clear() {
+    this.bookingsDTO = [];
+  }
 }

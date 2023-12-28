@@ -1,6 +1,5 @@
 import {
-  AreaRepositoryPort,
-  BookingRepositoryPort,
+  AvailabilityService,
   RetrieveAvailableHoursOfDayUseCase,
 } from '@modules';
 import { MockAreaRepository } from '../../../../area/MockAreaRepository';
@@ -12,25 +11,31 @@ import {
 } from '../../../../booking/mockBookingData';
 
 describe('Retrieve Available Hours Of Day Use Case', () => {
+  const areaRepository = new MockAreaRepository();
+  const availabilityService = new AvailabilityService();
+  const bookingRepository = new MockBookingRepository();
+
+  const action = new RetrieveAvailableHoursOfDayUseCase(
+    bookingRepository,
+    areaRepository,
+    availabilityService,
+  );
+
+  afterEach(async () => {
+    bookingRepository.clear();
+    areaRepository.clear();
+  });
+
   it(`
     GIVEN an area data of restaurant
     AND a booking to this area
     WHEN I retrieve the available hours of the day
     THEN the available hours of the day should be retrieved correctly
   `, async () => {
-    // GIVEN
-    const areaRepository: AreaRepositoryPort = new MockAreaRepository();
     await mockAreaData(areaRepository);
-
-    const bookingRepository: BookingRepositoryPort =
-      new MockBookingRepository();
     await mockSimpleBookingData(bookingRepository);
 
-    const action = new RetrieveAvailableHoursOfDayUseCase(
-      bookingRepository,
-      areaRepository,
-    );
-
+    // GIVEN
     const retrieveAvailableHoursOfDayDTO = {
       day: '01/01/2024',
       areaId: 'Area_1',
@@ -94,18 +99,9 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
     WHEN I call to the use case to retrieve the available hours of the day
     THEN the available hours of the day should be retrieved
   `, async () => {
-    // GIVEN
-    const areaRepository: AreaRepositoryPort = new MockAreaRepository();
     await mockAreaData(areaRepository);
 
-    const bookingRepository: BookingRepositoryPort =
-      new MockBookingRepository();
-
-    const action = new RetrieveAvailableHoursOfDayUseCase(
-      bookingRepository,
-      areaRepository,
-    );
-
+    // GIVEN
     const retrieveAvailableHoursOfDayDTO = {
       day: '01/01/2024',
       areaId: 'Area_1',
@@ -169,19 +165,10 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
     WHEN I retrieve the available hours of the day
     THEN the available hours of the day should be retrieved correctly
   `, async () => {
-    // GIVEN
-    const areaRepository: AreaRepositoryPort = new MockAreaRepository();
     await mockAreaData(areaRepository);
-
-    const bookingRepository: BookingRepositoryPort =
-      new MockBookingRepository();
     await mockMultipleBookingData(bookingRepository);
 
-    const action = new RetrieveAvailableHoursOfDayUseCase(
-      bookingRepository,
-      areaRepository,
-    );
-
+    // GIVEN
     const retrieveAvailableHoursOfDayDTO = {
       day: '01/01/2024',
       areaId: 'Area_2',
