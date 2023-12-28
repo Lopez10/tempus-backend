@@ -1,6 +1,11 @@
-import { AvailabilityService, CreateBookingUseCase } from '@modules';
+import { ID, Name, Time } from '@common';
+import {
+  Area,
+  AreaRepositoryPort,
+  AvailabilityService,
+  CreateBookingUseCase,
+} from '@modules';
 import { MockAreaRepository } from '../../../../area/MockAreaRepository';
-import { mockAreaData } from '../../../../area/mockAreaData';
 import { MockBookingRepository } from '../../../../booking/MockBookingRepository';
 
 describe('Create Booking Use Case', () => {
@@ -132,3 +137,20 @@ describe('Create Booking Use Case', () => {
     expect(bookingCreation).rejects.toThrowError('Area not found');
   });
 });
+
+async function mockAreaData(areaReposistory: AreaRepositoryPort) {
+  return await areaReposistory.insert(
+    Area.create(
+      {
+        name: new Name('Area_2_Name'),
+        maxCapacity: 10,
+        hoursPerReservation: 2,
+        open: new Time('12:00'),
+        close: new Time('15:00'),
+        interval: 15,
+        restaurantId: new ID('Restaurant_2'),
+      },
+      new ID('Area_2'),
+    ),
+  );
+}

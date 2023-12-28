@@ -1,6 +1,6 @@
-import { RetrieveAreaUseCase, AreaRepositoryPort } from '@modules';
+import { Name, Time, ID } from '@common';
+import { RetrieveAreaUseCase, AreaRepositoryPort, Area } from '@modules';
 import { MockAreaRepository } from '../../MockAreaRepository';
-import { mockAreaData } from '../../mockAreaData';
 
 describe('Retrieve Area Use Case', () => {
   it(`
@@ -45,3 +45,20 @@ describe('Retrieve Area Use Case', () => {
     await expect(areaRetrieved).rejects.toThrowError('Error: Area not found');
   });
 });
+
+async function mockAreaData(areaReposistory: AreaRepositoryPort) {
+  return await areaReposistory.insert(
+    Area.create(
+      {
+        name: new Name('Area_1_Name'),
+        maxCapacity: 10,
+        hoursPerReservation: 1,
+        open: new Time('10:00'),
+        close: new Time('15:00'),
+        interval: 30,
+        restaurantId: new ID('Restaurant_1'),
+      },
+      new ID('Area_1'),
+    ),
+  );
+}
