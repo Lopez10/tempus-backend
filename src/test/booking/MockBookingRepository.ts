@@ -10,10 +10,6 @@ export class MockBookingRepository implements BookingRepositoryPort {
   private bookingsDTO: BookingDTO[] = [];
 
   retrieveByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]> {
-    throw new Error('Method not implemented.');
-  }
-
-  retrieveByDayAreaIdAndPeople(day: DateVO, areaId: ID): Promise<Booking[]> {
     const bookings = this.bookingsDTO.filter(
       (booking) => booking.day === day.value && booking.areaId === areaId.value,
     );
@@ -24,6 +20,7 @@ export class MockBookingRepository implements BookingRepositoryPort {
 
     return Promise.resolve(bookingsDomain);
   }
+
   insert(entity: Booking): Promise<Booking> {
     const bookingDTO = BookingMapper.toDTO(entity);
     this.bookingsDTO.push(bookingDTO);

@@ -13,7 +13,7 @@ import {
   CreateBookingError,
   InvalidBookingAvailable,
   InvalidBookingHours,
-  InvalidBookingInterval,
+  InvalidHoursPerBooking as InvalidBookingHoursPerBooking,
   AvailabilityMapper,
   CreateBookingDTO,
 } from '@modules/shared';
@@ -106,8 +106,8 @@ export class CreateBookingUseCase
       throw new InvalidBookingHours();
     }
 
-    if (!area.validateHoursPerReservation(start, end)) {
-      throw new InvalidBookingInterval();
+    if (!area.validateHoursPerBooking(start, end)) {
+      throw new InvalidBookingHoursPerBooking();
     }
 
     if (!isAvailable) {

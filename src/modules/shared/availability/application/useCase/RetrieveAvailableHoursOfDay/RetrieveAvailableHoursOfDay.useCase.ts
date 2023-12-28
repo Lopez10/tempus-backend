@@ -32,7 +32,7 @@ export class RetrieveAvailableHoursOfDayUseCase
     const day = new DateVO(retrieveAvailableHoursOfDayDTO.day);
     const areaId = new ID(retrieveAvailableHoursOfDayDTO.areaId);
 
-    const bookings = await this.bookingRepository.retrieveByDayAreaIdAndPeople(
+    const bookings = await this.bookingRepository.retrieveByDayAndAreaId(
       day,
       areaId,
     );

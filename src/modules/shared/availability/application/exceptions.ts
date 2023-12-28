@@ -8,12 +8,12 @@ export class InvalidBookingHours extends ExceptionBase {
   readonly code = 'INVALID_BOOKING_HOURS';
 }
 
-export class InvalidBookingInterval extends ExceptionBase {
-  static readonly message = 'Invalid booking interval';
-  constructor(message = InvalidBookingInterval.message) {
+export class InvalidHoursPerBooking extends ExceptionBase {
+  static readonly message = 'Invalid hours per booking';
+  constructor(message = InvalidHoursPerBooking.message) {
     super(message);
   }
-  readonly code = 'INVALID_BOOKING_INTERVAL';
+  readonly code = 'INVALID_HOURS_PER_BOOKING';
 }
 
 export class InvalidBookingAvailable extends ExceptionBase {

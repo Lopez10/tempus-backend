@@ -33,11 +33,10 @@ export class Area extends AggregateRoot<AreaProps> {
     return true;
   }
 
-  validateHoursPerReservation(start: Time, end: Time): boolean {
+  validateHoursPerBooking(start: Time, end: Time): boolean {
     const { hoursPerReservation } = this.getPropsCopy();
 
     const duration = end.diffInHours(start);
-
     if (duration !== hoursPerReservation) {
       return false;
     }
