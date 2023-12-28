@@ -1,23 +1,23 @@
+import { Inject, Injectable } from '@nestjs/common';
 import { DateVO, ID, Time, UseCase } from '@common';
 import {
   Booking,
-  BookingProps,
   BookRepository,
   BookingRepositoryPort,
   AvailabilityService,
   timeAndPeopleOfBooking,
-} from '@modules/booking/domain';
-import { Inject, Injectable } from '@nestjs/common';
-import { CreateBookingDTO } from './CreateBookingDTO';
-import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
-import { Area, AreaRepository, AreaRepositoryPort } from '@modules/area';
-import { AvailabilityMapper } from '@modules/shared/availability/Availability.mapper';
+  BookingDTO,
+  BookingMapper,
+} from '@modules/booking';
 import {
   CreateBookingError,
   InvalidBookingAvailable,
   InvalidBookingHours,
   InvalidBookingInterval,
-} from '../../exceptions';
+  AvailabilityMapper,
+  CreateBookingDTO,
+} from '@modules/shared';
+import { Area, AreaRepository, AreaRepositoryPort } from '@modules/area';
 
 @Injectable()
 export class CreateBookingUseCase
