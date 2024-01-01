@@ -11,7 +11,8 @@ async function bootstrap() {
     .setDescription('Restaurant API description')
     .setVersion('1.0')
     .addTag('restaurant')
-    .addTag('available')
+    .addTag('book')
+    .addTag('availability')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

@@ -2,14 +2,14 @@ import { ID, UseCase } from '@common';
 import { RetrieveBookingDTO } from './RetrieveBookingDTO';
 import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
 import { Inject, Injectable } from '@nestjs/common';
-import { BookRepository, BookingRepositoryPort } from '@modules/booking/domain';
+import { BookingRepository, BookingRepositoryPort } from '@modules/booking/domain';
 
 @Injectable()
 export class RetrieveBookingUseCase
   implements UseCase<RetrieveBookingDTO, BookingDTO>
 {
   constructor(
-    @Inject(BookRepository)
+    @Inject(BookingRepository)
     private readonly bookPostgresRepository: BookingRepositoryPort,
   ) {}
   async run(retrieveBookDTO: RetrieveBookingDTO): Promise<BookingDTO | null> {

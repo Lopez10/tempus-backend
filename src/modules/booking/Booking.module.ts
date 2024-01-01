@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { BookingController } from './http';
 import { BookingPostgresRepository } from './infrastructure';
 import { RetrieveBookingUseCase, RetrieveBookingsUseCase } from './application';
-import { BookRepository } from './domain';
+import { BookingRepository } from './domain';
 
 @Module({
   controllers: [BookingController],
@@ -10,7 +10,7 @@ import { BookRepository } from './domain';
     BookingController,
     BookingPostgresRepository,
     {
-      provide: BookRepository,
+      provide: BookingRepository,
       useValue: BookingPostgresRepository,
     },
     RetrieveBookingUseCase,

@@ -4,10 +4,10 @@ import {
   Booking,
   timeAndPeopleOfBooking,
 } from '../../booking/domain';
-import { HoursAvailableDTO } from './application';
+import { HoursAvailableDto } from './application';
 
 export class AvailabilityMapper {
-  static toDTO(availability: AvailabilityServiceProps): HoursAvailableDTO {
+  static toDTO(availability: AvailabilityServiceProps): HoursAvailableDto {
     return {
       hour: availability.hour.value,
       available: availability.available,
@@ -15,7 +15,7 @@ export class AvailabilityMapper {
   }
 
   static toDomain(
-    availabilityDTO: HoursAvailableDTO,
+    availabilityDTO: HoursAvailableDto,
   ): AvailabilityServiceProps {
     return {
       hour: new Time(availabilityDTO.hour),

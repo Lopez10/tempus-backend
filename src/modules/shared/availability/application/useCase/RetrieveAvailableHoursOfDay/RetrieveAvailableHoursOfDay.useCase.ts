@@ -1,12 +1,12 @@
 import { UseCase, ID, DateVO } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
 import { RetrieveAvailableHoursOfDayDTO } from './RetrieveAvailableHoursOfDayDTO';
-import { HoursAvailableDTO } from './HoursAvailableDTO';
+import { HoursAvailableDto } from './HoursAvailableDTO';
 import {
   AreaRepository,
   AreaRepositoryPort,
   AvailabilityService,
-  BookRepository,
+  BookingRepository,
   BookingRepositoryPort,
   timeAndPeopleOfBooking,
 } from '@modules';
@@ -14,20 +14,20 @@ import { AvailabilityMapper } from '@modules/shared/availability/Availability.ma
 
 @Injectable()
 export class RetrieveAvailableHoursOfDayUseCase
-  implements UseCase<RetrieveAvailableHoursOfDayDTO, HoursAvailableDTO[]>
+  implements UseCase<RetrieveAvailableHoursOfDayDTO, HoursAvailableDto[]>
 {
+  private availabilityService: AvailabilityService = new AvailabilityService();
   constructor(
-    @Inject(BookRepository)
+    @Inject(BookingRepository)
     private readonly bookingRepository: BookingRepositoryPort,
 
     @Inject(AreaRepository)
     private readonly areaRepository: AreaRepositoryPort,
-    private readonly availabilityService: AvailabilityService,
   ) {}
 
   async run(
     retrieveAvailableHoursOfDayDTO: RetrieveAvailableHoursOfDayDTO,
-  ): Promise<HoursAvailableDTO[]> {
+  ): Promise<HoursAvailableDto[]> {
     const day = new DateVO(retrieveAvailableHoursOfDayDTO.day);
     const areaId = new ID(retrieveAvailableHoursOfDayDTO.areaId);
 

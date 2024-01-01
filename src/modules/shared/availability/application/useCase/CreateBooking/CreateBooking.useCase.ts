@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DateVO, ID, Time, UseCase } from '@common';
 import {
   Booking,
-  BookRepository,
+  BookingRepository,
   BookingRepositoryPort,
   AvailabilityService,
   timeAndPeopleOfBooking,
@@ -24,7 +24,7 @@ export class CreateBookingUseCase
   implements UseCase<CreateBookingDTO, BookingDTO>
 {
   constructor(
-    @Inject(BookRepository)
+    @Inject(BookingRepository)
     private readonly repository: BookingRepositoryPort,
 
     @Inject(AreaRepository)

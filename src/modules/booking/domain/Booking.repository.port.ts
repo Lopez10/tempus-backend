@@ -5,4 +5,4 @@ export interface BookingRepositoryPort extends RepositoryPort<Booking> {
   retrieveByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]>;
 }
 
-export const BookRepository = Symbol('BookRepository');
+export const BookingRepository = Symbol('BookRepository');

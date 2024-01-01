@@ -1,7 +1,7 @@
 import { UseCase } from '@common';
 import { Inject, Injectable } from '@nestjs/common';
 import { RetrieveBookingsDTO as RetrieveBookingsDTO } from './RetrieveBookingsDTO';
-import { BookRepository, BookingRepositoryPort } from '@modules/booking/domain';
+import { BookingRepository, BookingRepositoryPort } from '@modules/booking/domain';
 import {
   BookingDTO,
   BookingMapper,
@@ -12,7 +12,7 @@ export class RetrieveBookingsUseCase
   implements UseCase<RetrieveBookingsDTO, BookingDTO[]>
 {
   constructor(
-    @Inject(BookRepository)
+    @Inject(BookingRepository)
     private readonly repository: BookingRepositoryPort,
   ) {}
 
