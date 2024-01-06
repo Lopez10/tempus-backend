@@ -21,7 +21,7 @@ export class AvailabilityController {
     private readonly areaPostgresRepository: AreaPostgresRepository,
   ) {}
 
-  @Get()
+  @Get('schedule')
   @ApiBody({
     type: RetrieveAvailabilityScheduleDto,
   })
@@ -30,7 +30,7 @@ export class AvailabilityController {
     description: 'The availability schedule has been successfully retrieved.',
     type: Promise<AvailabilityScheduleDto>,
   })
-  async retrieveAvailability(
+  async retrieveSchedule(
     @Body() retrieveAvailabilityDTO: RetrieveAvailabilityScheduleDto,
   ): Promise<AvailabilityScheduleDto[]> {
     const retrieveAvailability = new RetrieveAvailableHoursOfDayUseCase(
@@ -42,6 +42,16 @@ export class AvailabilityController {
     );
 
     return availabilityDto;
+  }
+
+  @Get('calendar')
+  @ApiOkResponse({
+    status: 200,
+    description: 'The calendar has been successfully retrieved.',
+    // type: Promise<BookingDto[]>,
+  })
+  async retrieveCalendar(): Promise<BookingDto[]> {
+    throw new Error('Not implemented');
   }
 
   @Post()
