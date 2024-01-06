@@ -1,23 +1,13 @@
 import { ID, Name, Time } from '@common';
-import {
-  Area,
-  AreaRepositoryPort,
-  AvailabilityService,
-  CreateBookingUseCase,
-} from '@modules';
+import { Area, AreaRepositoryPort, CreateBookingUseCase } from '@modules';
 import { MockAreaRepository } from '../../../../area/MockAreaRepository';
 import { MockBookingRepository } from '../../../../booking/MockBookingRepository';
 
 describe('Create Booking Use Case', () => {
   const areaRepository = new MockAreaRepository();
-  const availabilityService = new AvailabilityService();
   const bookingRepository = new MockBookingRepository();
 
-  const action = new CreateBookingUseCase(
-    bookingRepository,
-    areaRepository,
-    availabilityService,
-  );
+  const action = new CreateBookingUseCase(bookingRepository, areaRepository);
 
   afterEach(async () => {
     bookingRepository.clear();

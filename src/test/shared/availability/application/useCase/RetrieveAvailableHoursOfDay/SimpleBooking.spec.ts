@@ -2,7 +2,6 @@ import { ID, DateVO, Time, Name } from '@common';
 import {
   Area,
   AreaRepositoryPort,
-  AvailabilityService,
   Booking,
   BookingRepositoryPort,
   RetrieveAvailableHoursOfDayUseCase,
@@ -12,13 +11,11 @@ import { MockBookingRepository } from '../../../../../booking/MockBookingReposit
 
 describe('Retrieve Available Hours Of Day Use Case', () => {
   const areaRepository = new MockAreaRepository();
-  const availabilityService = new AvailabilityService();
   const bookingRepository = new MockBookingRepository();
 
   const action = new RetrieveAvailableHoursOfDayUseCase(
     bookingRepository,
     areaRepository,
-    availabilityService,
   );
 
   afterEach(async () => {
