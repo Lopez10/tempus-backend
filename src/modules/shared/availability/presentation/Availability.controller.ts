@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
 import {
   CreateBookingDto,
   CreateBookingUseCase,
@@ -9,6 +9,8 @@ import {
 } from '../application';
 import { BookingDto, BookingPostgresRepository } from '@modules/booking';
 import { AreaPostgresRepository } from '@modules/area';
+import { AvailabilityCalendarDto } from '../application/useCase/RetrieveAvailabilityCalendar/AvailabilityCalendar.dto';
+import { RetrieveAvailabilityCalendarDto } from '../application/useCase/RetrieveAvailabilityCalendar/RetrieveAvailabilityCalendar.dto';
 
 @ApiTags('availability')
 @Controller('availability')
@@ -45,10 +47,13 @@ export class AvailabilityController {
   }
 
   @Get('calendar')
+  @ApiBody({
+    type: RetrieveAvailabilityCalendarDto,
+  })
   @ApiOkResponse({
     status: 200,
     description: 'The calendar has been successfully retrieved.',
-    // type: Promise<BookingDto[]>,
+    type: Promise<AvailabilityCalendarDto[]>,
   })
   async retrieveCalendar(): Promise<BookingDto[]> {
     throw new Error('Not implemented');
