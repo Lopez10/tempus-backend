@@ -3,8 +3,8 @@ import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import {
   CreateBookingDto,
   CreateBookingUseCase,
-  HoursAvailableDto,
-  RetrieveAvailableHoursOfDayDto,
+  AvailabilityScheduleDto,
+  RetrieveAvailabilityScheduleDto,
   RetrieveAvailableHoursOfDayUseCase,
 } from '../application';
 import { BookingDto, BookingPostgresRepository } from '@modules/booking';
@@ -23,16 +23,16 @@ export class AvailabilityController {
 
   @Get()
   @ApiBody({
-    type: RetrieveAvailableHoursOfDayDto,
+    type: RetrieveAvailabilityScheduleDto,
   })
   @ApiOkResponse({
     status: 200,
-    description: 'The availability has been successfully retrieved.',
-    type: Promise<HoursAvailableDto>,
+    description: 'The availability schedule has been successfully retrieved.',
+    type: Promise<AvailabilityScheduleDto>,
   })
   async retrieveAvailability(
-    @Body() retrieveAvailabilityDTO: RetrieveAvailableHoursOfDayDto,
-  ): Promise<HoursAvailableDto[]> {
+    @Body() retrieveAvailabilityDTO: RetrieveAvailabilityScheduleDto,
+  ): Promise<AvailabilityScheduleDto[]> {
     const retrieveAvailability = new RetrieveAvailableHoursOfDayUseCase(
       this.bookingPostgresRepository,
       this.areaPostgresRepository,
