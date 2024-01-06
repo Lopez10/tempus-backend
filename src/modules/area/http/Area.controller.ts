@@ -3,11 +3,11 @@ import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AreaPostgresRepository } from '../infrastructure/Area.postgres.repository';
 import { AreaDTO, AreaMapper } from '../Area.mapper';
 import {
-  CreateAreaDTO,
+  CreateAreaDto,
   CreateAreaUseCase,
   RetrieveAreaDTO,
   RetrieveAreaUseCase,
-  RetrieveAreasByRestaurantIdDTO,
+  RetrieveAreasByRestaurantIdDto,
   RetrieveAreasByRestaurantIdUseCase,
 } from '../application';
 
@@ -20,7 +20,7 @@ export class AreaController {
   ) {}
 
   @Post()
-  async createArea(@Body() createAreaDTO: CreateAreaDTO): Promise<AreaDTO> {
+  async createArea(@Body() createAreaDTO: CreateAreaDto): Promise<AreaDTO> {
     const createArea = new CreateAreaUseCase(this.areaPostgresRepository);
     const areaCreated = await createArea.run(createAreaDTO);
 
@@ -44,7 +44,7 @@ export class AreaController {
     type: Promise<AreaDTO[]>,
   })
   async getAreasByRestaurantId(
-    @Body() retrieveAreasByRestaurantIdDTO: RetrieveAreasByRestaurantIdDTO,
+    @Body() retrieveAreasByRestaurantIdDTO: RetrieveAreasByRestaurantIdDto,
   ): Promise<AreaDTO[]> {
     const retrieveAreasByRestaurantId = new RetrieveAreasByRestaurantIdUseCase(
       this.areaPostgresRepository,

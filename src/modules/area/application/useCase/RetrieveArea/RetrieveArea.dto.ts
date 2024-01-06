@@ -1,6 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RetrieveAreaDTO {
-  @ApiProperty()
+  @ApiProperty({
+    example: '1',
+    description: 'Id of the area',
+  })
   id: string;
 }

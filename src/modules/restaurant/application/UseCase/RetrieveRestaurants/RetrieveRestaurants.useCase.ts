@@ -1,15 +1,15 @@
 import { UseCase } from '@common';
 import { RestaurantRepositoryPort } from '../../../domain/Restaurant.respository.port';
 import { RestaurantDTO, RestaurantMapper } from '../../../Restaurant.mapper';
-import { RetrieveRestaurantsDTO } from './RetrieveRestaurantsDTO';
+import { RetrieveRestaurantsDto } from './RetrieveRestaurants.dto';
 
 export class RetrieveRestaurantsUseCase
-  implements UseCase<RetrieveRestaurantsDTO, RestaurantDTO[]>
+  implements UseCase<RetrieveRestaurantsDto, RestaurantDTO[]>
 {
   constructor(private readonly repository: RestaurantRepositoryPort) {}
 
   async run(
-    retrieveRestaurantsDTO: RetrieveRestaurantsDTO,
+    retrieveRestaurantsDTO: RetrieveRestaurantsDto,
   ): Promise<RestaurantDTO[]> {
     const { data } = await this.repository.findPaginationByCriteria(
       retrieveRestaurantsDTO.criteria,

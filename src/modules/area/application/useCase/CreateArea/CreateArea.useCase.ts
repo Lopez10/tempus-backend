@@ -1,7 +1,7 @@
 import { UseCase, Name, ID, Time } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
 
-import { CreateAreaDTO } from './CreateAreaDTO';
+import { CreateAreaDto } from './CreateArea.dto';
 import {
   AreaRepository,
   AreaRepositoryPort,
@@ -10,21 +10,21 @@ import {
 } from '@modules/area/domain';
 
 @Injectable()
-export class CreateAreaUseCase implements UseCase<CreateAreaDTO, Area> {
+export class CreateAreaUseCase implements UseCase<CreateAreaDto, Area> {
   constructor(
     @Inject(AreaRepository)
     private readonly repository: AreaRepositoryPort,
   ) {}
 
-  async run(createAreaDTO: CreateAreaDTO): Promise<Area> {
+  async run(createAreaDto: CreateAreaDto): Promise<Area> {
     const areaProps: AreaProps = {
-      name: new Name(createAreaDTO.name),
-      maxCapacity: createAreaDTO.maxCapacity,
-      hoursPerReservation: createAreaDTO.hoursPerReservation,
-      open: new Time(createAreaDTO.open),
-      close: new Time(createAreaDTO.close),
-      interval: createAreaDTO.interval,
-      restaurantId: new ID(createAreaDTO.restaurantId),
+      name: new Name(createAreaDto.name),
+      maxCapacity: createAreaDto.maxCapacity,
+      hoursPerReservation: createAreaDto.hoursPerReservation,
+      open: new Time(createAreaDto.open),
+      close: new Time(createAreaDto.close),
+      interval: createAreaDto.interval,
+      restaurantId: new ID(createAreaDto.restaurantId),
     };
     const area = Area.create(areaProps);
     await this.repository.insert(area);

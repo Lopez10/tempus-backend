@@ -1,6 +1,6 @@
 import { UseCase } from '@common';
 import { Inject, Injectable } from '@nestjs/common';
-import { RetrieveAreasDTO } from './RetrieveAreasDTO';
+import { RetrieveAreasDto } from './RetrieveAreas.dto';
 import {
   AreaRepository,
   AreaRepositoryPort,
@@ -9,13 +9,13 @@ import { AreaDTO, AreaMapper } from '../../../../../modules/area/Area.mapper';
 
 @Injectable()
 export class RetrieveAreasUseCase
-  implements UseCase<RetrieveAreasDTO, AreaDTO[]>
+  implements UseCase<RetrieveAreasDto, AreaDTO[]>
 {
   constructor(
     @Inject(AreaRepository)
     private readonly repository: AreaRepositoryPort,
   ) {}
-  async run(retrieveAreasDTO: RetrieveAreasDTO): Promise<AreaDTO[]> {
+  async run(retrieveAreasDTO: RetrieveAreasDto): Promise<AreaDTO[]> {
     const areas = await this.repository.findPaginationByCriteria(
       retrieveAreasDTO.criteria,
       retrieveAreasDTO.pagination,

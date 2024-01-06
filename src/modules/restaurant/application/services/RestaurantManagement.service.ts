@@ -2,7 +2,7 @@ import { ID } from '@common';
 import {
   AreaRepositoryPort,
   CapacityCalculationService,
-  CreateAreaDTO,
+  CreateAreaDto,
   RestaurantRepositoryPort,
 } from '@modules';
 import { Injectable } from '@nestjs/common';
@@ -15,7 +15,7 @@ export class RestaurantManagementService {
     private capacityCalculationService: CapacityCalculationService,
   ) {}
 
-  async addAreaToRestaurant(createAreaDto: CreateAreaDTO): Promise<void> {
+  async addAreaToRestaurant(createAreaDto: CreateAreaDto): Promise<void> {
     // Lógica para agregar un área a un restaurante,
     // incluyendo interactuar con los repositorios para persistir los cambios
   }

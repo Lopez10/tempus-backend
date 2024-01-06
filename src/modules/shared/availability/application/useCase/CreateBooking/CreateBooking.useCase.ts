@@ -6,34 +6,34 @@ import {
   BookingRepositoryPort,
   AvailabilityService,
   timeAndPeopleOfBooking,
-  BookingDTO,
+  BookingDto,
   BookingMapper,
 } from '@modules/booking';
 import {
   CreateBookingError,
   InvalidBookingAvailable,
   InvalidBookingHours,
-  InvalidHoursPerBooking as InvalidBookingHoursPerBooking,
+  InvalidHoursPerBooking,
   AvailabilityMapper,
-  CreateBookingDTO,
+  CreateBookingDto,
 } from '@modules/shared';
 import { AreaRepository, AreaRepositoryPort } from '@modules/area';
 
 @Injectable()
 export class CreateBookingUseCase
-  implements UseCase<CreateBookingDTO, BookingDTO>
+  implements UseCase<CreateBookingDto, BookingDto>
 {
+  private readonly availabilityService: AvailabilityService =
+    new AvailabilityService();
   constructor(
     @Inject(BookingRepository)
     private readonly repository: BookingRepositoryPort,
 
     @Inject(AreaRepository)
     private readonly areaRepository: AreaRepositoryPort,
-
-    private readonly availabilityService: AvailabilityService,
   ) {}
 
-  async run(bookingDTO: CreateBookingDTO): Promise<BookingDTO> {
+  async run(bookingDTO: CreateBookingDto): Promise<BookingDto> {
     const areaId = new ID(bookingDTO.areaId);
     const start = new Time(bookingDTO.start);
     const end = new Time(bookingDTO.end);
@@ -56,7 +56,7 @@ export class CreateBookingUseCase
     }
 
     if (!areaFounded.validateHoursPerBooking(start, end)) {
-      throw new InvalidBookingHoursPerBooking();
+      throw new InvalidHoursPerBooking();
     }
 
     const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] =
@@ -101,6 +101,6 @@ export class CreateBookingUseCase
 
     const bookingInserted = await this.repository.insert(bookingDomain);
 
-    return BookingMapper.toDTO(bookingInserted);
+    return BookingMapper.toDto(bookingInserted);
   }
 }

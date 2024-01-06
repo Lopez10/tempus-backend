@@ -1,13 +1,13 @@
 import { DateVO, ID, PaginationQueryParams, Paginated } from '@common';
 import {
   Booking,
-  BookingDTO,
+  BookingDto,
   BookingMapper,
   BookingRepositoryPort,
 } from '@modules';
 
 export class MockBookingRepository implements BookingRepositoryPort {
-  private bookingsDTO: BookingDTO[] = [];
+  private bookingsDTO: BookingDto[] = [];
 
   retrieveByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]> {
     const bookings = this.bookingsDTO.filter(
@@ -22,14 +22,14 @@ export class MockBookingRepository implements BookingRepositoryPort {
   }
 
   insert(entity: Booking): Promise<Booking> {
-    const bookingDTO = BookingMapper.toDTO(entity);
+    const bookingDTO = BookingMapper.toDto(entity);
     this.bookingsDTO.push(bookingDTO);
 
     return Promise.resolve(entity);
   }
 
   insertSome(entities: Booking[]): Promise<Booking[]> {
-    const bookingsDTO = entities.map((entity) => BookingMapper.toDTO(entity));
+    const bookingsDTO = entities.map((entity) => BookingMapper.toDto(entity));
     bookingsDTO.forEach((bookingDTO) => {
       this.bookingsDTO.push(bookingDTO);
     });

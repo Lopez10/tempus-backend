@@ -1,11 +1,11 @@
 export * from './CreateArea/CreateArea.useCase';
-export * from './CreateArea/CreateAreaDTO';
+export * from './CreateArea/CreateArea.dto';
 
 export * from './RetrieveArea/RetrieveArea.useCase';
-export * from './RetrieveArea/RetrieveAreaDTO';
+export * from './RetrieveArea/RetrieveArea.dto';
 
 export * from './RetrieveAreas/RetrieveAreas.useCase';
-export * from './RetrieveAreas/RetrieveAreasDTO';
+export * from './RetrieveAreas/RetrieveAreas.dto';
 
 export * from './RetrieveAreasByRestaurantId/RetrieveAreasByRestaurantId.useCase';
-export * from './RetrieveAreasByRestaurantId/RetrieveAreasByRestaurantIdDTO';
+export * from './RetrieveAreasByRestaurantId/RetrieveAreasByRestaurantId.dto';

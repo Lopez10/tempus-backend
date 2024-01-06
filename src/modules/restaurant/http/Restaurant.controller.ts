@@ -4,8 +4,8 @@ import { CreateRestaurantUseCase } from '../application/UseCase/CreateRestaurant
 import { RestaurantDTO, RestaurantMapper } from '../Restaurant.mapper';
 import { RetrieveRestaurantsUseCase } from '../application/UseCase/RetrieveRestaurants/RetrieveRestaurants.useCase';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { RetrieveRestaurantsDTO } from '../application/UseCase/RetrieveRestaurants/RetrieveRestaurantsDTO';
-import { CreateRestaurantDTO } from '../application/UseCase/CreateRestaurant/CreateRestaurantDTO';
+import { RetrieveRestaurantsDto } from '../application/UseCase/RetrieveRestaurants/RetrieveRestaurants.dto';
+import { CreateRestaurantDto } from '../application/UseCase/CreateRestaurant/CreateRestaurant.dto';
 
 @ApiTags('restaurant')
 @Controller('restaurant')
@@ -17,7 +17,7 @@ export class RestaurantController {
 
   @Post()
   async createRestaurant(
-    @Body() createRestaurantDTO: CreateRestaurantDTO,
+    @Body() createRestaurantDTO: CreateRestaurantDto,
   ): Promise<RestaurantDTO> {
     const createRestaurant = new CreateRestaurantUseCase(
       this.restaurantPostgresRepository,
@@ -35,7 +35,7 @@ export class RestaurantController {
     type: Promise<RestaurantDTO[]>,
   })
   async getRestaurants(
-    @Body() retrieveRestaurantsDTO: RetrieveRestaurantsDTO,
+    @Body() retrieveRestaurantsDTO: RetrieveRestaurantsDto,
   ): Promise<RestaurantDTO[]> {
     const retrieveRestaurants = new RetrieveRestaurantsUseCase(
       this.restaurantPostgresRepository,

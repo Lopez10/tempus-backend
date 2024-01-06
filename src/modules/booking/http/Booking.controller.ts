@@ -2,12 +2,12 @@ import { Body, Controller, Get, Inject } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { BookingPostgresRepository } from '../infrastructure';
 import {
-  RetrieveBookingDTO,
+  RetrieveBookingDto,
   RetrieveBookingUseCase,
-  RetrieveBookingsDTO,
+  RetrieveBookingsDto,
   RetrieveBookingsUseCase,
 } from '../application';
-import { BookingDTO } from '../Booking.mapper';
+import { BookingDto } from '../Booking.mapper';
 
 @ApiTags('book')
 @Controller('book')
@@ -21,11 +21,11 @@ export class BookingController {
   @ApiResponse({
     status: 200,
     description: 'The book has been successfully retrieved.',
-    type: Promise<BookingDTO>,
+    type: Promise<BookingDto>,
   })
   async retrieveBook(
-    @Body() retrieveBookDTO: RetrieveBookingDTO,
-  ): Promise<BookingDTO> {
+    @Body() retrieveBookDTO: RetrieveBookingDto,
+  ): Promise<BookingDto> {
     const retrieveBook = new RetrieveBookingUseCase(
       this.bookPostgresRepository,
     );
@@ -36,8 +36,8 @@ export class BookingController {
 
   @Get('multiple')
   async retrieveMultipleBook(
-    @Body() RetrieveBooksDTO: RetrieveBookingsDTO,
-  ): Promise<BookingDTO[]> {
+    @Body() RetrieveBooksDTO: RetrieveBookingsDto,
+  ): Promise<BookingDto[]> {
     const retrieveBooks = new RetrieveBookingsUseCase(
       this.bookPostgresRepository,
     );

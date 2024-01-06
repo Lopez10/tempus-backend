@@ -1,7 +1,7 @@
 import { DateVO, ID, Time } from '@common';
 import { Booking } from './domain';
 
-export interface BookingDTO {
+export interface BookingDto {
   id: string;
   people: number;
   day: string;
@@ -13,21 +13,21 @@ export interface BookingDTO {
 }
 
 export class BookingMapper {
-  static toDomain(bookingDTO: BookingDTO): Booking {
+  static toDomain(bookingDto: BookingDto): Booking {
     return Booking.create(
       {
-        people: bookingDTO.people,
-        day: new DateVO(bookingDTO.day),
-        start: new Time(bookingDTO.start),
-        end: new Time(bookingDTO.end),
-        areaId: new ID(bookingDTO.areaId),
-        clientId: new ID(bookingDTO.clientId),
-        tableId: new ID(bookingDTO.tableId),
+        people: bookingDto.people,
+        day: new DateVO(bookingDto.day),
+        start: new Time(bookingDto.start),
+        end: new Time(bookingDto.end),
+        areaId: new ID(bookingDto.areaId),
+        clientId: new ID(bookingDto.clientId),
+        tableId: new ID(bookingDto.tableId),
       },
-      new ID(bookingDTO.id),
+      new ID(bookingDto.id),
     );
   }
-  static toDTO(booking: Booking): BookingDTO {
+  static toDto(booking: Booking): BookingDto {
     return {
       id: booking.getPropsCopy().id.value,
       people: booking.getPropsCopy().people,

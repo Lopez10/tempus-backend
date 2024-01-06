@@ -5,18 +5,18 @@ import {
   RestaurantRepositoryPort,
 } from '../../../domain/Restaurant.respository.port';
 import { Description, Email, Name, UseCase } from '@common';
-import { CreateRestaurantDTO } from './CreateRestaurantDTO';
+import { CreateRestaurantDto } from './CreateRestaurant.dto';
 
 @Injectable()
 export class CreateRestaurantUseCase
-  implements UseCase<CreateRestaurantDTO, Restaurant>
+  implements UseCase<CreateRestaurantDto, Restaurant>
 {
   constructor(
     @Inject(RestaurantRepository)
     private readonly repository: RestaurantRepositoryPort,
   ) {}
 
-  async run(restaurantDTO: CreateRestaurantDTO): Promise<Restaurant> {
+  async run(restaurantDTO: CreateRestaurantDto): Promise<Restaurant> {
     const restaurantProps: RestaurantProps = {
       name: new Name(restaurantDTO.name),
       email: new Email(restaurantDTO.email),

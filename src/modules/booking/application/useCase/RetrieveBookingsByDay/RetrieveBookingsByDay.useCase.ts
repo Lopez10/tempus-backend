@@ -1,12 +1,15 @@
 import { DateVO, ID, UseCase } from '@common';
-import { BookingDTO, BookingMapper } from '@modules/booking/Booking.mapper';
+import { BookingDto, BookingMapper } from '@modules/booking/Booking.mapper';
 import { Inject, Injectable } from '@nestjs/common';
-import { RetrieveBookingsByDayDTO } from './RetrieveBookingsByDayDTO';
-import { BookingRepository, BookingRepositoryPort } from '@modules/booking/domain';
+import { RetrieveBookingsByDayDto } from './RetrieveBookingsByDayDto';
+import {
+  BookingRepository,
+  BookingRepositoryPort,
+} from '@modules/booking/domain';
 
 @Injectable()
 export class RetrieveBookingsByDayUseCase
-  implements UseCase<RetrieveBookingsByDayDTO, BookingDTO[]>
+  implements UseCase<RetrieveBookingsByDayDto, BookingDto[]>
 {
   constructor(
     @Inject(BookingRepository)
@@ -14,14 +17,14 @@ export class RetrieveBookingsByDayUseCase
   ) {}
 
   async run(
-    retrieveBookingsByDayDTO: RetrieveBookingsByDayDTO,
-  ): Promise<BookingDTO[]> {
-    const day = new DateVO(retrieveBookingsByDayDTO.day);
-    const areaId = new ID(retrieveBookingsByDayDTO.areaId);
+    retrieveBookingsByDayDto: RetrieveBookingsByDayDto,
+  ): Promise<BookingDto[]> {
+    const day = new DateVO(retrieveBookingsByDayDto.day);
+    const areaId = new ID(retrieveBookingsByDayDto.areaId);
 
     const bookings = await this.repository.retrieveByDayAndAreaId(day, areaId);
-    const books = bookings.map(BookingMapper.toDTO);
+    const bookingsDomain = bookings.map(BookingMapper.toDto);
 
-    return books;
+    return bookingsDomain;
   }
 }

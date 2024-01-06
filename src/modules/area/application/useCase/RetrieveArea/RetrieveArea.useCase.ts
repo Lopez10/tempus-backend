@@ -5,7 +5,7 @@ import {
   AreaRepository,
   AreaRepositoryPort,
 } from '../../../domain/Area.repository.port';
-import { RetrieveAreaDTO } from './RetrieveAreaDTO';
+import { RetrieveAreaDTO } from './RetrieveArea.dto';
 
 @Injectable()
 export class RetrieveAreaUseCase implements UseCase<RetrieveAreaDTO, AreaDTO> {

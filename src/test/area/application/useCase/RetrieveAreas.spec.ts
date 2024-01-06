@@ -3,7 +3,7 @@ import { MockAreaRepository } from '../../MockAreaRepository';
 import {
   Area,
   AreaRepositoryPort,
-  RetrieveAreasDTO,
+  RetrieveAreasDto,
   RetrieveAreasUseCase,
 } from '@modules';
 
@@ -24,7 +24,7 @@ describe('Retrieve Areas Use Case', () => {
       page: 0,
       orderBy: { field: 'name', param: 'asc' },
     };
-    const areaRequestData: RetrieveAreasDTO = {
+    const areaRequestData: RetrieveAreasDto = {
       criteria: {},
       pagination,
     };

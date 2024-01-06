@@ -1,6 +1,6 @@
-export * from './RetrieveAvailableHoursOfDay/HoursAvailableDTO';
+export * from './RetrieveAvailableHoursOfDay/HoursAvailable.dto';
 export * from './RetrieveAvailableHoursOfDay/RetrieveAvailableHoursOfDay.useCase';
-export * from './RetrieveAvailableHoursOfDay/RetrieveAvailableHoursOfDayDTO';
+export * from './RetrieveAvailableHoursOfDay/RetrieveAvailableHoursOfDay.dto';
 
 export * from './CreateBooking/CreateBooking.useCase';
-export * from './CreateBooking/CreateBookingDTO';
+export * from './CreateBooking/CreateBooking.dto';

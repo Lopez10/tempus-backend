@@ -1,11 +1,13 @@
-import { Body, Controller, Get, Inject } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import {
+  CreateBookingDto,
+  CreateBookingUseCase,
   HoursAvailableDto,
-  RetrieveAvailableHoursOfDayDTO,
+  RetrieveAvailableHoursOfDayDto,
   RetrieveAvailableHoursOfDayUseCase,
 } from '../application';
-import { BookingPostgresRepository } from '@modules/booking';
+import { BookingDto, BookingPostgresRepository } from '@modules/booking';
 import { AreaPostgresRepository } from '@modules/area';
 
 @ApiTags('availability')
@@ -21,7 +23,7 @@ export class AvailabilityController {
 
   @Get()
   @ApiBody({
-    type: RetrieveAvailableHoursOfDayDTO,
+    type: RetrieveAvailableHoursOfDayDto,
   })
   @ApiOkResponse({
     status: 200,
@@ -29,7 +31,7 @@ export class AvailabilityController {
     type: Promise<HoursAvailableDto>,
   })
   async retrieveAvailability(
-    @Body() retrieveAvailabilityDTO: RetrieveAvailableHoursOfDayDTO,
+    @Body() retrieveAvailabilityDTO: RetrieveAvailableHoursOfDayDto,
   ): Promise<HoursAvailableDto[]> {
     const retrieveAvailability = new RetrieveAvailableHoursOfDayUseCase(
       this.bookingPostgresRepository,
@@ -40,5 +42,26 @@ export class AvailabilityController {
     );
 
     return availabilityDto;
+  }
+
+  @Post()
+  @ApiBody({
+    type: CreateBookingDto,
+  })
+  @ApiOkResponse({
+    status: 200,
+    description: 'The booking has been successfully created.',
+    type: Promise<BookingDto>,
+  })
+  async createBooking(
+    @Body() createBookingDTO: CreateBookingDto,
+  ): Promise<BookingDto> {
+    const createBooking = new CreateBookingUseCase(
+      this.bookingPostgresRepository,
+      this.areaPostgresRepository,
+    );
+    const bookingDto = await createBooking.run(createBookingDTO);
+
+    return bookingDto;
   }
 }

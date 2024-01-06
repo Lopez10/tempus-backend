@@ -1,5 +1,5 @@
 import {
-  CreateRestaurantDTO,
+  CreateRestaurantDto,
   CreateRestaurantUseCase,
   RestaurantRepositoryPort,
 } from '@modules';
@@ -16,7 +16,7 @@ describe('Create Restaurant Use Case', () => {
     const action = new CreateRestaurantUseCase(restaurantReposistory);
 
     // GIVEN
-    const restaurantRequestData: CreateRestaurantDTO = {
+    const restaurantRequestData: CreateRestaurantDto = {
       name: 'Restaurant 1',
       description: 'Restaurant 1 description',
       email: 'restaurant1@gmail.com',

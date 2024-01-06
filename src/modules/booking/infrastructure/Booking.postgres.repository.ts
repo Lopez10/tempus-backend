@@ -24,7 +24,7 @@ export class BookingPostgresRepository implements BookingRepositoryPort {
   }
 
   async insert(entity: Booking): Promise<Booking> {
-    const booking: bookModel = BookingMapper.toDTO(entity);
+    const booking: bookModel = BookingMapper.toDto(entity);
     const bookCreated = await this.prisma.booking.create({
       data: booking,
     });

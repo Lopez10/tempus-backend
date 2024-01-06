@@ -1,28 +1,28 @@
 import { UseCase } from '@common';
 import { Inject, Injectable } from '@nestjs/common';
-import { RetrieveBookingsDTO as RetrieveBookingsDTO } from './RetrieveBookingsDTO';
-import { BookingRepository, BookingRepositoryPort } from '@modules/booking/domain';
+import { RetrieveBookingsDto as RetrieveBookingsDto } from './RetrieveBookings.dto';
 import {
-  BookingDTO,
-  BookingMapper,
-} from '@modules/booking/Booking.mapper';
+  BookingRepository,
+  BookingRepositoryPort,
+} from '@modules/booking/domain';
+import { BookingDto, BookingMapper } from '@modules/booking/Booking.mapper';
 
 @Injectable()
 export class RetrieveBookingsUseCase
-  implements UseCase<RetrieveBookingsDTO, BookingDTO[]>
+  implements UseCase<RetrieveBookingsDto, BookingDto[]>
 {
   constructor(
     @Inject(BookingRepository)
     private readonly repository: BookingRepositoryPort,
   ) {}
 
-  async run(retrieveBookingsDTO: RetrieveBookingsDTO): Promise<BookingDTO[]> {
+  async run(retrieveBookingsDTO: RetrieveBookingsDto): Promise<BookingDto[]> {
     const { data } = await this.repository.findPaginationByCriteria(
       retrieveBookingsDTO.criteria,
       retrieveBookingsDTO.pagination,
     );
 
-    const books = data.map(BookingMapper.toDTO);
+    const books = data.map(BookingMapper.toDto);
 
     return books;
   }
