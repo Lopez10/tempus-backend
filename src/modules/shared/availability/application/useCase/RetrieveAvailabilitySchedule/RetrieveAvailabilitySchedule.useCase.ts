@@ -1,7 +1,10 @@
 import { UseCase, ID, DateVO } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
 import { RetrieveAvailabilityScheduleDto } from './RetrieveAvailabilitySchedule.dto';
-import { AvailabilityScheduleDto } from './AvailabilitySchedule.dto';
+import {
+  AvailabilityScheduleDto,
+  ResponseAvailabilityScheduleDto,
+} from './ResponseAvailabilitySchedule.dto';
 import {
   AreaRepository,
   AreaRepositoryPort,
@@ -15,7 +18,7 @@ import { AvailabilityMapper } from '@modules/shared/availability/Availability.ma
 @Injectable()
 export class RetrieveAvailableHoursOfDayUseCase
   implements
-    UseCase<RetrieveAvailabilityScheduleDto, AvailabilityScheduleDto[]>
+    UseCase<RetrieveAvailabilityScheduleDto, ResponseAvailabilityScheduleDto[]>
 {
   private availabilityService: AvailabilityService = new AvailabilityService();
   constructor(
@@ -28,33 +31,45 @@ export class RetrieveAvailableHoursOfDayUseCase
 
   async run(
     retrieveAvailableHoursOfDayDTO: RetrieveAvailabilityScheduleDto,
-  ): Promise<AvailabilityScheduleDto[]> {
+  ): Promise<ResponseAvailabilityScheduleDto[]> {
     const day = new DateVO(retrieveAvailableHoursOfDayDTO.day);
-    const areaId = new ID(retrieveAvailableHoursOfDayDTO.areaId);
+    const restaurantId = new ID(retrieveAvailableHoursOfDayDTO.restaurantId);
 
-    const bookings = await this.bookingRepository.retrieveByDayAndAreaId(
-      day,
-      areaId,
-    );
+    const areas = await this.areaRepository.findByRestaurantId(restaurantId);
 
-    const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] = bookings.map(
-      (booking) => AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
-    );
+    const responseHoursAvailableByAreaDto: ResponseAvailabilityScheduleDto[] =
+      [];
 
-    const area = await this.areaRepository.findOneById(areaId);
+    areas.forEach(async (area) => {
+      const bookings = await this.bookingRepository.findByDayAndAreaId(
+        day,
+        area.id,
+      );
 
-    const hoursAvailable = this.availabilityService.calculateAvailableHours({
-      close: area.getPropsCopy().close,
-      open: area.getPropsCopy().open,
-      interval: area.getPropsCopy().interval,
-      maxCapacity: area.getPropsCopy().maxCapacity,
-      timeAndPeopleOfBookings,
+      const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] = bookings.map(
+        (booking) => AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
+      );
+
+      const hoursAvailable = this.availabilityService.calculateAvailableHours({
+        close: area.getPropsCopy().close,
+        open: area.getPropsCopy().open,
+        interval: area.getPropsCopy().interval,
+        maxCapacity: area.getPropsCopy().maxCapacity,
+        timeAndPeopleOfBookings,
+      });
+
+      const availability = hoursAvailable.map((availability) =>
+        AvailabilityMapper.toDTO(availability),
+      );
+
+      const hoursAvailableByAreaDto: ResponseAvailabilityScheduleDto = {
+        areaId: area.id.value,
+        availability,
+      };
+
+      responseHoursAvailableByAreaDto.push(hoursAvailableByAreaDto);
     });
 
-    const hoursAvailableDTO = hoursAvailable.map((availability) =>
-      AvailabilityMapper.toDTO(availability),
-    );
-
-    return hoursAvailableDTO;
+    return responseHoursAvailableByAreaDto;
   }
 }

@@ -11,5 +11,5 @@ export class RetrieveAvailabilityScheduleDto {
     example: '1',
     description: 'Area id of the booking',
   })
-  areaId: string;
+  restaurantId: string;
 }

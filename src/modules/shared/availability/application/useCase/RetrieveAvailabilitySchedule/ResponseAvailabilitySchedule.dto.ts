@@ -1,5 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+export class ResponseAvailabilityScheduleDto {
+  @ApiProperty({
+    example: 'area-1',
+    description: 'Id of the area',
+  })
+  areaId: string;
+
+  @ApiProperty({
+    example: '2021-10-10',
+    description: 'Availability of hours of the day',
+  })
+  availability: AvailabilityScheduleDto[];
+}
+
 export class AvailabilityScheduleDto {
   @ApiProperty({
     example: '12:00',

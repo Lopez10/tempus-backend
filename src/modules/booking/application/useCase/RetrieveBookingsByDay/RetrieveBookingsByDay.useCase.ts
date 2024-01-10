@@ -22,7 +22,7 @@ export class RetrieveBookingsByDayUseCase
     const day = new DateVO(retrieveBookingsByDayDto.day);
     const areaId = new ID(retrieveBookingsByDayDto.areaId);
 
-    const bookings = await this.repository.retrieveByDayAndAreaId(day, areaId);
+    const bookings = await this.repository.findByDayAndAreaId(day, areaId);
     const bookingsDomain = bookings.map(BookingMapper.toDto);
 
     return bookingsDomain;

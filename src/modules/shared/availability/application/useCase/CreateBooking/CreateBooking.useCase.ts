@@ -40,7 +40,7 @@ export class CreateBookingUseCase
     const day = new DateVO(bookingDTO.day);
     const people = bookingDTO.people;
 
-    const bookingsOfDayFounded = await this.repository.retrieveByDayAndAreaId(
+    const bookingsOfDayFounded = await this.repository.findByDayAndAreaId(
       day,
       areaId,
     );

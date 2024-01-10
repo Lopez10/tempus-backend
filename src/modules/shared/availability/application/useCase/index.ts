@@ -1,4 +1,4 @@
-export * from './RetrieveAvailabilitySchedule/AvailabilitySchedule.dto';
+export * from './RetrieveAvailabilitySchedule/ResponseAvailabilitySchedule.dto';
 export * from './RetrieveAvailabilitySchedule/RetrieveAvailabilitySchedule.useCase';
 export * from './RetrieveAvailabilitySchedule/RetrieveAvailabilitySchedule.dto';
 

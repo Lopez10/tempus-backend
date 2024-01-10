@@ -2,7 +2,7 @@ import { RepositoryPort, ID, DateVO } from '@common';
 import { Booking } from './Booking.entity';
 
 export interface BookingRepositoryPort extends RepositoryPort<Booking> {
-  retrieveByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]>;
+  findByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]>;
 }
 
 export const BookingRepository = Symbol('BookRepository');
