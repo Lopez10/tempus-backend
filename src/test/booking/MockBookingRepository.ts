@@ -9,11 +9,10 @@ import {
 export class MockBookingRepository implements BookingRepositoryPort {
   private bookingsDTO: BookingDto[] = [];
 
-  retrieveByDayAndRestaurantId(day: DateVO, areaId: ID): Promise<Booking[]> {
+  findByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]> {
     const bookings = this.bookingsDTO.filter(
       (booking) => booking.day === day.value && booking.areaId === areaId.value,
     );
-
     const bookingsDomain = bookings.map((booking) =>
       BookingMapper.toDomain(booking),
     );

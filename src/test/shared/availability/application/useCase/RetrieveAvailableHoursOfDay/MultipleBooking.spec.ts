@@ -2,7 +2,6 @@ import { DateVO, ID, Name, Time } from '@common';
 import {
   Area,
   AreaRepositoryPort,
-  AvailabilityService,
   Booking,
   BookingRepositoryPort,
   RetrieveAvailableHoursOfDayUseCase,
@@ -36,7 +35,7 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
     // GIVEN
     const retrieveAvailableHoursOfDayDTO = {
       day: '01/01/2024',
-      areaId: 'Area_2',
+      restaurantId: 'Restaurant_2',
     };
 
     // WHEN
@@ -45,56 +44,61 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
     // THEN
     expect(hoursAvailable).toEqual([
       {
-        hour: '12:00',
-        available: 10,
-      },
-      {
-        hour: '12:15',
-        available: 10,
-      },
-      {
-        hour: '12:30',
-        available: 10,
-      },
-      {
-        hour: '12:45',
-        available: 7,
-      },
-      {
-        hour: '13:00',
-        available: 4,
-      },
-      {
-        hour: '13:15',
-        available: 4,
-      },
-      {
-        hour: '13:30',
-        available: 4,
-      },
-      {
-        hour: '13:45',
-        available: 4,
-      },
-      {
-        hour: '14:00',
-        available: 4,
-      },
-      {
-        hour: '14:15',
-        available: 4,
-      },
-      {
-        hour: '14:30',
-        available: 4,
-      },
-      {
-        hour: '14:45',
-        available: 7,
-      },
-      {
-        hour: '15:00',
-        available: 7,
+        areaId: 'Area_2',
+        availability: [
+          {
+            hour: '12:00',
+            available: 10,
+          },
+          {
+            hour: '12:15',
+            available: 10,
+          },
+          {
+            hour: '12:30',
+            available: 10,
+          },
+          {
+            hour: '12:45',
+            available: 7,
+          },
+          {
+            hour: '13:00',
+            available: 4,
+          },
+          {
+            hour: '13:15',
+            available: 4,
+          },
+          {
+            hour: '13:30',
+            available: 4,
+          },
+          {
+            hour: '13:45',
+            available: 4,
+          },
+          {
+            hour: '14:00',
+            available: 4,
+          },
+          {
+            hour: '14:15',
+            available: 4,
+          },
+          {
+            hour: '14:30',
+            available: 4,
+          },
+          {
+            hour: '14:45',
+            available: 7,
+          },
+          {
+            hour: '15:00',
+            available: 7,
+          },
+        ],
       },
     ]);
   });

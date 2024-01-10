@@ -35,7 +35,7 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
     // GIVEN
     const retrieveAvailableHoursOfDayDTO = {
       day: '01/01/2024',
-      areaId: 'Area_1',
+      restaurantId: 'Restaurant_1',
     };
 
     // WHEN
@@ -44,48 +44,53 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
     // THEN
     expect(hoursAvailable).toEqual([
       {
-        hour: '10:00',
-        available: 10,
-      },
-      {
-        hour: '10:30',
-        available: 7,
-      },
-      {
-        hour: '11:00',
-        available: 7,
-      },
-      {
-        hour: '11:30',
-        available: 7,
-      },
-      {
-        hour: '12:00',
-        available: 10,
-      },
-      {
-        hour: '12:30',
-        available: 10,
-      },
-      {
-        hour: '13:00',
-        available: 10,
-      },
-      {
-        hour: '13:30',
-        available: 10,
-      },
-      {
-        hour: '14:00',
-        available: 10,
-      },
-      {
-        hour: '14:30',
-        available: 10,
-      },
-      {
-        hour: '15:00',
-        available: 10,
+        areaId: 'Area_1',
+        availability: [
+          {
+            hour: '10:00',
+            available: 10,
+          },
+          {
+            hour: '10:30',
+            available: 7,
+          },
+          {
+            hour: '11:00',
+            available: 7,
+          },
+          {
+            hour: '11:30',
+            available: 7,
+          },
+          {
+            hour: '12:00',
+            available: 10,
+          },
+          {
+            hour: '12:30',
+            available: 10,
+          },
+          {
+            hour: '13:00',
+            available: 10,
+          },
+          {
+            hour: '13:30',
+            available: 10,
+          },
+          {
+            hour: '14:00',
+            available: 10,
+          },
+          {
+            hour: '14:30',
+            available: 10,
+          },
+          {
+            hour: '15:00',
+            available: 10,
+          },
+        ],
       },
     ]);
   });

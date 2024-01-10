@@ -1,10 +1,7 @@
 import { UseCase, ID, DateVO } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
 import { RetrieveAvailabilityScheduleDto } from './RetrieveAvailabilitySchedule.dto';
-import {
-  AvailabilityScheduleDto,
-  ResponseAvailabilityScheduleDto,
-} from './ResponseAvailabilitySchedule.dto';
+import { ResponseAvailabilityScheduleDto } from './ResponseAvailabilitySchedule.dto';
 import {
   AreaRepository,
   AreaRepositoryPort,

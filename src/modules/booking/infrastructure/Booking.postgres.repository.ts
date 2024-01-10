@@ -10,7 +10,7 @@ export class BookingPostgresRepository implements BookingRepositoryPort {
     this.prisma = prisma;
   }
 
-  async retrieveByDayAndRestaurantId(day: DateVO, areaId: ID): Promise<Booking[]> {
+  async findByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]> {
     const bookings = await this.prisma.booking.findMany({
       where: {
         day: day.value,

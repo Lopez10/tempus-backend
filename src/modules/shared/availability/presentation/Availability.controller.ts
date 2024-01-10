@@ -6,6 +6,7 @@ import {
   AvailabilityScheduleDto,
   RetrieveAvailabilityScheduleDto,
   RetrieveAvailableHoursOfDayUseCase,
+  ResponseAvailabilityScheduleDto,
 } from '../application';
 import { BookingDto, BookingPostgresRepository } from '@modules/booking';
 import { AreaPostgresRepository } from '@modules/area';
@@ -30,11 +31,11 @@ export class AvailabilityController {
   @ApiOkResponse({
     status: 200,
     description: 'The availability schedule has been successfully retrieved.',
-    type: Promise<AvailabilityScheduleDto>,
+    type: Promise<ResponseAvailabilityScheduleDto[]>,
   })
   async retrieveSchedule(
     @Body() retrieveAvailabilityDTO: RetrieveAvailabilityScheduleDto,
-  ): Promise<AvailabilityScheduleDto[]> {
+  ): Promise<ResponseAvailabilityScheduleDto[]> {
     const retrieveAvailability = new RetrieveAvailableHoursOfDayUseCase(
       this.bookingPostgresRepository,
       this.areaPostgresRepository,
