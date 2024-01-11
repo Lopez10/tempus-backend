@@ -2,10 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class RetrieveAvailabilityCalendarDto {
   @ApiProperty({
-    example: '01/2023',
-    description: 'Month to retrieve availability',
+    example: '01/01/2023',
+    description: 'date to retrieve availability',
   })
-  month: string;
+  date: string;
 
   @ApiProperty({
     example: '1',
