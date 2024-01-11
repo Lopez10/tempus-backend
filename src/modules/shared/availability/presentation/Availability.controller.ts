@@ -56,7 +56,7 @@ export class AvailabilityController {
     description: 'The calendar has been successfully retrieved.',
     type: Promise<AvailabilityCalendarDto[]>,
   })
-  async retrieveCalendar(): Promise<BookingDto[]> {
+  async retrieveCalendar(): Promise<AvailabilityCalendarDto[]> {
     throw new Error('Not implemented');
   }
 
