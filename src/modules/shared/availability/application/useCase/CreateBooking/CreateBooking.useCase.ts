@@ -80,7 +80,7 @@ export class CreateBookingUseCase
       people,
     };
 
-    const isAvailable = this.availabilityService.checkAvailability({
+    const isAvailable = this.availabilityService.checkAvailabilityForHours({
       timeAndPeopleOfBooking,
       hoursAndAvailability,
     });

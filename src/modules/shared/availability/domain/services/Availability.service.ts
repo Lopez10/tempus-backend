@@ -50,7 +50,7 @@ export class AvailabilityService {
     return availability;
   }
 
-  checkAvailability({
+  checkAvailabilityForHours({
     timeAndPeopleOfBooking,
     hoursAndAvailability,
   }: {
