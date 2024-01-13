@@ -7,7 +7,9 @@ import {
 import { AvailabilityScheduleDto } from './application';
 
 export class AvailabilityMapper {
-  static toDTO(availability: AvailabilityServiceProps): AvailabilityScheduleDto {
+  static toDTO(
+    availability: AvailabilityServiceProps,
+  ): AvailabilityScheduleDto {
     return {
       hour: availability.hour.value,
       available: availability.available,

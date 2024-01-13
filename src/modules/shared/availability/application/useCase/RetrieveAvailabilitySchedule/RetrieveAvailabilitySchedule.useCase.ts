@@ -1,21 +1,21 @@
 import { UseCase, ID, DateVO } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
-import { RetrieveAvailabilityScheduleDto } from './RetrieveAvailabilitySchedule.dto';
-import { ResponseAvailabilityScheduleDto } from './ResponseAvailabilitySchedule.dto';
 import {
-  AreaRepository,
-  AreaRepositoryPort,
-  AvailabilityService,
   BookingRepository,
   BookingRepositoryPort,
   timeAndPeopleOfBooking,
-} from '@modules';
-import { AvailabilityMapper } from '@modules/shared/availability/Availability.mapper';
+} from '@modules/booking';
+import { AreaRepository, AreaRepositoryPort } from '@modules/area';
+import {
+  AvailabilityService,
+  AvailabilityMapper,
+  AvailabilityAreasDto,
+  RetrieveAvailabilityScheduleDto,
+} from '@modules/shared/availability';
 
 @Injectable()
 export class RetrieveAvailableHoursOfDayUseCase
-  implements
-    UseCase<RetrieveAvailabilityScheduleDto, ResponseAvailabilityScheduleDto[]>
+  implements UseCase<RetrieveAvailabilityScheduleDto, AvailabilityAreasDto[]>
 {
   private availabilityService: AvailabilityService = new AvailabilityService();
   constructor(
@@ -28,14 +28,13 @@ export class RetrieveAvailableHoursOfDayUseCase
 
   async run(
     retrieveAvailableHoursOfDayDTO: RetrieveAvailabilityScheduleDto,
-  ): Promise<ResponseAvailabilityScheduleDto[]> {
+  ): Promise<AvailabilityAreasDto[]> {
     const day = new DateVO(retrieveAvailableHoursOfDayDTO.day);
     const restaurantId = new ID(retrieveAvailableHoursOfDayDTO.restaurantId);
 
     const areas = await this.areaRepository.findByRestaurantId(restaurantId);
 
-    const responseHoursAvailableByAreaDto: ResponseAvailabilityScheduleDto[] =
-      [];
+    const responseHoursAvailableByAreaDto: AvailabilityAreasDto[] = [];
 
     areas.forEach(async (area) => {
       const bookings = await this.bookingRepository.findByDayAndAreaId(
@@ -59,7 +58,7 @@ export class RetrieveAvailableHoursOfDayUseCase
         AvailabilityMapper.toDTO(availability),
       );
 
-      const hoursAvailableByAreaDto: ResponseAvailabilityScheduleDto = {
+      const hoursAvailableByAreaDto: AvailabilityAreasDto = {
         areaId: area.id.value,
         availability,
       };

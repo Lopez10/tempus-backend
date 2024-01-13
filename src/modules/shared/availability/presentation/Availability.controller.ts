@@ -1,9 +1,8 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
-import { ApiBody, ApiOkResponse, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import {
   CreateBookingDto,
   CreateBookingUseCase,
-  AvailabilityScheduleDto,
   RetrieveAvailabilityScheduleDto,
   RetrieveAvailableHoursOfDayUseCase,
   ResponseAvailabilityScheduleDto,
@@ -12,6 +11,7 @@ import { BookingDto, BookingPostgresRepository } from '@modules/booking';
 import { AreaPostgresRepository } from '@modules/area';
 import { AvailabilityCalendarDto } from '../application/useCase/RetrieveAvailabilityCalendar/AvailabilityCalendar.dto';
 import { RetrieveAvailabilityCalendarDto } from '../application/useCase/RetrieveAvailabilityCalendar/RetrieveAvailabilityCalendar.dto';
+import { ServiceDto } from '@modules/service/Service.dto';
 
 @ApiTags('availability')
 @Controller('availability')
@@ -31,20 +31,27 @@ export class AvailabilityController {
   @ApiOkResponse({
     status: 200,
     description: 'The availability schedule has been successfully retrieved.',
-    type: [ResponseAvailabilityScheduleDto],
+    type: ResponseAvailabilityScheduleDto,
   })
   async retrieveSchedule(
     @Body() retrieveAvailabilityDTO: RetrieveAvailabilityScheduleDto,
-  ): Promise<ResponseAvailabilityScheduleDto[]> {
+  ): Promise<ResponseAvailabilityScheduleDto> {
     const retrieveAvailability = new RetrieveAvailableHoursOfDayUseCase(
       this.bookingPostgresRepository,
       this.areaPostgresRepository,
     );
-    const availabilityDto = await retrieveAvailability.run(
+    const availabilityAreas = await retrieveAvailability.run(
       retrieveAvailabilityDTO,
     );
 
-    return availabilityDto;
+    const services: ServiceDto[] = [];
+
+    const responseAvailabilityScheduleDto: ResponseAvailabilityScheduleDto = {
+      availabilityAreas,
+      services,
+    };
+
+    return responseAvailabilityScheduleDto;
   }
 
   @Get('calendar')
@@ -79,15 +86,5 @@ export class AvailabilityController {
     const bookingDto = await createBooking.run(createBookingDTO);
 
     return bookingDto;
-  }
-
-  @Get('availability')
-  @ApiResponse({
-    status: 200,
-    description: 'The availability has been successfully retrieved.',
-    type: AvailabilityScheduleDto,
-  })
-  retrieveAvailability(): Promise<AvailabilityScheduleDto> {
-    throw new Error('Not implemented');
   }
 }

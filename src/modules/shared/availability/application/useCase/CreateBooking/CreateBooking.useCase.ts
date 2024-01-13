@@ -30,7 +30,7 @@ export class CreateBookingUseCase
     private readonly repository: BookingRepositoryPort,
 
     @Inject(AreaRepository)
-    private readonly areaRepository: AreaRepositoryPort,
+    private readonly areaRepository: AreaRepositoryPort, // @Inject(ClientRepository) // private readonly clientRepository: ClientRepositoryPort,
   ) {}
 
   async run(bookingDTO: CreateBookingDto): Promise<BookingDto> {
@@ -89,13 +89,18 @@ export class CreateBookingUseCase
       throw new InvalidBookingAvailable();
     }
 
+    // const clientFounded = await this.clientRepository.findOneByEmail(
+    //   bookingDTO.clientEmail,
+    // );
+
     const bookingDomain = Booking.create({
       people,
       start,
       end,
       areaId,
       day,
-      clientId: new ID(bookingDTO.clientId),
+      clientId: new ID('clientId'),
+      // clientId: new ID(clientFounded.id),
       tableId: new ID(bookingDTO.tableId),
     });
 

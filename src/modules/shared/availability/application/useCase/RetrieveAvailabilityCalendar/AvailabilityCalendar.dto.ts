@@ -8,8 +8,8 @@ export class AvailabilityCalendarDto {
   day: string;
 
   @ApiProperty({
-    example: 2,
-    description: 'Availability of the day',
+    example: true,
+    description: 'Is the day available?',
   })
-  available: number;
+  available: boolean;
 }

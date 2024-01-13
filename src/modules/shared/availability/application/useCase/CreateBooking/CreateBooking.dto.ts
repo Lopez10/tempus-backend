@@ -32,10 +32,34 @@ export class CreateBookingDto {
   areaId: string;
 
   @ApiProperty({
-    example: '1',
-    description: 'Client id of the booking',
+    example: 'test@test.com',
+    description: 'The email of the client',
   })
-  clientId: string;
+  clientEmail: string;
+
+  @ApiProperty({
+    example: 'John',
+    description: 'The name of the client',
+  })
+  clientName: string;
+
+  @ApiProperty({
+    example: 'Doe',
+    description: 'The surname of the client',
+  })
+  clientSurname: string;
+
+  @ApiProperty({
+    example: '666777666',
+    description: 'The phone of the client',
+  })
+  clientPhone: string;
+
+  @ApiProperty({
+    example: 'Hello! I am alergical to gluten',
+    description: 'The comment of the client',
+  })
+  clientComment: string;
 
   @ApiProperty({
     example: '1',
