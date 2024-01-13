@@ -17,7 +17,7 @@ import {
   AvailabilityMapper,
   CreateBookingDto,
 } from '@modules/shared';
-import { AreaRepository, AreaRepositoryPort } from '@modules/area';
+import { Area, AreaRepository, AreaRepositoryPort } from '@modules/area';
 
 @Injectable()
 export class CreateBookingUseCase
@@ -27,7 +27,7 @@ export class CreateBookingUseCase
     new AvailabilityService();
   constructor(
     @Inject(BookingRepository)
-    private readonly repository: BookingRepositoryPort,
+    private readonly bookingRepository: BookingRepositoryPort,
 
     @Inject(AreaRepository)
     private readonly areaRepository: AreaRepositoryPort, // @Inject(ClientRepository) // private readonly clientRepository: ClientRepositoryPort,
@@ -40,25 +40,47 @@ export class CreateBookingUseCase
     const day = new DateVO(bookingDTO.day);
     const people = bookingDTO.people;
 
-    const bookingsOfDayFounded = await this.repository.findByDayAndAreaId(
-      day,
-      areaId,
-    );
+    const bookingsOfDayFounded =
+      await this.bookingRepository.findByDayAndAreaId(day, areaId);
 
     const areaFounded = await this.areaRepository.findOneById(areaId);
 
-    if (!areaFounded) {
-      throw new CreateBookingError('Area not found');
-    }
+    this.validateArea(areaFounded, start, end);
 
-    if (!areaFounded.validateHours(start, end)) {
-      throw new InvalidBookingHours();
-    }
+    this.checkAreaIsAvailable(
+      bookingsOfDayFounded,
+      areaFounded,
+      start,
+      end,
+      people,
+    );
 
-    if (!areaFounded.validateHoursPerBooking(start, end)) {
-      throw new InvalidHoursPerBooking();
-    }
+    // const clientFounded = await this.clientRepository.findOneByEmail(
+    //   bookingDTO.clientEmail,
+    // );
 
+    const bookingDomain = Booking.create({
+      people,
+      start,
+      end,
+      areaId,
+      day,
+      clientId: new ID('clientId'),
+      // clientId: new ID(clientFounded.id),
+      tableId: new ID(bookingDTO.tableId),
+    });
+
+    const bookingInserted = await this.bookingRepository.insert(bookingDomain);
+    return BookingMapper.toDto(bookingInserted);
+  }
+
+  private checkAreaIsAvailable(
+    bookingsOfDayFounded: Booking[],
+    areaFounded: Area,
+    start: Time,
+    end: Time,
+    people: number,
+  ) {
     const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] =
       bookingsOfDayFounded.map((booking) =>
         AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
@@ -88,24 +110,19 @@ export class CreateBookingUseCase
     if (!isAvailable) {
       throw new InvalidBookingAvailable();
     }
+  }
 
-    // const clientFounded = await this.clientRepository.findOneByEmail(
-    //   bookingDTO.clientEmail,
-    // );
+  private validateArea(areaFounded: Area, start: Time, end: Time) {
+    if (!areaFounded) {
+      throw new CreateBookingError('Area not found');
+    }
 
-    const bookingDomain = Booking.create({
-      people,
-      start,
-      end,
-      areaId,
-      day,
-      clientId: new ID('clientId'),
-      // clientId: new ID(clientFounded.id),
-      tableId: new ID(bookingDTO.tableId),
-    });
+    if (!areaFounded.validateHours(start, end)) {
+      throw new InvalidBookingHours();
+    }
 
-    const bookingInserted = await this.repository.insert(bookingDomain);
-
-    return BookingMapper.toDto(bookingInserted);
+    if (!areaFounded.validateHoursPerBooking(start, end)) {
+      throw new InvalidHoursPerBooking();
+    }
   }
 }
