@@ -1,11 +1,12 @@
 import { DateVO, ID, UseCase } from '@common';
-import { BookingDto, BookingMapper } from '@modules/booking/Booking.mapper';
+import { BookingMapper } from '@modules/booking/Booking.mapper';
 import { Inject, Injectable } from '@nestjs/common';
 import { RetrieveBookingsByDayDto } from './RetrieveBookingsByDayDto';
 import {
   BookingRepository,
   BookingRepositoryPort,
 } from '@modules/booking/domain';
+import { BookingDto } from '@modules/booking';
 
 @Injectable()
 export class RetrieveBookingsByDayUseCase

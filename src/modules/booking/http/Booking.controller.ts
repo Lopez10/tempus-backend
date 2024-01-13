@@ -7,10 +7,10 @@ import {
   RetrieveBookingsDto,
   RetrieveBookingsUseCase,
 } from '../application';
-import { BookingDto } from '../Booking.mapper';
+import { BookingDto } from '../Booking.dto';
 
-@ApiTags('book')
-@Controller('book')
+@ApiTags('booking')
+@Controller('booking')
 export class BookingController {
   constructor(
     @Inject(BookingPostgresRepository)
@@ -21,7 +21,7 @@ export class BookingController {
   @ApiResponse({
     status: 200,
     description: 'The book has been successfully retrieved.',
-    type: Promise<BookingDto>,
+    type: BookingDto,
   })
   async retrieveBook(
     @Body() retrieveBookDTO: RetrieveBookingDto,

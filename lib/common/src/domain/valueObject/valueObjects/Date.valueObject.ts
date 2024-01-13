@@ -23,6 +23,19 @@ export class DateVO extends ValueObject<string> {
     return parseInt(this.props.value.split('/')[2]);
   }
 
+  get daysOfMonth(): DateVO[] {
+    const daysOfMonth: DateVO[] = [];
+    const monthOfDate = this.month;
+    const yearOfDate = this.year;
+    const lastDayOfMonth = new Date(yearOfDate, monthOfDate, 0).getDate();
+
+    for (let day = 1; day <= lastDayOfMonth; day++) {
+      daysOfMonth.push(new DateVO(`${day}/${monthOfDate}/${yearOfDate}`));
+    }
+
+    return daysOfMonth;
+  }
+
   isBefore(date: DateVO): boolean {
     return (
       this.year < date.year ||

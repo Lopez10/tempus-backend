@@ -5,7 +5,8 @@ import {
   BookingRepository,
   BookingRepositoryPort,
 } from '@modules/booking/domain';
-import { BookingDto, BookingMapper } from '@modules/booking/Booking.mapper';
+import { BookingMapper } from '@modules/booking/Booking.mapper';
+import { BookingDto } from '@modules/booking';
 
 @Injectable()
 export class RetrieveBookingsUseCase

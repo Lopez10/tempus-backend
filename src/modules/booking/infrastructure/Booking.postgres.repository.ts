@@ -10,6 +10,21 @@ export class BookingPostgresRepository implements BookingRepositoryPort {
     this.prisma = prisma;
   }
 
+  async findByMonthAndAreaId(month: DateVO, areaId: ID): Promise<Booking[]> {
+    const bookings = await this.prisma.booking.findMany({
+      where: {
+        day: {
+          gte: month.value,
+          lt: month.value,
+        },
+        areaId: areaId.value,
+      },
+    });
+    const bookingsDomain = bookings.map((book) => BookingMapper.toDomain(book));
+
+    return bookingsDomain;
+  }
+
   async findByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]> {
     const bookings = await this.prisma.booking.findMany({
       where: {

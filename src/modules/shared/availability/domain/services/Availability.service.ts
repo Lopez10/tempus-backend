@@ -1,8 +1,13 @@
-import { Time } from '@common';
+import { DateVO, Time } from '@common';
 
 export interface AvailabilityServiceProps {
   hour: Time;
   available: number;
+}
+
+export interface AvailabilityCalendarProps {
+  day: DateVO;
+  available: boolean;
 }
 
 export interface timeAndPeopleOfBooking {
@@ -12,6 +17,57 @@ export interface timeAndPeopleOfBooking {
 }
 
 export class AvailabilityService {
+  calculateAvailableDays({
+    bookings,
+    date,
+    area,
+  }: {
+    bookings: timeAndPeopleOfBooking[];
+    date: DateVO;
+    area: any;
+  }): AvailabilityCalendarProps[] {
+    const availability: AvailabilityCalendarProps[] = [];
+
+    const open = new Time(area.open);
+    const close = new Time(area.close);
+    const interval = area.interval;
+    const maxCapacity = area.maxCapacity;
+
+    const timeAndPeopleOfBookings = bookings.map((booking) => ({
+      start: booking.start,
+      end: booking.end,
+      people: booking.people,
+    }));
+
+    const daysOfMonth = date.daysOfMonth;
+
+    daysOfMonth.forEach((day) => {
+      const hoursAndAvailability = this.calculateAvailableHours({
+        timeAndPeopleOfBookings,
+        maxCapacity,
+        interval,
+        open,
+        close,
+      });
+
+      const available = this.checkAvailabilityForHours({
+        timeAndPeopleOfBooking: {
+          start: open,
+          end: close,
+          people: maxCapacity,
+        },
+        hoursAndAvailability,
+      });
+
+      availability.push({
+        day,
+        available,
+      });
+    });
+
+    return availability;
+  }
+
   calculateAvailableHours({
     timeAndPeopleOfBookings,
     maxCapacity,

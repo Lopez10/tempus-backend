@@ -31,7 +31,7 @@ export class AvailabilityController {
   @ApiOkResponse({
     status: 200,
     description: 'The availability schedule has been successfully retrieved.',
-    type: Promise<ResponseAvailabilityScheduleDto[]>,
+    type: [ResponseAvailabilityScheduleDto],
   })
   async retrieveSchedule(
     @Body() retrieveAvailabilityDTO: RetrieveAvailabilityScheduleDto,
@@ -54,7 +54,7 @@ export class AvailabilityController {
   @ApiOkResponse({
     status: 200,
     description: 'The calendar has been successfully retrieved.',
-    type: Promise<AvailabilityCalendarDto[]>,
+    type: [AvailabilityCalendarDto],
   })
   async retrieveCalendar(): Promise<AvailabilityCalendarDto[]> {
     throw new Error('Not implemented');
@@ -67,7 +67,7 @@ export class AvailabilityController {
   @ApiOkResponse({
     status: 200,
     description: 'The booking has been successfully created.',
-    type: Promise<BookingDto>,
+    type: [BookingDto],
   })
   async createBooking(
     @Body() createBookingDTO: CreateBookingDto,
@@ -79,5 +79,15 @@ export class AvailabilityController {
     const bookingDto = await createBooking.run(createBookingDTO);
 
     return bookingDto;
+  }
+
+  @Get('availability')
+  @ApiResponse({
+    status: 200,
+    description: 'The availability has been successfully retrieved.',
+    type: AvailabilityScheduleDto,
+  })
+  retrieveAvailability(): Promise<AvailabilityScheduleDto> {
+    throw new Error('Not implemented');
   }
 }

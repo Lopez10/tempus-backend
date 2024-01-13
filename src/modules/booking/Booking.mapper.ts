@@ -1,16 +1,6 @@
 import { DateVO, ID, Time } from '@common';
 import { Booking } from './domain';
-
-export interface BookingDto {
-  id: string;
-  people: number;
-  day: string;
-  start: string;
-  end: string;
-  areaId: string;
-  clientId: string;
-  tableId: string;
-}
+import { BookingDto } from './Booking.dto';
 
 export class BookingMapper {
   static toDomain(bookingDto: BookingDto): Booking {

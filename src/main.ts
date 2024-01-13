@@ -11,7 +11,7 @@ async function bootstrap() {
     .setDescription('Restaurant API description')
     .setVersion('1.0')
     .addTag('restaurant')
-    .addTag('book')
+    .addTag('booking')
     .addTag('availability')
     .build();
 

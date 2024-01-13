@@ -9,6 +9,9 @@ import {
 export class MockBookingRepository implements BookingRepositoryPort {
   private bookingsDTO: BookingDto[] = [];
 
+  findByMonthAndAreaId(month: DateVO, areaId: ID): Promise<Booking[]> {
+    throw new Error('Method not implemented.');
+  }
   findByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]> {
     const bookings = this.bookingsDTO.filter(
       (booking) => booking.day === day.value && booking.areaId === areaId.value,
