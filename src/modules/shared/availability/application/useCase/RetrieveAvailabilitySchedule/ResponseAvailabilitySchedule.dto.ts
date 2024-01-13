@@ -1,18 +1,6 @@
 import { ServiceDto } from '@modules/service/Service.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class ResponseAvailabilityScheduleDto {
-  @ApiProperty({
-    description: 'The availability schedule of areas',
-  })
-  availabilityAreas: AvailabilityAreasDto[];
-
-  @ApiProperty({
-    description: 'Services of the restaurant',
-  })
-  services: ServiceDto[];
-}
-
 export class AvailabilityAreasDto {
   @ApiProperty({
     example: 'area-1',
@@ -21,7 +9,7 @@ export class AvailabilityAreasDto {
   areaId: string;
 
   @ApiProperty({
-    example: '2021-10-10',
+    example: '10/10/2021',
     description: 'Availability of hours of the day',
   })
   availability: AvailabilityScheduleDto[];
@@ -39,4 +27,18 @@ export class AvailabilityScheduleDto {
     description: 'Availability of the hour',
   })
   available: number;
+}
+
+export class ResponseAvailabilityScheduleDto {
+  @ApiProperty({
+    description: 'The availability schedule of areas',
+    type: [AvailabilityAreasDto],
+  })
+  availabilityAreas: AvailabilityAreasDto[];
+
+  @ApiProperty({
+    description: 'Services of the restaurant',
+    type: [ServiceDto],
+  })
+  services: ServiceDto[];
 }
