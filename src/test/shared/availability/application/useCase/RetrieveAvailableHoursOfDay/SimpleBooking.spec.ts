@@ -40,7 +40,7 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
 
     // WHEN
     const hoursAvailable = await action.run(retrieveAvailableHoursOfDayDTO);
-    console.log(hoursAvailable);
+
     // THEN
     expect(hoursAvailable).toEqual([
       {

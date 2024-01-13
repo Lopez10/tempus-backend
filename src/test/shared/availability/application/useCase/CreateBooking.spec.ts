@@ -1,5 +1,10 @@
 import { ID, Name, Time } from '@common';
-import { Area, AreaRepositoryPort, CreateBookingUseCase } from '@modules';
+import {
+  Area,
+  AreaRepositoryPort,
+  CreateBookingDto,
+  CreateBookingUseCase,
+} from '@modules';
 import { MockAreaRepository } from '../../../../area/MockAreaRepository';
 import { MockBookingRepository } from '../../../../booking/MockBookingRepository';
 
@@ -22,9 +27,13 @@ describe('Create Booking Use Case', () => {
     await mockAreaData(areaRepository);
 
     // GIVEN
-    const createBookingDTO = {
+    const createBookingDTO: CreateBookingDto = {
       areaId: 'Area_2',
-      clientId: 'Client_1',
+      clientName: 'John',
+      clientSurname: 'Doe',
+      clientEmail: 'test@test.com',
+      clientPhone: '666777666',
+      clientComment: 'Hello! I am alergical to gluten',
       tableId: 'Table_1',
       day: '01/01/2024',
       start: '12:00',
@@ -42,7 +51,6 @@ describe('Create Booking Use Case', () => {
     expect(booking.end).toEqual('14:00');
     expect(booking.people).toEqual(3);
     expect(booking.areaId).toEqual('Area_2');
-    expect(booking.clientId).toEqual('Client_1');
     expect(booking.tableId).toEqual('Table_1');
   });
 
@@ -57,7 +65,11 @@ describe('Create Booking Use Case', () => {
     // GIVEN
     const createBookingDTO = {
       areaId: 'Area_2',
-      clientId: 'Client_1',
+      clientName: 'John',
+      clientSurname: 'Doe',
+      clientEmail: 'test@test.com',
+      clientPhone: '666777666',
+      clientComment: 'Hello! I am alergical to gluten',
       tableId: 'Table_1',
       day: '01/01/2024',
       start: '13:30',
@@ -84,7 +96,11 @@ describe('Create Booking Use Case', () => {
     // GIVEN
     const createBookingDTO = {
       areaId: 'Area_2',
-      clientId: 'Client_1',
+      clientName: 'John',
+      clientSurname: 'Doe',
+      clientEmail: 'test@test.com',
+      clientPhone: '666777666',
+      clientComment: 'Hello! I am alergical to gluten',
       tableId: 'Table_1',
       day: '01/01/2024',
       start: '9:00',
@@ -111,7 +127,11 @@ describe('Create Booking Use Case', () => {
     // GIVEN
     const createBookingDTO = {
       areaId: 'Area_no_existing',
-      clientId: 'Client_1',
+      clientName: 'John',
+      clientSurname: 'Doe',
+      clientEmail: 'test@test.com',
+      clientPhone: '666777666',
+      clientComment: 'Hello! I am alergical to gluten',
       tableId: 'Table_1',
       day: '01/01/2024',
       start: '13:00',
