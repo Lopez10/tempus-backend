@@ -9,8 +9,8 @@ import {
 } from '../application';
 import { BookingDto, BookingPostgresRepository } from '@modules/booking';
 import { AreaPostgresRepository } from '@modules/area';
-import { AvailableDaysDto } from '../application/useCase/RetrieveAvailabilityCalendar/AvailableDays.dto';
-import { RetrieveAvailabilityCalendarDto } from '../application/useCase/RetrieveAvailabilityCalendar/RetrieveAvailabilityCalendar.dto';
+import { AvailableDaysDto } from '../application/useCase/RetrieveAvailableDays/AvailableDays.dto';
+import { RetrieveAvailableDaysDto } from '../application/useCase/RetrieveAvailableDays/RetrieveAvailableDays.dto';
 import { ServiceDto } from '@modules/service/Service.dto';
 
 @ApiTags('availability')
@@ -54,16 +54,16 @@ export class AvailabilityController {
     return responseAvailabilityScheduleDto;
   }
 
-  @Get('calendar')
+  @Get('/days')
   @ApiBody({
-    type: RetrieveAvailabilityCalendarDto,
+    type: RetrieveAvailableDaysDto,
   })
   @ApiOkResponse({
     status: 200,
-    description: 'The calendar has been successfully retrieved.',
-    type: [AvailableDaysDto],
+    description: 'The available days has been successfully retrieved',
+    type: AvailableDaysDto,
   })
-  async retrieveCalendar(): Promise<AvailableDaysDto[]> {
+  async retrieveAvailableDays(): Promise<AvailableDaysDto> {
     throw new Error('Not implemented');
   }
 

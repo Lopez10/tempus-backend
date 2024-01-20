@@ -31,8 +31,8 @@ export class AvailabilityService {
     interval: number;
     open: Time;
     close: Time;
-  }): AvailabilityCalendarProps[] {
-    const availability: AvailabilityCalendarProps[] = [];
+  }): string[] {
+    const availability: string[] = [];
 
     const daysOfMonth = date.daysOfMonth;
 
@@ -53,10 +53,7 @@ export class AvailabilityService {
         return;
       }
 
-      availability.push({
-        day,
-        available: availabilityForDay,
-      });
+      availability.push(day.value);
     });
 
     return availability;

@@ -1,6 +1,6 @@
 import { DateVO, ID, UseCase } from '@common';
 import { Inject, Injectable } from '@nestjs/common';
-import { RetrieveAvailabilityCalendarDto } from './RetrieveAvailabilityCalendar.dto';
+import { RetrieveAvailableDaysDto } from './RetrieveAvailableDays.dto';
 import { AvailableDaysDto } from './AvailableDays.dto';
 import {
   AreaRepository,
@@ -12,8 +12,8 @@ import {
 } from '@modules';
 
 @Injectable()
-export class RetrieveAvailabilityCalendarUseCase
-  implements UseCase<RetrieveAvailabilityCalendarDto, AvailableDaysDto[]>
+export class RetrieveAvailableDaysUseCase
+  implements UseCase<RetrieveAvailableDaysDto, AvailableDaysDto>
 {
   private availabilityService: AvailabilityService = new AvailabilityService();
 
@@ -26,7 +26,7 @@ export class RetrieveAvailabilityCalendarUseCase
   ) {}
   async run({
     restaurantId,
-  }: RetrieveAvailabilityCalendarDto): Promise<AvailableDaysDto[]> {
+  }: RetrieveAvailableDaysDto): Promise<AvailableDaysDto> {
     const today = new Date();
     const dateDomain = new DateVO(today);
     const restaurantIdDomain = new ID(restaurantId);
@@ -35,7 +35,9 @@ export class RetrieveAvailabilityCalendarUseCase
       restaurantIdDomain,
     );
 
-    const availabilityCalendarByAreaDto = areas.map(async (area) => {
+    const availableDays: string[] = [];
+
+    areas.forEach(async (area) => {
       // TODO: Fix this find by month
       const bookings = await this.bookingRepository.findByMonthAndAreaId(
         dateDomain,
@@ -56,15 +58,13 @@ export class RetrieveAvailabilityCalendarUseCase
           maxCapacity: area.propsCopy.maxCapacity,
         });
 
-      return availabilityAreaDays.map((availabilityAreaDay) =>
-        AvailabilityMapper.toCalendarDto(availabilityAreaDay),
-      );
+      availableDays.push(...availabilityAreaDays);
     });
 
-    const availabilityCalendarByArea = await Promise.all(
-      availabilityCalendarByAreaDto,
-    );
+    const daysWithoutDuplicates = [...new Set(availableDays)];
 
-    return availabilityCalendarByArea.flat();
+    return {
+      days: daysWithoutDuplicates,
+    };
   }
 }

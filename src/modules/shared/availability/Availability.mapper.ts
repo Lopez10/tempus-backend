@@ -6,7 +6,7 @@ import {
   timeAndPeopleOfBooking,
 } from '../../booking/domain';
 import { AvailabilityScheduleDto } from './application';
-import { AvailableDaysDto } from './application/useCase/RetrieveAvailabilityCalendar/AvailableDays.dto';
+import { AvailableDaysDto } from './application/useCase/RetrieveAvailableDays/AvailableDays.dto';
 
 export class AvailabilityMapper {
   static toScheduleDto(
