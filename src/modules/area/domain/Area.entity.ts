@@ -20,11 +20,11 @@ export class Area extends AggregateRoot<AreaProps> {
   }
 
   get interval(): number {
-    return this.getPropsCopy().interval;
+    return this.propsCopy.interval;
   }
 
   validateHours(start: Time, end: Time): boolean {
-    const { open, close } = this.getPropsCopy();
+    const { open, close } = this.propsCopy;
 
     if (start.isBefore(open) || end.isAfter(close)) {
       return false;
@@ -34,7 +34,7 @@ export class Area extends AggregateRoot<AreaProps> {
   }
 
   validateHoursPerBooking(start: Time, end: Time): boolean {
-    const { hoursPerReservation } = this.getPropsCopy();
+    const { hoursPerReservation } = this.propsCopy;
 
     const duration = end.diffInHours(start);
     if (duration !== hoursPerReservation) {

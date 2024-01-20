@@ -22,10 +22,10 @@ export class Booking extends AggregateRoot<BookingProps> {
   }
 
   get people(): number {
-    return this.getPropsCopy().people;
+    return this.propsCopy.people;
   }
 
   validateDate(): boolean {
-    return this.getPropsCopy().start.isBefore(this.getPropsCopy().end);
+    return this.propsCopy.start.isBefore(this.propsCopy.end);
   }
 }

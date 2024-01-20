@@ -1,7 +1,12 @@
 import { DomainPrimitive, ValueObject } from '../valueObject.base';
 
 export class DateVO extends ValueObject<string> {
-  constructor(value: string) {
+  constructor(value: string | Date) {
+    if (value instanceof Date) {
+      value = `${value.getDate()}/${
+        value.getMonth() + 1
+      }/${value.getFullYear()}`;
+    }
     super({ value });
     this.validate({ value });
     this.props.value = this.fixFormat(value);

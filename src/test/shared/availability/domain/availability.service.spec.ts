@@ -1,7 +1,7 @@
 import { Time } from '@common';
 import {
   AvailabilityService,
-  AvailabilityServiceProps,
+  AvailabilityScheduleProps,
   timeAndPeopleOfBooking,
 } from '@modules';
 
@@ -55,7 +55,7 @@ describe('Availability Service test', () => {
 });
 
 function checkAvailability(
-  availability: AvailabilityServiceProps[],
+  availability: AvailabilityScheduleProps[],
   expectedAvailability: { [key: string]: number },
 ) {
   availability.forEach((availableHour) => {

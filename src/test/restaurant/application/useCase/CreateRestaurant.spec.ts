@@ -27,11 +27,11 @@ describe('Create Restaurant Use Case', () => {
     const restaurantCreated = await action.run(restaurantRequestData);
 
     // THEN
-    expect(restaurantCreated.getPropsCopy().name.value).toEqual('Restaurant 1');
-    expect(restaurantCreated.getPropsCopy().description.value).toEqual(
+    expect(restaurantCreated.propsCopy.name.value).toEqual('Restaurant 1');
+    expect(restaurantCreated.propsCopy.description.value).toEqual(
       'Restaurant 1 description',
     );
-    expect(restaurantCreated.getPropsCopy().email.value).toEqual(
+    expect(restaurantCreated.propsCopy.email.value).toEqual(
       'restaurant1@gmail.com',
     );
   });

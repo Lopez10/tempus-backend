@@ -25,10 +25,10 @@ describe('Create Area Use Case', () => {
     const areaCreated = await action.run(areaRequestData);
 
     // THEN
-    expect(areaCreated.getPropsCopy().name.value).toEqual('Area 1');
-    expect(areaCreated.getPropsCopy().maxCapacity).toEqual(10);
-    expect(areaCreated.getPropsCopy().hoursPerReservation).toEqual(2);
-    expect(areaCreated.getPropsCopy().restaurantId.value).toEqual(
+    expect(areaCreated.propsCopy.name.value).toEqual('Area 1');
+    expect(areaCreated.propsCopy.maxCapacity).toEqual(10);
+    expect(areaCreated.propsCopy.hoursPerReservation).toEqual(2);
+    expect(areaCreated.propsCopy.restaurantId.value).toEqual(
       'Restaurant_1',
     );
   });

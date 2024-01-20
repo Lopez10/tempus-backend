@@ -47,15 +47,15 @@ export class RetrieveAvailableHoursOfDayUseCase
       );
 
       const hoursAvailable = this.availabilityService.calculateAvailableHours({
-        close: area.getPropsCopy().close,
-        open: area.getPropsCopy().open,
-        interval: area.getPropsCopy().interval,
-        maxCapacity: area.getPropsCopy().maxCapacity,
+        close: area.propsCopy.close,
+        open: area.propsCopy.open,
+        interval: area.propsCopy.interval,
+        maxCapacity: area.propsCopy.maxCapacity,
         timeAndPeopleOfBookings,
       });
 
       const availability = hoursAvailable.map((availability) =>
-        AvailabilityMapper.toDTO(availability),
+        AvailabilityMapper.toScheduleDto(availability),
       );
 
       const hoursAvailableByAreaDto: AvailabilityAreasDto = {

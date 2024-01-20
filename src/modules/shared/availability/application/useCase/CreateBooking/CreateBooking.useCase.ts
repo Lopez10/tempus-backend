@@ -86,7 +86,7 @@ export class CreateBookingUseCase
         AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
       );
 
-    const { close, open, interval, maxCapacity } = areaFounded.getPropsCopy();
+    const { close, open, interval, maxCapacity } = areaFounded.propsCopy;
     const hoursAndAvailability =
       this.availabilityService.calculateAvailableHours({
         close,

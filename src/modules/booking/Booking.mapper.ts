@@ -19,14 +19,14 @@ export class BookingMapper {
   }
   static toDto(booking: Booking): BookingDto {
     return {
-      id: booking.getPropsCopy().id.value,
-      people: booking.getPropsCopy().people,
-      day: booking.getPropsCopy().day.value,
-      start: booking.getPropsCopy().start.value,
-      end: booking.getPropsCopy().end.value,
-      areaId: booking.getPropsCopy().areaId.value,
-      clientId: booking.getPropsCopy().clientId.value,
-      tableId: booking.getPropsCopy().tableId.value,
+      id: booking.propsCopy.id.value,
+      people: booking.propsCopy.people,
+      day: booking.propsCopy.day.value,
+      start: booking.propsCopy.start.value,
+      end: booking.propsCopy.end.value,
+      areaId: booking.propsCopy.areaId.value,
+      clientId: booking.propsCopy.clientId.value,
+      tableId: booking.propsCopy.tableId.value,
     };
   }
 }

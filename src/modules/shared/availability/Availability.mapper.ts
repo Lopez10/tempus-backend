@@ -1,14 +1,16 @@
-import { Time } from '@common';
+import { DateVO, Time } from '@common';
 import {
-  AvailabilityServiceProps,
+  AvailabilityCalendarProps,
+  AvailabilityScheduleProps,
   Booking,
   timeAndPeopleOfBooking,
 } from '../../booking/domain';
 import { AvailabilityScheduleDto } from './application';
+import { AvailabilityCalendarDto } from './application/useCase/RetrieveAvailabilityCalendar/AvailabilityCalendar.dto';
 
 export class AvailabilityMapper {
-  static toDTO(
-    availability: AvailabilityServiceProps,
+  static toScheduleDto(
+    availability: AvailabilityScheduleProps,
   ): AvailabilityScheduleDto {
     return {
       hour: availability.hour.value,
@@ -16,20 +18,38 @@ export class AvailabilityMapper {
     };
   }
 
-  static toDomain(
+  static toScheduleDomain(
     availabilityDTO: AvailabilityScheduleDto,
-  ): AvailabilityServiceProps {
+  ): AvailabilityScheduleProps {
     return {
       hour: new Time(availabilityDTO.hour),
       available: availabilityDTO.available,
     };
   }
 
+  static toCalendarDto(
+    availability: AvailabilityCalendarProps,
+  ): AvailabilityCalendarDto {
+    return {
+      day: availability.day.value,
+      available: availability.available,
+    };
+  }
+
+  static toCalendarDomain(
+    availabilityDTO: AvailabilityCalendarDto,
+  ): AvailabilityCalendarProps {
+    return {
+      day: new DateVO(availabilityDTO.day),
+      available: availabilityDTO.available,
+    };
+  }
+
   static toTimeAndPeopleOfBookings(booking: Booking): timeAndPeopleOfBooking {
     return {
-      start: booking.getPropsCopy().start,
-      end: booking.getPropsCopy().end,
-      people: booking.getPropsCopy().people,
+      start: booking.propsCopy.start,
+      end: booking.propsCopy.end,
+      people: booking.propsCopy.people,
     };
   }
 }

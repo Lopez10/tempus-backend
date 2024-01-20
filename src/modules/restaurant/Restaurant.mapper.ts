@@ -23,11 +23,11 @@ export class RestaurantMapper {
 
   static toDTO(restaurant: Restaurant): RestaurantDTO {
     return {
-      id: restaurant.getPropsCopy().id.value,
-      name: restaurant.getPropsCopy().name.value,
-      email: restaurant.getPropsCopy().email.value,
-      description: restaurant.getPropsCopy().description.value,
-      capacity: restaurant.getPropsCopy().capacity,
+      id: restaurant.propsCopy.id.value,
+      name: restaurant.propsCopy.name.value,
+      email: restaurant.propsCopy.email.value,
+      description: restaurant.propsCopy.description.value,
+      capacity: restaurant.propsCopy.capacity,
     };
   }
 }

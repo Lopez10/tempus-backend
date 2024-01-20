@@ -31,13 +31,13 @@ export class AreaMapper {
   static toDTO(area: Area): AreaDTO {
     return {
       id: area.id.value,
-      name: area.getPropsCopy().name.value,
-      maxCapacity: area.getPropsCopy().maxCapacity,
-      hoursPerReservation: area.getPropsCopy().hoursPerReservation,
-      open: area.getPropsCopy().open.value,
-      close: area.getPropsCopy().close.value,
-      interval: area.getPropsCopy().interval,
-      restaurantId: area.getPropsCopy().restaurantId.value,
+      name: area.propsCopy.name.value,
+      maxCapacity: area.propsCopy.maxCapacity,
+      hoursPerReservation: area.propsCopy.hoursPerReservation,
+      open: area.propsCopy.open.value,
+      close: area.propsCopy.close.value,
+      interval: area.propsCopy.interval,
+      restaurantId: area.propsCopy.restaurantId.value,
     };
   }
 }

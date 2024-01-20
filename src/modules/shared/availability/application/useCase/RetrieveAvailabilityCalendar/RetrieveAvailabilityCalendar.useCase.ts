@@ -1,57 +1,71 @@
-// import { DateVO, ID, UseCase } from '@common';
-// import { Inject, Injectable } from '@nestjs/common';
-// import { RetrieveAvailabilityCalendarDto } from './RetrieveAvailabilityCalendar.dto';
-// import { AvailabilityCalendarDto } from './AvailabilityCalendar.dto';
-// import {
-//   AreaRepository,
-//   AreaRepositoryPort,
-//   AvailabilityService,
-//   BookingRepository,
-//   BookingRepositoryPort,
-// } from '@modules';
+import { DateVO, ID, UseCase } from '@common';
+import { Inject, Injectable } from '@nestjs/common';
+import { RetrieveAvailabilityCalendarDto } from './RetrieveAvailabilityCalendar.dto';
+import { AvailabilityCalendarDto } from './AvailabilityCalendar.dto';
+import {
+  AreaRepository,
+  AreaRepositoryPort,
+  AvailabilityMapper,
+  AvailabilityService,
+  BookingRepository,
+  BookingRepositoryPort,
+} from '@modules';
 
-// @Injectable()
-// export class RetrieveAvailabilityCalendarUseCase
-//   implements
-//     UseCase<RetrieveAvailabilityCalendarDto, AvailabilityCalendarDto[]>
-// {
-//   private availabilityService: AvailabilityService = new AvailabilityService();
+@Injectable()
+export class RetrieveAvailabilityCalendarUseCase
+  implements
+    UseCase<RetrieveAvailabilityCalendarDto, AvailabilityCalendarDto[]>
+{
+  private availabilityService: AvailabilityService = new AvailabilityService();
 
-//   constructor(
-//     @Inject(BookingRepository)
-//     private readonly bookingRepository: BookingRepositoryPort,
+  constructor(
+    @Inject(BookingRepository)
+    private readonly bookingRepository: BookingRepositoryPort,
 
-//     @Inject(AreaRepository)
-//     private readonly areaRepository: AreaRepositoryPort,
-//   ) {}
-//   async run({
-//     date,
-//     restaurantId,
-//   }: RetrieveAvailabilityCalendarDto): Promise<AvailabilityCalendarDto[]> {
-//     const dateDomain = new DateVO(date);
-//     const restaurantIdDomain = new ID(restaurantId);
+    @Inject(AreaRepository)
+    private readonly areaRepository: AreaRepositoryPort,
+  ) {}
+  async run({
+    restaurantId,
+  }: RetrieveAvailabilityCalendarDto): Promise<AvailabilityCalendarDto[]> {
+    const today = new Date();
+    const dateDomain = new DateVO(today);
+    const restaurantIdDomain = new ID(restaurantId);
 
-//     const areas = await this.areaRepository.findByRestaurantId(
-//       restaurantIdDomain,
-//     );
+    const areas = await this.areaRepository.findByRestaurantId(
+      restaurantIdDomain,
+    );
 
-//     const availabilityCalendarDto: AvailabilityCalendarDto[] = [];
+    const availabilityCalendarByAreaDto = areas.map(async (area) => {
+      // TODO: Fix this find by month
+      const bookings = await this.bookingRepository.findByMonthAndAreaId(
+        dateDomain,
+        area.id,
+      );
 
-//     areas.forEach(async (area) => {
-//       const bookings = await this.bookingRepository.findByMonthAndAreaId(
-//         dateDomain,
-//         area.id,
-//       );
+      const timeAndPeopleOfBookings = bookings.map((booking) =>
+        AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
+      );
 
-//       const availability = this.availabilityService.calculateAvailableDays({
-//         bookings,
-//         date: dateDomain,
-//         area,
-//       });
+      const availabilityAreaDays =
+        this.availabilityService.calculateAvailableDays({
+          timeAndPeopleOfBookings,
+          date: dateDomain,
+          open: area.propsCopy.open,
+          close: area.propsCopy.close,
+          interval: area.propsCopy.interval,
+          maxCapacity: area.propsCopy.maxCapacity,
+        });
 
-//       // Calculate available days of month in availabilityService
-//     });
+      return availabilityAreaDays.map((availabilityAreaDay) =>
+        AvailabilityMapper.toCalendarDto(availabilityAreaDay),
+      );
+    });
 
-//     return;
-//   }
-// }
+    const availabilityCalendarByArea = await Promise.all(
+      availabilityCalendarByAreaDto,
+    );
+
+    return availabilityCalendarByArea.flat();
+  }
+}

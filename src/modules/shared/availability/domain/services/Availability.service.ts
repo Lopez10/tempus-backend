@@ -1,6 +1,6 @@
 import { DateVO, Time } from '@common';
 
-export interface AvailabilityServiceProps {
+export interface AvailabilityScheduleProps {
   hour: Time;
   available: number;
 }
@@ -18,26 +18,21 @@ export interface timeAndPeopleOfBooking {
 
 export class AvailabilityService {
   calculateAvailableDays({
-    bookings,
+    timeAndPeopleOfBookings,
     date,
-    area,
+    open,
+    close,
+    interval,
+    maxCapacity,
   }: {
-    bookings: timeAndPeopleOfBooking[];
+    timeAndPeopleOfBookings: timeAndPeopleOfBooking[];
     date: DateVO;
-    area: any;
+    maxCapacity: number;
+    interval: number;
+    open: Time;
+    close: Time;
   }): AvailabilityCalendarProps[] {
     const availability: AvailabilityCalendarProps[] = [];
-
-    const open = new Time(area.open);
-    const close = new Time(area.close);
-    const interval = area.interval;
-    const maxCapacity = area.maxCapacity;
-
-    const timeAndPeopleOfBookings = bookings.map((booking) => ({
-      start: booking.start,
-      end: booking.end,
-      people: booking.people,
-    }));
 
     const daysOfMonth = date.daysOfMonth;
 
@@ -50,18 +45,17 @@ export class AvailabilityService {
         close,
       });
 
-      const available = this.checkAvailabilityForHours({
-        timeAndPeopleOfBooking: {
-          start: open,
-          end: close,
-          people: maxCapacity,
-        },
-        hoursAndAvailability,
-      });
+      const availabilityForDay = hoursAndAvailability.some(
+        (available) => available.available > 0,
+      );
+
+      if (!availabilityForDay) {
+        return;
+      }
 
       availability.push({
         day,
-        available,
+        available: availabilityForDay,
       });
     });
 
@@ -80,10 +74,10 @@ export class AvailabilityService {
     interval: number;
     open: Time;
     close: Time;
-  }): AvailabilityServiceProps[] {
+  }): AvailabilityScheduleProps[] {
     const intervals = this.generateIntervals(open, close, interval);
 
-    const availability: AvailabilityServiceProps[] = intervals.map(
+    const availability: AvailabilityScheduleProps[] = intervals.map(
       (interval) => {
         const capacityUsed = this.calculateCapacityUsed(
           timeAndPeopleOfBookings,
@@ -111,7 +105,7 @@ export class AvailabilityService {
     hoursAndAvailability,
   }: {
     timeAndPeopleOfBooking: timeAndPeopleOfBooking;
-    hoursAndAvailability: AvailabilityServiceProps[];
+    hoursAndAvailability: AvailabilityScheduleProps[];
   }): boolean {
     hoursAndAvailability.forEach((available) => {
       if (
