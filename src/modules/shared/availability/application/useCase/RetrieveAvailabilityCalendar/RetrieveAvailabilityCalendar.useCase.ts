@@ -1,7 +1,7 @@
 import { DateVO, ID, UseCase } from '@common';
 import { Inject, Injectable } from '@nestjs/common';
 import { RetrieveAvailabilityCalendarDto } from './RetrieveAvailabilityCalendar.dto';
-import { AvailabilityCalendarDto } from './AvailabilityCalendar.dto';
+import { AvailableDaysDto } from './AvailableDays.dto';
 import {
   AreaRepository,
   AreaRepositoryPort,
@@ -13,8 +13,7 @@ import {
 
 @Injectable()
 export class RetrieveAvailabilityCalendarUseCase
-  implements
-    UseCase<RetrieveAvailabilityCalendarDto, AvailabilityCalendarDto[]>
+  implements UseCase<RetrieveAvailabilityCalendarDto, AvailableDaysDto[]>
 {
   private availabilityService: AvailabilityService = new AvailabilityService();
 
@@ -27,7 +26,7 @@ export class RetrieveAvailabilityCalendarUseCase
   ) {}
   async run({
     restaurantId,
-  }: RetrieveAvailabilityCalendarDto): Promise<AvailabilityCalendarDto[]> {
+  }: RetrieveAvailabilityCalendarDto): Promise<AvailableDaysDto[]> {
     const today = new Date();
     const dateDomain = new DateVO(today);
     const restaurantIdDomain = new ID(restaurantId);

@@ -9,7 +9,7 @@ import {
 } from '../application';
 import { BookingDto, BookingPostgresRepository } from '@modules/booking';
 import { AreaPostgresRepository } from '@modules/area';
-import { AvailabilityCalendarDto } from '../application/useCase/RetrieveAvailabilityCalendar/AvailabilityCalendar.dto';
+import { AvailableDaysDto } from '../application/useCase/RetrieveAvailabilityCalendar/AvailableDays.dto';
 import { RetrieveAvailabilityCalendarDto } from '../application/useCase/RetrieveAvailabilityCalendar/RetrieveAvailabilityCalendar.dto';
 import { ServiceDto } from '@modules/service/Service.dto';
 
@@ -61,9 +61,9 @@ export class AvailabilityController {
   @ApiOkResponse({
     status: 200,
     description: 'The calendar has been successfully retrieved.',
-    type: [AvailabilityCalendarDto],
+    type: [AvailableDaysDto],
   })
-  async retrieveCalendar(): Promise<AvailabilityCalendarDto[]> {
+  async retrieveCalendar(): Promise<AvailableDaysDto[]> {
     throw new Error('Not implemented');
   }
 

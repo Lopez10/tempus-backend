@@ -6,7 +6,7 @@ import {
   timeAndPeopleOfBooking,
 } from '../../booking/domain';
 import { AvailabilityScheduleDto } from './application';
-import { AvailabilityCalendarDto } from './application/useCase/RetrieveAvailabilityCalendar/AvailabilityCalendar.dto';
+import { AvailableDaysDto } from './application/useCase/RetrieveAvailabilityCalendar/AvailableDays.dto';
 
 export class AvailabilityMapper {
   static toScheduleDto(
@@ -29,7 +29,7 @@ export class AvailabilityMapper {
 
   static toCalendarDto(
     availability: AvailabilityCalendarProps,
-  ): AvailabilityCalendarDto {
+  ): AvailableDaysDto {
     return {
       day: availability.day.value,
       available: availability.available,
@@ -37,7 +37,7 @@ export class AvailabilityMapper {
   }
 
   static toCalendarDomain(
-    availabilityDTO: AvailabilityCalendarDto,
+    availabilityDTO: AvailableDaysDto,
   ): AvailabilityCalendarProps {
     return {
       day: new DateVO(availabilityDTO.day),
