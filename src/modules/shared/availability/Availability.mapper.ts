@@ -30,6 +30,7 @@ export class AvailabilityMapper {
       start: booking.propsCopy.start,
       end: booking.propsCopy.end,
       people: booking.propsCopy.people,
+      day: booking.propsCopy.day,
     };
   }
 }

@@ -14,6 +14,7 @@ export interface timeAndPeopleOfBooking {
   start: Time;
   end: Time;
   people: number;
+  day?: DateVO;
 }
 
 export class AvailabilityService {
@@ -37,14 +38,14 @@ export class AvailabilityService {
     const daysOfMonth = date.daysOfMonth;
 
     daysOfMonth.forEach((day) => {
-      const hoursAndAvailability = this.calculateAvailableHours({
+      const hoursAndAvailability = this.calculateAvailableHoursOfDay({
+        day,
         timeAndPeopleOfBookings,
         maxCapacity,
         interval,
         open,
         close,
       });
-
       const availabilityForDay = hoursAndAvailability.some(
         (available) => available.available > 0,
       );
@@ -57,6 +58,36 @@ export class AvailabilityService {
     });
 
     return availability;
+  }
+
+  calculateAvailableHoursOfDay({
+    timeAndPeopleOfBookings,
+    day,
+    maxCapacity,
+    interval,
+    open,
+    close,
+  }: {
+    timeAndPeopleOfBookings: timeAndPeopleOfBooking[];
+    day: DateVO;
+    maxCapacity: number;
+    interval: number;
+    open: Time;
+    close: Time;
+  }): AvailabilityScheduleProps[] {
+    timeAndPeopleOfBookings = timeAndPeopleOfBookings.filter((booking) =>
+      booking.day?.matches(day),
+    );
+
+    const hoursAndAvailability = this.calculateAvailableHours({
+      timeAndPeopleOfBookings,
+      maxCapacity,
+      interval,
+      open,
+      close,
+    });
+
+    return hoursAndAvailability;
   }
 
   calculateAvailableHours({

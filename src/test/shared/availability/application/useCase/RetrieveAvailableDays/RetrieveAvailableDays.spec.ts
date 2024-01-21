@@ -24,10 +24,11 @@ describe('Retrieve available days', () => {
     areaRepository.clear();
   });
 
-  it.skip(`
-    GIVEN
-    WHEN
-    THEN
+  it(`
+    GIVEN an area data of restaurant with open reservations at 13:00 and close at 14:45 with max capacity of 5
+    AND a booking to this area with 5 people 13:00 - 15:00 on 01/01/2021
+    WHEN I retrieve the available days of the restaurant 
+    THEN the available days of the restaurant should be all days of the month without 01/01/2021
     `, async () => {
     mockAreaData(areaRepository);
     mockMultipleBookingData(bookingRepository);
@@ -84,7 +85,7 @@ async function mockAreaData(areaReposistory: AreaRepositoryPort) {
         maxCapacity: 5,
         hoursPerReservation: 2,
         open: new Time('13:00'),
-        close: new Time('15:00'),
+        close: new Time('14:45'),
         interval: 15,
         restaurantId: new ID('Restaurant_1'),
       },
