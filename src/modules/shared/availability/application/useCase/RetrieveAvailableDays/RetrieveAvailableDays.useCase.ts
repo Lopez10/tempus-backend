@@ -37,8 +37,7 @@ export class RetrieveAvailableDaysUseCase
 
     const availableDays: string[] = [];
 
-    areas.forEach(async (area) => {
-      // TODO: Fix this find by month
+    for (const area of areas) {
       const bookings = await this.bookingRepository.findByMonthAndAreaId(
         dateDomain,
         area.id,
@@ -59,7 +58,7 @@ export class RetrieveAvailableDaysUseCase
         });
 
       availableDays.push(...availabilityAreaDays);
-    });
+    }
 
     const daysWithoutDuplicates = [...new Set(availableDays)];
 

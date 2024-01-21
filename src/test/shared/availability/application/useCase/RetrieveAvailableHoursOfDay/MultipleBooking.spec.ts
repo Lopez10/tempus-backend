@@ -56,11 +56,11 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
           },
           {
             hour: '12:30',
-            available: 10,
+            available: 7,
           },
           {
             hour: '12:45',
-            available: 7,
+            available: 4,
           },
           {
             hour: '13:00',
@@ -84,7 +84,7 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
           },
           {
             hour: '14:15',
-            available: 4,
+            available: 1,
           },
           {
             hour: '14:30',

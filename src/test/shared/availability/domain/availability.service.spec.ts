@@ -46,7 +46,7 @@ describe('Availability Service test', () => {
 
     // THEN
     const expectedAvailability = {
-      '12:15': 8,
+      '12:15': 4,
       '12:30': 4,
     };
 

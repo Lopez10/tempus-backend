@@ -48,7 +48,7 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
         availability: [
           {
             hour: '10:00',
-            available: 10,
+            available: 7,
           },
           {
             hour: '10:30',

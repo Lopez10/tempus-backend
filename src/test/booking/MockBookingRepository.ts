@@ -9,8 +9,19 @@ import {
 export class MockBookingRepository implements BookingRepositoryPort {
   private bookingsDTO: BookingDto[] = [];
 
-  findByMonthAndAreaId(month: DateVO, areaId: ID): Promise<Booking[]> {
-    throw new Error('Method not implemented.');
+  async findByMonthAndAreaId(date: DateVO, areaId: ID): Promise<Booking[]> {
+    const bookings = this.bookingsDTO;
+    const bookingsDomain = bookings.map((booking) =>
+      BookingMapper.toDomain(booking),
+    );
+
+    const bookingsFiltered = bookingsDomain.filter(
+      (booking) =>
+        booking.propsCopy.day.month === date.month &&
+        booking.propsCopy.areaId.matches(areaId),
+    );
+
+    return bookingsFiltered;
   }
   findByDayAndAreaId(day: DateVO, areaId: ID): Promise<Booking[]> {
     const bookings = this.bookingsDTO.filter(

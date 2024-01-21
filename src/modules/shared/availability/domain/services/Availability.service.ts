@@ -123,7 +123,7 @@ export class AvailabilityService {
   private calculateCapacityUsed(
     timeAndPeopleOfBookings: timeAndPeopleOfBooking[],
     interval: Time,
-  ) {
+  ): number {
     return timeAndPeopleOfBookings.reduce((totalCapacity, booking) => {
       if (this.isOverlap(interval, booking.start, booking.end)) {
         return totalCapacity + booking.people;
@@ -148,7 +148,13 @@ export class AvailabilityService {
     return intervals;
   }
 
-  private isOverlap(interval: Time, startTime: Time, endTime: Time): boolean {
-    return interval.isAfter(startTime) && interval.isBefore(endTime);
+  private isOverlap(
+    interval: Time,
+    bookingStart: Time,
+    bookingEnd: Time,
+  ): boolean {
+    return (
+      interval.isAfterOrEqual(bookingStart) && interval.isBefore(bookingEnd)
+    );
   }
 }
