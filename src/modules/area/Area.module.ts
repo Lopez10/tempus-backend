@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AreaRepository } from './domain/Area.repository.port';
-import { AreaPostgresRepository } from './infrastructure/Area.postgres.repository';
+import { AreaPostgresRepository } from './infrastructure/area.postgres.repository';
 import { AreaController } from './http/Area.controller';
 import {
   RetrieveAreaUseCase,

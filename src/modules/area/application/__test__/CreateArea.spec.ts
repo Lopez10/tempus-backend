@@ -1,5 +1,5 @@
 import { CreateAreaUseCase, AreaRepositoryPort } from '@modules';
-import { MockAreaRepository } from '../../MockAreaRepository';
+import { MockAreaRepository } from '../../infrastructure/area.mock.repository';
 
 describe('Create Area Use Case', () => {
   it(`
@@ -28,9 +28,7 @@ describe('Create Area Use Case', () => {
     expect(areaCreated.propsCopy.name.value).toEqual('Area 1');
     expect(areaCreated.propsCopy.maxCapacity).toEqual(10);
     expect(areaCreated.propsCopy.hoursPerReservation).toEqual(2);
-    expect(areaCreated.propsCopy.restaurantId.value).toEqual(
-      'Restaurant_1',
-    );
+    expect(areaCreated.propsCopy.restaurantId.value).toEqual('Restaurant_1');
   });
 
   it(`

@@ -1,43 +1,36 @@
-import { ID, Name, PaginationQueryParams, Time } from '@common';
-import { MockAreaRepository } from '../../MockAreaRepository';
+import { Name, ID, Time } from '@common';
 import {
   Area,
+  RetrieveAreasByRestaurantIdUseCase,
   AreaRepositoryPort,
-  RetrieveAreasDto,
-  RetrieveAreasUseCase,
 } from '@modules';
+import { MockAreaRepository } from '../../infrastructure/area.mock.repository';
 
-describe('Retrieve Areas Use Case', () => {
+describe('Retrieve Areas by restaurant Id Use Case', () => {
   it(`
         GIVEN there are many areas 
-        WHEN the areas are retrieved
-        THEN the areas should be retrieved
+        WHEN the areas are retrieved by restaurant Id
+        THEN the areas with the restaurant id should be returned
     `, async () => {
     const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
-    const action = new RetrieveAreasUseCase(areaReposistory);
+    const action = new RetrieveAreasByRestaurantIdUseCase(areaReposistory);
+    mockAreaData(areaReposistory);
 
     // GIVEN
-    mockAreaData(areaReposistory);
-    const pagination: PaginationQueryParams = {
-      limit: 10,
-      offset: 0,
-      page: 0,
-      orderBy: { field: 'name', param: 'asc' },
-    };
-    const areaRequestData: RetrieveAreasDto = {
-      criteria: {},
-      pagination,
+    const areaRequestData = {
+      restaurantId: 'Restaurant_1',
     };
 
     // WHEN
-    const areasRetrieved = await action.run(areaRequestData);
+    const areas = await action.run(areaRequestData);
 
     // THEN
-    expect(areasRetrieved.length).toEqual(2);
+    expect(areas.length).toEqual(1);
+    expect(areas[0].name).toEqual('Area_1');
   });
 });
 
-async function mockAreaData(areaReposistory: AreaRepositoryPort) {
+export async function mockAreaData(areaReposistory: AreaRepositoryPort) {
   return await areaReposistory.insertSome([
     Area.create(
       {

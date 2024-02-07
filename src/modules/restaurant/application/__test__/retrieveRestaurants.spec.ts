@@ -3,7 +3,7 @@ import {
   RestaurantRepositoryPort,
   RetrieveRestaurantsUseCase,
 } from '@modules';
-import { MockRestaurantRepository } from '../../MockRestaurantRepository';
+import { RestaurantMockRepository } from '../../infrastructure/restaurant.mock.repository';
 import { Description, Email, ID, Name, PaginationQueryParams } from '@common';
 
 describe('Retrieve Restaurants Use Case', () => {
@@ -13,7 +13,7 @@ describe('Retrieve Restaurants Use Case', () => {
         THEN the restaurant should be retrieved 
     `, async () => {
     const restaurantReposistory: RestaurantRepositoryPort =
-      new MockRestaurantRepository();
+      new RestaurantMockRepository();
     const action = new RetrieveRestaurantsUseCase(restaurantReposistory);
 
     // GIVEN

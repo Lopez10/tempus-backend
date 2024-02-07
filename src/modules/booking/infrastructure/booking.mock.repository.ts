@@ -6,7 +6,7 @@ import {
   BookingRepositoryPort,
 } from '@modules';
 
-export class MockBookingRepository implements BookingRepositoryPort {
+export class BookingMockRepository implements BookingRepositoryPort {
   private bookingsDTO: BookingDto[] = [];
 
   async findByMonthAndAreaId(date: DateVO, areaId: ID): Promise<Booking[]> {

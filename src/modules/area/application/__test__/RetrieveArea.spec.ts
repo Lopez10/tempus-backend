@@ -1,6 +1,6 @@
 import { Name, Time, ID } from '@common';
 import { RetrieveAreaUseCase, AreaRepositoryPort, Area } from '@modules';
-import { MockAreaRepository } from '../../MockAreaRepository';
+import { MockAreaRepository } from '../../infrastructure/area.mock.repository';
 
 describe('Retrieve Area Use Case', () => {
   it(`

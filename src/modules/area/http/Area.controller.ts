@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { AreaPostgresRepository } from '../infrastructure/Area.postgres.repository';
+import { AreaPostgresRepository } from '../infrastructure/area.postgres.repository';
 import { AreaDTO, AreaMapper } from '../Area.mapper';
 import {
   CreateAreaDto,

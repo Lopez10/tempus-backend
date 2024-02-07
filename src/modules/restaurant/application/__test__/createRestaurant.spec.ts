@@ -3,7 +3,7 @@ import {
   CreateRestaurantUseCase,
   RestaurantRepositoryPort,
 } from '@modules';
-import { MockRestaurantRepository } from '../../MockRestaurantRepository';
+import { RestaurantMockRepository } from '../../infrastructure/restaurant.mock.repository';
 
 describe('Create Restaurant Use Case', () => {
   it(`
@@ -12,7 +12,7 @@ describe('Create Restaurant Use Case', () => {
         THEN the restaurant should be created with the correct data
     `, async () => {
     const restaurantReposistory: RestaurantRepositoryPort =
-      new MockRestaurantRepository();
+      new RestaurantMockRepository();
     const action = new CreateRestaurantUseCase(restaurantReposistory);
 
     // GIVEN

@@ -1,17 +1,15 @@
-import { ID, DateVO, Time, Name } from '@common';
+import { ID, Time, Name } from '@common';
 import {
   Area,
   AreaRepositoryPort,
-  Booking,
-  BookingRepositoryPort,
   RetrieveAvailableHoursOfDayUseCase,
 } from '@modules';
-import { MockAreaRepository } from '../../../../../area/MockAreaRepository';
-import { MockBookingRepository } from '../../../../../booking/MockBookingRepository';
+import { MockAreaRepository } from '../../../../../area/infrastructure/area.mock.repository';
+import { BookingMockRepository } from '../../../../../booking/infrastructure/booking.mock.repository';
 
 describe('Retrieve Available Hours Of Day Use Case', () => {
   const areaRepository = new MockAreaRepository();
-  const bookingRepository = new MockBookingRepository();
+  const bookingRepository = new BookingMockRepository();
 
   const action = new RetrieveAvailableHoursOfDayUseCase(
     bookingRepository,
@@ -24,13 +22,12 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
   });
 
   it(`
-      GIVEN an area data of restaurant
-      AND a booking to this area
-      WHEN I retrieve the available hours of the day
-      THEN the available hours of the day should be retrieved correctly
-    `, async () => {
+    GIVEN an area data of restaurant
+    AND there are not bookings to this area and this day
+    WHEN I call to the use case to retrieve the available hours of the day
+    THEN the available hours of the day should be retrieved
+  `, async () => {
     await mockAreaData(areaRepository);
-    await mockSimpleBookingData(bookingRepository);
 
     // GIVEN
     const retrieveAvailableHoursOfDayDTO = {
@@ -45,22 +42,23 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
     expect(hoursAvailable).toEqual([
       {
         areaId: 'Area_1',
+
         availability: [
           {
             hour: '10:00',
-            available: 7,
+            available: 10,
           },
           {
             hour: '10:30',
-            available: 7,
+            available: 10,
           },
           {
             hour: '11:00',
-            available: 7,
+            available: 10,
           },
           {
             hour: '11:30',
-            available: 7,
+            available: 10,
           },
           {
             hour: '12:00',
@@ -96,24 +94,7 @@ describe('Retrieve Available Hours Of Day Use Case', () => {
   });
 });
 
-async function mockSimpleBookingData(bookingRepository: BookingRepositoryPort) {
-  return await bookingRepository.insert(
-    Booking.create(
-      {
-        clientId: new ID('Client_1'),
-        tableId: new ID('Table_1'),
-        day: new DateVO('01/01/2024'),
-        start: new Time('10:00'),
-        end: new Time('12:00'),
-        people: 3,
-        areaId: new ID('Area_1'),
-      },
-      new ID('Booking_1'),
-    ),
-  );
-}
-
-export async function mockAreaData(areaReposistory: AreaRepositoryPort) {
+async function mockAreaData(areaReposistory: AreaRepositoryPort) {
   return await areaReposistory.insert(
     Area.create(
       {

@@ -6,7 +6,7 @@ import {
   RestaurantRepositoryPort,
 } from '@modules';
 
-export class MockRestaurantRepository implements RestaurantRepositoryPort {
+export class RestaurantMockRepository implements RestaurantRepositoryPort {
   private restaurantsDTO: RestaurantDTO[] = [];
 
   findByRestaurantName(name: Name): Promise<Restaurant> {
