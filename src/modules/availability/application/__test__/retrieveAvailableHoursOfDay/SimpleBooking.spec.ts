@@ -6,8 +6,8 @@ import {
   BookingRepositoryPort,
   RetrieveAvailableHoursOfDayUseCase,
 } from '@modules';
-import { MockAreaRepository } from '../../../../../area/infrastructure/area.mock.repository';
-import { BookingMockRepository } from '../../../../../booking/infrastructure/booking.mock.repository';
+import { MockAreaRepository } from '@modules/area/infrastructure/area.mock.repository';
+import { BookingMockRepository } from '@modules/booking/infrastructure/booking.mock.repository';
 
 describe('Retrieve Available Hours Of Day Use Case', () => {
   const areaRepository = new MockAreaRepository();

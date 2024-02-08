@@ -6,8 +6,8 @@ import {
   BookingRepositoryPort,
   RetrieveAvailableDaysUseCase,
 } from '@modules';
-import { MockAreaRepository } from '../../../../../area/infrastructure/area.mock.repository';
-import { BookingMockRepository } from '../../../../../booking/infrastructure/booking.mock.repository';
+import { MockAreaRepository } from '@modules/area/infrastructure/area.mock.repository';
+import { BookingMockRepository } from '@modules/booking/infrastructure/booking.mock.repository';
 
 describe('Retrieve available days', () => {
   jest.useFakeTimers().setSystemTime(new Date('2021-01-01'));

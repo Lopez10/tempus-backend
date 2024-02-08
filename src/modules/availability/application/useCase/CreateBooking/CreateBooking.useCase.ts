@@ -4,20 +4,22 @@ import {
   Booking,
   BookingRepository,
   BookingRepositoryPort,
-  AvailabilityService,
-  timeAndPeopleOfBooking,
   BookingDto,
   BookingMapper,
 } from '@modules/booking';
+import { Area, AreaRepository, AreaRepositoryPort } from '@modules/area';
 import {
-  CreateBookingError,
+  AvailabilityService,
+  AvailabilityMapper,
+  timeAndPeopleOfBooking,
+} from '@modules/availability';
+import {
   InvalidBookingAvailable,
+  CreateBookingError,
   InvalidBookingHours,
   InvalidHoursPerBooking,
-  AvailabilityMapper,
-  CreateBookingDto,
-} from '@modules/shared';
-import { Area, AreaRepository, AreaRepositoryPort } from '@modules/area';
+} from '../../exceptions';
+import { CreateBookingDto } from './CreateBooking.dto';
 
 @Injectable()
 export class CreateBookingUseCase

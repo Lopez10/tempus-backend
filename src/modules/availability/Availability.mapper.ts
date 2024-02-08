@@ -1,10 +1,7 @@
 import { Time } from '@common';
-import {
-  AvailabilityScheduleProps,
-  Booking,
-  timeAndPeopleOfBooking,
-} from '../../booking/domain';
 import { AvailabilityScheduleDto } from './application';
+import { AvailabilityScheduleProps, timeAndPeopleOfBooking } from './domain';
+import { Booking } from '@modules/booking';
 
 export class AvailabilityMapper {
   static toScheduleDto(

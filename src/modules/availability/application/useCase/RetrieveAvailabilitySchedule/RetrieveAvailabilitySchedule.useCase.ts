@@ -1,17 +1,14 @@
 import { UseCase, ID, DateVO } from '@common';
 import { Injectable, Inject } from '@nestjs/common';
-import {
-  BookingRepository,
-  BookingRepositoryPort,
-  timeAndPeopleOfBooking,
-} from '@modules/booking';
+import { BookingRepository, BookingRepositoryPort } from '@modules/booking';
 import { AreaRepository, AreaRepositoryPort } from '@modules/area';
+import { AvailabilityMapper } from '@modules/availability/Availability.mapper';
 import {
   AvailabilityService,
-  AvailabilityMapper,
-  AvailabilityAreasDto,
-  RetrieveAvailabilityScheduleDto,
-} from '@modules/shared/availability';
+  timeAndPeopleOfBooking,
+} from '@modules/availability/domain';
+import { AvailabilityAreasDto } from './ResponseAvailabilitySchedule.dto';
+import { RetrieveAvailabilityScheduleDto } from './RetrieveAvailabilitySchedule.dto';
 
 @Injectable()
 export class RetrieveAvailableHoursOfDayUseCase
