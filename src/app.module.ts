@@ -1,5 +1,9 @@
-import { RestaurantModule, AreaModule, BookingModule } from '@modules';
-import { AvailabilityModule } from '@modules/shared/availability/Availability.module';
+import {
+  RestaurantModule,
+  AreaModule,
+  BookingModule,
+  AvailabilityModule,
+} from '@modules';
 import { Module } from '@nestjs/common';
 
 @Module({
