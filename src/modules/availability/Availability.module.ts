@@ -4,12 +4,9 @@ import {
   CreateBookingUseCase,
   RetrieveAvailableHoursOfDayUseCase,
 } from './application';
-import {
-  AvailabilityService,
-  BookingPostgresRepository,
-  BookingRepository,
-} from '@modules/booking';
+import { BookingPostgresRepository, BookingRepository } from '@modules/booking';
 import { AreaPostgresRepository, AreaRepository } from '@modules/area';
+import { AvailabilityService } from './domain';
 
 @Module({
   controllers: [AvailabilityController],
