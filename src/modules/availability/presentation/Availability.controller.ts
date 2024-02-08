@@ -6,6 +6,7 @@ import {
   RetrieveAvailabilityScheduleDto,
   RetrieveAvailableHoursOfDayUseCase,
   ResponseAvailabilityScheduleDto,
+  RetrieveAvailableDaysUseCase,
 } from '../application';
 import { BookingDto, BookingPostgresRepository } from '@modules/booking';
 import { AreaPostgresRepository } from '@modules/area';
@@ -54,7 +55,7 @@ export class AvailabilityController {
     return responseAvailabilityScheduleDto;
   }
 
-  @Get('/days')
+  @Get('days')
   @ApiBody({
     type: RetrieveAvailableDaysDto,
   })
@@ -63,8 +64,18 @@ export class AvailabilityController {
     description: 'The available days has been successfully retrieved',
     type: AvailableDaysDto,
   })
-  async retrieveAvailableDays(): Promise<AvailableDaysDto> {
-    throw new Error('Not implemented');
+  async retrieveAvailableDays(
+    @Body() retrieveAvailableDaysDto: RetrieveAvailableDaysDto,
+  ): Promise<AvailableDaysDto> {
+    const retrieveAvailableDays = new RetrieveAvailableDaysUseCase(
+      this.bookingPostgresRepository,
+      this.areaPostgresRepository,
+    );
+    const availableDays = await retrieveAvailableDays.run(
+      retrieveAvailableDaysDto,
+    );
+
+    return availableDays;
   }
 
   @Post()
