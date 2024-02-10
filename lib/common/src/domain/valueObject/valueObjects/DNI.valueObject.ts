@@ -1,7 +1,7 @@
 import { isNumber, isString } from 'class-validator';
 import { DomainPrimitive, ValueObject } from '../valueObject.base';
 
-export class DNI extends ValueObject<string> {
+export class Dni extends ValueObject<string> {
   constructor(value: string) {
     super({ value });
     this.validate({ value });
@@ -38,13 +38,13 @@ export class DNI extends ValueObject<string> {
 
   protected validate({ value: DNIValue }: DomainPrimitive<string>): void {
     const correctFormatDNI =
-      DNI.isFirstEightDigitsNumbers(DNIValue) &&
-      DNI.isLastDigitCharacter(DNIValue);
+      Dni.isFirstEightDigitsNumbers(DNIValue) &&
+      Dni.isLastDigitCharacter(DNIValue);
 
     if (!correctFormatDNI)
       throw new Error(`DNI "${DNIValue}" has incorrect format`);
 
-    const validDNI = DNI.isLetterValid(
+    const validDNI = Dni.isLetterValid(
       this.DNINumber(DNIValue),
       this.DNILetter(DNIValue),
     );
