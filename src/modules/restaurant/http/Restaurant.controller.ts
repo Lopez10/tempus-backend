@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
-import { RestaurantPostgresRepository } from '../infrastructure/Restaurant.postgres.repository';
+import { RestaurantPostgresRepository } from '../infrastructure/restaurant.postgres.repository';
 import { CreateRestaurantUseCase } from '../application/UseCase/CreateRestaurant/CreateRestaurant.useCase';
 import { RestaurantDTO, RestaurantMapper } from '../Restaurant.mapper';
 import { RetrieveRestaurantsUseCase } from '../application/UseCase/RetrieveRestaurants/RetrieveRestaurants.useCase';

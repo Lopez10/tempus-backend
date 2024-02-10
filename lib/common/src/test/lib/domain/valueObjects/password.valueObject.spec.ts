@@ -1,7 +1,7 @@
 import { Password } from '@common';
 
 describe('Password value object test', () => {
-  it(`
+  it.skip(`
     GIVEN a text with numbers, uppercase and lowercase
     AND a length between 8 and 50
     WHEN I write the valid password

@@ -1,1 +1,1 @@
-export * from './Restaurant.postgres.repository';
+export * from './restaurant.postgres.repository';
