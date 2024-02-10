@@ -8,7 +8,7 @@ describe('Password value object test', () => {
     THEN the password value object is created
   `, () => {
     // GIVEN
-    const passwordValid = '1234PasswordValid';
+    const passwordValid = '1234PasswordVali';
 
     // WHEN
     const newPassword = new Password({ value: passwordValid });
