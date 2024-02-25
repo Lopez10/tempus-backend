@@ -1,8 +1,8 @@
 import { ID, PaginationQueryParams, Paginated } from '@common';
-import { AreaRepositoryPort, Area, AreaDTO, AreaMapper } from '@modules';
+import { AreaRepositoryPort, Area, AreaDto, AreaMapper } from '@modules';
 
 export class MockAreaRepository implements AreaRepositoryPort {
-  private areasDTO: AreaDTO[] = [];
+  private areasDTO: AreaDto[] = [];
 
   findByRestaurantId(restaurantId: ID): Promise<Area[]> {
     const areasDTO = this.areasDTO.filter(

@@ -1,13 +1,13 @@
 import { Name, ID, PaginationQueryParams, Paginated } from '@common';
 import {
   Restaurant,
-  RestaurantDTO,
+  RestaurantDto,
   RestaurantMapper,
   RestaurantRepositoryPort,
 } from '@modules';
 
 export class RestaurantMockRepository implements RestaurantRepositoryPort {
-  private restaurantsDTO: RestaurantDTO[] = [];
+  private restaurantsDTO: RestaurantDto[] = [];
 
   findByRestaurantName(name: Name): Promise<Restaurant> {
     throw new Error('Method not implemented.');

@@ -1,16 +1,16 @@
-import { AreaDTO, AreaMapper } from '../../../../../modules/area/Area.mapper';
+import { AreaDto, AreaMapper } from '../../../../../modules/area/Area.mapper';
 import { RetrieveAreasByRestaurantIdDto } from './RetrieveAreasByRestaurantId.dto';
 import { ID, UseCase } from '@common';
 import { AreaRepositoryPort } from '../../../../../modules/area/domain/Area.repository.port';
 
 export class RetrieveAreasByRestaurantIdUseCase
-  implements UseCase<RetrieveAreasByRestaurantIdDto, AreaDTO[]>
+  implements UseCase<RetrieveAreasByRestaurantIdDto, AreaDto[]>
 {
   constructor(private readonly repository: AreaRepositoryPort) {}
 
   async run(
     retrieveAreasByRestaurantIdDTO: RetrieveAreasByRestaurantIdDto,
-  ): Promise<AreaDTO[]> {
+  ): Promise<AreaDto[]> {
     const restaurantId = new ID(retrieveAreasByRestaurantIdDTO.restaurantId);
     const areas = await this.repository.findByRestaurantId(restaurantId);
 

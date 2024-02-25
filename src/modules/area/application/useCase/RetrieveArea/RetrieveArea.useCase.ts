@@ -1,5 +1,5 @@
 import { ID, UseCase } from '@common';
-import { AreaDTO, AreaMapper } from '../../../Area.mapper';
+import { AreaDto, AreaMapper } from '../../../Area.mapper';
 import { Inject, Injectable } from '@nestjs/common';
 import {
   AreaRepository,
@@ -8,12 +8,12 @@ import {
 import { RetrieveAreaDTO } from './RetrieveArea.dto';
 
 @Injectable()
-export class RetrieveAreaUseCase implements UseCase<RetrieveAreaDTO, AreaDTO> {
+export class RetrieveAreaUseCase implements UseCase<RetrieveAreaDTO, AreaDto> {
   constructor(
     @Inject(AreaRepository)
     private readonly areaPostgresRepository: AreaRepositoryPort,
   ) {}
-  async run(retrieveAreaDTO: RetrieveAreaDTO): Promise<AreaDTO | null> {
+  async run(retrieveAreaDTO: RetrieveAreaDTO): Promise<AreaDto | null> {
     try {
       const id = new ID(retrieveAreaDTO.id);
 

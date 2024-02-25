@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { RestaurantPostgresRepository } from '../infrastructure/restaurant.postgres.repository';
 import { CreateRestaurantUseCase } from '../application/UseCase/CreateRestaurant/CreateRestaurant.useCase';
-import { RestaurantDTO, RestaurantMapper } from '../Restaurant.mapper';
+import { RestaurantDto, RestaurantMapper } from '../Restaurant.mapper';
 import { RetrieveRestaurantsUseCase } from '../application/UseCase/RetrieveRestaurants/RetrieveRestaurants.useCase';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RetrieveRestaurantsDto } from '../application/UseCase/RetrieveRestaurants/RetrieveRestaurants.dto';
@@ -18,7 +18,7 @@ export class RestaurantController {
   @Post()
   async createRestaurant(
     @Body() createRestaurantDTO: CreateRestaurantDto,
-  ): Promise<RestaurantDTO> {
+  ): Promise<RestaurantDto> {
     const createRestaurant = new CreateRestaurantUseCase(
       this.restaurantPostgresRepository,
     );
@@ -32,11 +32,11 @@ export class RestaurantController {
   @ApiResponse({
     status: 200,
     description: 'The restaurants has been successfully retrieved.',
-    type: Promise<RestaurantDTO[]>,
+    type: Promise<RestaurantDto[]>,
   })
   async getRestaurants(
     @Body() retrieveRestaurantsDTO: RetrieveRestaurantsDto,
-  ): Promise<RestaurantDTO[]> {
+  ): Promise<RestaurantDto[]> {
     const retrieveRestaurants = new RetrieveRestaurantsUseCase(
       this.restaurantPostgresRepository,
     );

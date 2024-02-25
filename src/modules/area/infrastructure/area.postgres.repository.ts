@@ -3,7 +3,7 @@ import { Area } from '../domain/Area.entity';
 import { PrismaClient } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
 import { AreaRepositoryPort } from '../domain/Area.repository.port';
-import { AreaDTO, AreaMapper } from '../Area.mapper';
+import { AreaDto, AreaMapper } from '../Area.mapper';
 
 export class AreaPostgresRepository implements AreaRepositoryPort {
   private prisma: PrismaClient;
@@ -11,7 +11,7 @@ export class AreaPostgresRepository implements AreaRepositoryPort {
     this.prisma = prisma;
   }
   async findByRestaurantId(restaurantId: ID): Promise<Area[]> {
-    const areasDTO: AreaDTO[] = await this.prisma.area.findMany({
+    const areasDTO: AreaDto[] = await this.prisma.area.findMany({
       where: { restaurantId: restaurantId.value },
     });
 
@@ -21,7 +21,7 @@ export class AreaPostgresRepository implements AreaRepositoryPort {
   }
 
   async insert(entity: Area): Promise<Area> {
-    const area: AreaDTO = AreaMapper.toDTO(entity);
+    const area: AreaDto = AreaMapper.toDTO(entity);
     const areaCreated = await this.prisma.area.create({
       data: area,
     });

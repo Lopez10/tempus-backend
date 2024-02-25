@@ -1,7 +1,7 @@
 import { Description, Email, ID, Name } from '@common';
 import { Restaurant } from './domain';
 
-export interface RestaurantDTO {
+export interface RestaurantDto {
   id: string;
   name: string;
   email: string;
@@ -9,19 +9,19 @@ export interface RestaurantDTO {
   capacity: number;
 }
 export class RestaurantMapper {
-  static toDomain(restaurantDTO: RestaurantDTO): Restaurant {
+  static toDomain(restaurantDto: RestaurantDto): Restaurant {
     return Restaurant.create(
       {
-        name: new Name(restaurantDTO.name),
-        email: new Email(restaurantDTO.email),
-        description: new Description(restaurantDTO.description),
-        capacity: restaurantDTO.capacity,
+        name: new Name(restaurantDto.name),
+        email: new Email(restaurantDto.email),
+        description: new Description(restaurantDto.description),
+        capacity: restaurantDto.capacity,
       },
-      new ID(restaurantDTO.id),
+      new ID(restaurantDto.id),
     );
   }
 
-  static toDTO(restaurant: Restaurant): RestaurantDTO {
+  static toDTO(restaurant: Restaurant): RestaurantDto {
     return {
       id: restaurant.propsCopy.id.value,
       name: restaurant.propsCopy.name.value,

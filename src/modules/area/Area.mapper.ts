@@ -1,7 +1,7 @@
 import { ID, Name, Time } from '@common';
 import { Area } from './domain/Area.entity';
 
-export interface AreaDTO {
+export interface AreaDto {
   id: string;
   name: string;
   maxCapacity: number;
@@ -13,22 +13,22 @@ export interface AreaDTO {
 }
 
 export class AreaMapper {
-  static toDomain(areaDTO: AreaDTO): Area {
+  static toDomain(areaDto: AreaDto): Area {
     return Area.create(
       {
-        name: new Name(areaDTO.name),
-        maxCapacity: areaDTO.maxCapacity,
-        hoursPerReservation: areaDTO.hoursPerReservation,
-        open: new Time(areaDTO.open),
-        close: new Time(areaDTO.close),
-        interval: areaDTO.interval,
-        restaurantId: new ID(areaDTO.restaurantId),
+        name: new Name(areaDto.name),
+        maxCapacity: areaDto.maxCapacity,
+        hoursPerReservation: areaDto.hoursPerReservation,
+        open: new Time(areaDto.open),
+        close: new Time(areaDto.close),
+        interval: areaDto.interval,
+        restaurantId: new ID(areaDto.restaurantId),
       },
-      new ID(areaDTO.id),
+      new ID(areaDto.id),
     );
   }
 
-  static toDTO(area: Area): AreaDTO {
+  static toDTO(area: Area): AreaDto {
     return {
       id: area.id.value,
       name: area.propsCopy.name.value,

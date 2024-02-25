@@ -10,6 +10,16 @@ export interface AreaProps {
   restaurantId: ID;
 }
 
+export interface AreaPrimitives {
+  name: string;
+  maxCapacity: number;
+  hoursPerReservation: number;
+  open: string;
+  close: string;
+  interval: number;
+  restaurantId: string;
+}
+
 export class Area extends AggregateRoot<AreaProps> {
   private constructor(props: AreaProps, id?: ID) {
     super(props, id);
