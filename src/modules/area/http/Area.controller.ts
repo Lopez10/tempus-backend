@@ -24,7 +24,7 @@ export class AreaController {
     const createArea = new CreateAreaUseCase(this.areaPostgresRepository);
     const areaCreated = await createArea.run(createAreaDTO);
 
-    return AreaMapper.toDTO(areaCreated);
+    return AreaMapper.toDto(areaCreated);
   }
 
   @Get()

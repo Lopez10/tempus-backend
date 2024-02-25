@@ -21,7 +21,7 @@ export class RetrieveAreaUseCase implements UseCase<RetrieveAreaDTO, AreaDto> {
 
       if (!area) throw new Error('Area not found');
 
-      return AreaMapper.toDTO(area);
+      return AreaMapper.toDto(area);
     } catch (error) {
       throw new Error(error);
     }

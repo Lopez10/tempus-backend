@@ -368,6 +368,25 @@
   resolved "https://registry.npmjs.org/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@biomejs/biome@1.5.3":
+  version "1.5.3"
+  resolved "https://registry.npmjs.org/@biomejs/biome/-/biome-1.5.3.tgz"
+  integrity sha512-yvZCa/g3akwTaAQ7PCwPWDCkZs3Qa5ONg/fgOUT9e6wAWsPftCjLQFPXBeGxPK30yZSSpgEmRCfpGTmVbUjGgg==
+  optionalDependencies:
+    "@biomejs/cli-darwin-arm64" "1.5.3"
+    "@biomejs/cli-darwin-x64" "1.5.3"
+    "@biomejs/cli-linux-arm64" "1.5.3"
+    "@biomejs/cli-linux-arm64-musl" "1.5.3"
+    "@biomejs/cli-linux-x64" "1.5.3"
+    "@biomejs/cli-linux-x64-musl" "1.5.3"
+    "@biomejs/cli-win32-arm64" "1.5.3"
+    "@biomejs/cli-win32-x64" "1.5.3"
+
+"@biomejs/cli-darwin-x64@1.5.3":
+  version "1.5.3"
+  resolved "https://registry.npmjs.org/@biomejs/cli-darwin-x64/-/cli-darwin-x64-1.5.3.tgz"
+  integrity sha512-vCdASqYnlpq/swErH7FD6nrFz0czFtK4k/iLgj0/+VmZVjineFPgevOb+Sr9vz0tk0GfdQO60bSpI74zU8M9Dw==
+
 "@colors/colors@1.5.0":
   version "1.5.0"
   resolved "https://registry.npmjs.org/@colors/colors/-/colors-1.5.0.tgz"
