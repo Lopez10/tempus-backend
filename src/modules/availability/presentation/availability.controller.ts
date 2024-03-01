@@ -12,7 +12,7 @@ import { BookingDto, BookingPostgresRepository } from '@modules/booking';
 import { AreaPostgresRepository } from '@modules/area';
 import { AvailableDaysDto } from '../application/useCase/retrieveAvailableDays/availableDays.dto';
 import { RetrieveAvailableDaysDto } from '../application/useCase/retrieveAvailableDays/retrieveAvailableDays.dto';
-import { ServiceDto } from '@modules/service/Service.dto';
+import { ServiceDto } from '@modules/service/service.dto';
 
 @ApiTags('availability')
 @Controller('availability')

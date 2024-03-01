@@ -1,1 +1,1 @@
-export * from './Restaurant.controller';
+export * from './restaurant.controller';
