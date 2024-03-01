@@ -4,20 +4,20 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import './modules/restaurant/subscriptions';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+	const app = await NestFactory.create(AppModule);
 
-  const config = new DocumentBuilder()
-    .setTitle('Restaurant API')
-    .setDescription('Restaurant API description')
-    .setVersion('1.0')
-    .addTag('restaurant')
-    .addTag('booking')
-    .addTag('availability')
-    .build();
+	const config = new DocumentBuilder()
+		.setTitle('Restaurant API')
+		.setDescription('Restaurant API description')
+		.setVersion('1.0')
+		.addTag('restaurant')
+		.addTag('booking')
+		.addTag('availability')
+		.build();
 
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+	const document = SwaggerModule.createDocument(app, config);
+	SwaggerModule.setup('api', app, document);
 
-  await app.listen(3000);
+	await app.listen(3000);
 }
 bootstrap();
