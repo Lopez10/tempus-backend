@@ -1,1 +1,1 @@
-export * from './Availability.controller';
+export * from './availability.controller';
