@@ -1,1 +1,1 @@
-export * from './Availability.service';
+export * from './availability.service';
