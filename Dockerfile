@@ -1,26 +1,26 @@
-# Imagen base
-FROM node:16-alpine
+FROM node:18 AS builder
 
-# Instalar dependencias necesarias para compilar módulos nativos
-RUN apk add --no-cache python3 make g++
+# Create app directory
+WORKDIR /app
 
-# Crear un enlace simbólico para python3 -> python si es necesario
-RUN if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi
-
-# Directorio de trabajo
-WORKDIR /usr/src/app
-
-# Copiar archivos de definición de dependencias
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
+COPY prisma ./prisma/
 
-# Instalar dependencias del proyecto
+# Install app dependencies
 RUN npm install
 
-# Copiar el resto del código fuente
 COPY . .
 
-# Generar el cliente de Prisma
-RUN npx prisma generate
+RUN npm run build
 
-# Comando para ejecutar la aplicación
-CMD ["npm", "run", "start"]
+FROM node:18
+
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/dist ./dist
+
+COPY --from=builder /app/prisma ./prisma
+
+EXPOSE 3000
+CMD [ "npm", "run", "start:migrate:prod" ]
