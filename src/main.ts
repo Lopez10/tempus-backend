@@ -2,9 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import './modules/restaurant/subscriptions';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
 	const app = await NestFactory.create(AppModule);
+
+	const configService = app.get(ConfigService);
+
+	app.setGlobalPrefix('api');
 
 	const config = new DocumentBuilder()
 		.setTitle('Restaurant API')
@@ -16,8 +21,8 @@ async function bootstrap() {
 		.build();
 
 	const document = SwaggerModule.createDocument(app, config);
-	SwaggerModule.setup('api', app, document);
+	SwaggerModule.setup('api-doc', app, document);
 
-	await app.listen(3000);
+	await app.listen(configService.get('NEST_PORT'));
 }
 bootstrap();
