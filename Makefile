@@ -1,6 +1,6 @@
-docker-up:
-	@echo "Up docker-compose"
-	docker-compose -f ./docker-compose.yml up
+docker-prod-up:
+	@echo "Up docker-compose in production"
+	docker-compose -f ./docker-compose.prod.yml up
 
 docker-down:
 	@echo "Down docker-compose"
