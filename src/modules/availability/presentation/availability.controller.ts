@@ -10,8 +10,8 @@ import {
 } from '../application';
 import { BookingDto, BookingPostgresRepository } from '@modules/booking';
 import { AreaPostgresRepository } from '@modules/area';
-import { AvailableDaysDto } from '../application/useCase/retrieveAvailableDays/availableDays.dto';
-import { RetrieveAvailableDaysDto } from '../application/useCase/retrieveAvailableDays/retrieveAvailableDays.dto';
+import { AvailableDaysDto } from '../application/use-case/retrieve-available-days/available-days.dto';
+import { RetrieveAvailableDaysDto } from '../application/use-case/retrieve-available-days/retrieve-available-days.dto';
 import { ServiceDto } from '@modules/service/service.dto';
 
 @ApiTags('availability')

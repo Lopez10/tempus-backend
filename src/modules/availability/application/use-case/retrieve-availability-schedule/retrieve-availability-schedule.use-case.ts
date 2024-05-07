@@ -7,8 +7,8 @@ import {
 	AvailabilityService,
 	timeAndPeopleOfBooking,
 } from '@modules/availability/domain';
-import { AvailabilityAreasDto } from './responseAvailabilitySchedule.dto';
-import { RetrieveAvailabilityScheduleDto } from './retrieveAvailabilitySchedule.dto';
+import { AvailabilityAreasDto } from './response-availability-schedule.dto';
+import { RetrieveAvailabilityScheduleDto } from './retrieve-availability-schedule.dto';
 
 @Injectable()
 export class RetrieveAvailableHoursOfDayUseCase

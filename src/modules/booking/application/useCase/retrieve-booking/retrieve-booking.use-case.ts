@@ -1,5 +1,5 @@
 import { ID, UseCase } from '@common';
-import { RetrieveBookingDto } from './retrieveBooking.dto';
+import { RetrieveBookingDto } from './retrieve-booking.dto';
 import { BookingMapper } from '@modules/booking/booking.mapper';
 import { Inject, Injectable } from '@nestjs/common';
 import {

@@ -1,6 +1,6 @@
 import { UseCase } from '@common';
 import { Inject, Injectable } from '@nestjs/common';
-import { RetrieveBookingsDto as RetrieveBookingsDto } from './retrieveBookings.dto';
+import { RetrieveBookingsDto as RetrieveBookingsDto } from './retrieve-bookings.dto';
 import {
 	BookingRepository,
 	BookingRepositoryPort,

@@ -1,1 +1,1 @@
-export * from './Area.controller';
+export * from './area.controller';

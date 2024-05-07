@@ -1,7 +1,7 @@
-import { AreaDto, AreaMapper } from "../../../../../modules/area/Area.mapper";
-import { RetrieveAreasByRestaurantIdDto } from "./RetrieveAreasByRestaurantId.dto";
-import { ID, UseCase } from "@common";
-import { AreaRepositoryPort } from "../../../../../modules/area/domain/Area.repository.port";
+import { AreaDto, AreaMapper } from '../../../area.mapper';
+import { RetrieveAreasByRestaurantIdDto } from './retrieve-areas-by-restaurant-id.dto';
+import { ID, UseCase } from '@common';
+import { AreaRepositoryPort } from '../../../domain/area.repository.port';
 
 export class RetrieveAreasByRestaurantIdUseCase
 	implements UseCase<RetrieveAreasByRestaurantIdDto, AreaDto[]>

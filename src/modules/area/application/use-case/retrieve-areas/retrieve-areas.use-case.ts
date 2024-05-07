@@ -1,14 +1,11 @@
-import type { UseCase } from "@common";
-import { Inject, Injectable } from "@nestjs/common";
-import type { RetrieveAreasDto } from "./RetrieveAreas.dto";
+import type { UseCase } from '@common';
+import { Inject, Injectable } from '@nestjs/common';
+import type { RetrieveAreasDto } from './retrieve-areas.dto';
 import {
 	AreaRepository,
 	type AreaRepositoryPort,
-} from "../../../../../modules/area/domain/Area.repository.port";
-import {
-	type AreaDto,
-	AreaMapper,
-} from "../../../../../modules/area/Area.mapper";
+} from '../../../domain/area.repository.port';
+import { type AreaDto, AreaMapper } from '../../../area.mapper';
 
 @Injectable()
 export class RetrieveAreasUseCase

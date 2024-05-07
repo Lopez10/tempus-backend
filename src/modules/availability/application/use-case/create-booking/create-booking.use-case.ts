@@ -19,7 +19,7 @@ import {
 	InvalidBookingHours,
 	InvalidHoursPerBooking,
 } from '../../exceptions';
-import { CreateBookingDto } from './createBooking.dto';
+import { CreateBookingDto } from './create-booking.dto';
 
 @Injectable()
 export class CreateBookingUseCase

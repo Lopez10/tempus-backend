@@ -1,7 +1,7 @@
 import { DateVO, ID, UseCase } from '@common';
 import { BookingMapper } from '@modules/booking/booking.mapper';
 import { Inject, Injectable } from '@nestjs/common';
-import { RetrieveBookingsByDayDto } from './retrieveBookingsByDayDto';
+import { RetrieveBookingsByDayDto } from './retrieve-bookings-by-day.dto';
 import {
 	BookingRepository,
 	BookingRepositoryPort,

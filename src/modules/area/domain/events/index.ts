@@ -1,1 +1,1 @@
-export * from './AreaCreated';
+export * from './area-created';

@@ -1,9 +1,9 @@
-import { ID, PaginationQueryParams, Paginated } from "@common";
-import { Area } from "../domain/Area.entity";
-import { PrismaClient } from "@prisma/client";
-import prisma from "@common/infrastructure/db";
-import { AreaRepositoryPort } from "../domain/Area.repository.port";
-import { AreaDto, AreaMapper } from "../Area.mapper";
+import { ID, PaginationQueryParams, Paginated } from '@common';
+import { Area } from '../domain/area.entity';
+import { PrismaClient } from '@prisma/client';
+import prisma from '@common/infrastructure/db';
+import { AreaRepositoryPort } from '../domain/area.repository.port';
+import { AreaDto, AreaMapper } from '../area.mapper';
 
 export class AreaPostgresRepository implements AreaRepositoryPort {
 	private prisma: PrismaClient;
@@ -29,7 +29,7 @@ export class AreaPostgresRepository implements AreaRepositoryPort {
 		return AreaMapper.toDomain(areaCreated);
 	}
 	insertSome(entity: Area[]): Promise<Area[]> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 
 	async findOneById(id: ID): Promise<Area> {
@@ -43,21 +43,21 @@ export class AreaPostgresRepository implements AreaRepositoryPort {
 	}
 
 	findAll(): Promise<Area[]> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 	delete(id: ID): Promise<boolean> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 	findPaginationByCriteria(
 		criteria: any,
 		params: PaginationQueryParams,
 	): Promise<Paginated<Area>> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 	update(entity: Area): Promise<Area> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 	transaction<T>(handler: () => Promise<T>): Promise<T> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 }
