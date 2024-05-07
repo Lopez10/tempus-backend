@@ -1,11 +1,11 @@
 import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { RestaurantPostgresRepository } from '../infrastructure/restaurant.postgres.repository';
-import { CreateRestaurantUseCase } from '../application/useCase/createRestaurant/createRestaurant.useCase';
+import { CreateRestaurantUseCase } from '../application/use-case/create-restaurant/create-restaurant.use-case';
 import { RestaurantDto, RestaurantMapper } from '../restaurant.mapper';
-import { RetrieveRestaurantsUseCase } from '../application/useCase/retrieveRestaurants/retrieveRestaurants.useCase';
+import { RetrieveRestaurantsUseCase } from '../application/use-case/retrieve-restaurants/retrieve-restaurants.use-case';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { RetrieveRestaurantsDto } from '../application/useCase/retrieveRestaurants/retrieveRestaurants.dto';
-import { CreateRestaurantDto } from '../application/useCase/createRestaurant/createRestaurant.dto';
+import { RetrieveRestaurantsDto } from '../application/use-case/retrieve-restaurants/retrieve-restaurants.dto';
+import { CreateRestaurantDto } from '../application/use-case/create-restaurant/create-restaurant.dto';
 
 @ApiTags('restaurant')
 @Controller('restaurant')

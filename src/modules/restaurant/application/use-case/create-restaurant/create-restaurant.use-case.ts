@@ -1,11 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Restaurant, RestaurantProps } from '../../../domain/restaurant.entity';
+import {
+	Restaurant,
+	RestaurantProps,
+} from '../../../domain/restaurant.aggregate-root';
 import {
 	RestaurantRepository,
 	RestaurantRepositoryPort,
 } from '../../../domain/restaurant.respository.port';
 import { Description, Email, Name, UseCase } from '@common';
-import { CreateRestaurantDto } from './createRestaurant.dto';
+import { CreateRestaurantDto } from './create-restaurant.dto';
 
 @Injectable()
 export class CreateRestaurantUseCase

@@ -1,5 +1,5 @@
 import { AggregateRoot, Description, Email, ID, Name } from '@common';
-import { RestaurantCreated } from './events/restaurantCreated';
+import { RestaurantCreated } from './events/restaurant-created';
 
 export interface RestaurantProps {
 	name: Name;

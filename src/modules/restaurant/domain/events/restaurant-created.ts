@@ -1,5 +1,5 @@
 import { DomainEvent } from '@common/domain/event/DomainEvent';
-import { Restaurant } from '../restaurant.entity';
+import { Restaurant } from '../restaurant.aggregate-root';
 import { ID } from '@common';
 
 export class RestaurantCreated implements DomainEvent {

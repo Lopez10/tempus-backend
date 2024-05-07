@@ -1,7 +1,7 @@
 import { UseCase } from '@common';
 import { RestaurantRepositoryPort } from '../../../domain/restaurant.respository.port';
 import { RestaurantDto, RestaurantMapper } from '../../../restaurant.mapper';
-import { RetrieveRestaurantsDto } from './retrieveRestaurants.dto';
+import { RetrieveRestaurantsDto } from './retrieve-restaurants.dto';
 
 export class RetrieveRestaurantsUseCase
 	implements UseCase<RetrieveRestaurantsDto, RestaurantDto[]>

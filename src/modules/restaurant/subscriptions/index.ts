@@ -1,3 +1,3 @@
-import { AfterRestaurantCreated } from './afterRestaurantCreated';
+import { AfterRestaurantCreated } from './after-restaurant-created';
 
 new AfterRestaurantCreated();

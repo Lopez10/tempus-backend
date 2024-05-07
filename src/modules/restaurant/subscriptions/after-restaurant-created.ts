@@ -1,4 +1,4 @@
-import { RestaurantCreated } from '../domain/events/restaurantCreated';
+import { RestaurantCreated } from '../domain/events/restaurant-created';
 import { DomainEvents, Handle } from '@common';
 
 export class AfterRestaurantCreated implements Handle<RestaurantCreated> {
