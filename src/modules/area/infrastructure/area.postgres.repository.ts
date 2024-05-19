@@ -4,12 +4,10 @@ import { PrismaClient } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
 import { AreaRepositoryPort } from '../domain/area.repository.port';
 import { AreaDto, AreaMapper } from '../area.mapper';
+import { PrismaService } from '@modules/prisma/prisma.service';
 
 export class AreaPostgresRepository implements AreaRepositoryPort {
-	private prisma: PrismaClient;
-	constructor() {
-		this.prisma = prisma;
-	}
+	constructor(private readonly prisma: PrismaService) {}
 	async findByRestaurantId(restaurantId: ID): Promise<Area[]> {
 		const areasDTO: AreaDto[] = await this.prisma.area.findMany({
 			where: { restaurantId: restaurantId.value },

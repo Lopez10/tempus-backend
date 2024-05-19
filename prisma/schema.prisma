@@ -9,7 +9,7 @@ datasource db {
 
 model Restaurant {
   id          String @id @unique
-  email       String @unique
+  email       String 
   name        String
   description String
   capacity    Int

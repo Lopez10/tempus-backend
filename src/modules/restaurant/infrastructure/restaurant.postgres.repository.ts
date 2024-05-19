@@ -4,12 +4,13 @@ import { Restaurant } from '../domain/restaurant.aggregate-root';
 import { PrismaClient, Restaurant as restaurantModel } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
 import { RestaurantDto, RestaurantMapper } from '../restaurant.mapper';
+import { PrismaService } from '@modules/prisma/prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
-	private prisma: PrismaClient;
-	constructor() {
-		this.prisma = prisma;
-	}
+	constructor(private readonly prisma: PrismaService) {}
+
 	findByRestaurantName(name: Name): Promise<Restaurant> {
 		throw new Error('Method not implemented.');
 	}

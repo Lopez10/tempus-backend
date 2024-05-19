@@ -3,12 +3,10 @@ import { PrismaClient, Booking as bookModel } from '@prisma/client';
 import prisma from '@common/infrastructure/db';
 import { BookingMapper } from '../booking.mapper';
 import { BookingRepositoryPort, Booking } from '../domain';
+import { PrismaService } from '@modules/prisma/prisma.service';
 
 export class BookingPostgresRepository implements BookingRepositoryPort {
-	private prisma: PrismaClient;
-	constructor() {
-		this.prisma = prisma;
-	}
+	constructor(private readonly prisma: PrismaService) {}
 
 	async findByMonthAndAreaId(month: DateVO, areaId: ID): Promise<Booking[]> {
 		const bookings = await this.prisma.booking.findMany({
