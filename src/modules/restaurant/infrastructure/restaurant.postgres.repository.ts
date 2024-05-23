@@ -2,10 +2,10 @@ import { ID, Name, Paginated, PaginationQueryParams } from '@common/domain';
 import { RestaurantRepositoryPort } from '../domain/restaurant.respository.port';
 import { Restaurant } from '../domain/restaurant.aggregate-root';
 import { PrismaClient, Restaurant as restaurantModel } from '@prisma/client';
-import prisma from '@common/infrastructure/db';
-import { RestaurantDto, RestaurantMapper } from '../restaurant.mapper';
+import { RestaurantMapper } from '../restaurant.mapper';
 import { PrismaService } from '@modules/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
+import { RestaurantDto } from '../restaurant.dto';
 
 @Injectable()
 export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
@@ -49,14 +49,14 @@ export class RestaurantPostgresRepository implements RestaurantRepositoryPort {
 	}
 	async findPaginationByCriteria(
 		pagination: PaginationQueryParams,
-		criteria?: any,
+		criteria?: unknown,
 	): Promise<Paginated<Restaurant>> {
 		const { page, limit: take } = pagination;
 
 		const restaurants = await this.prisma.restaurant.findMany({
 			skip: page * take,
-			take,
-			where: criteria,
+			take: Number(take),
+			where: criteria ?? {},
 		});
 
 		const total = await this.prisma.restaurant.count({ where: criteria });

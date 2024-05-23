@@ -1,7 +1,8 @@
 import { UseCase } from '@common';
 import { RestaurantRepositoryPort } from '../../../domain/restaurant.respository.port';
-import { RestaurantDto, RestaurantMapper } from '../../../restaurant.mapper';
+import { RestaurantMapper } from '../../../restaurant.mapper';
 import { RetrieveRestaurantsDto } from './retrieve-restaurants.dto';
+import { RestaurantDto } from '@modules/restaurant/restaurant.dto';
 
 export class RetrieveRestaurantsUseCase
 	implements UseCase<RetrieveRestaurantsDto, RestaurantDto[]>
@@ -12,8 +13,8 @@ export class RetrieveRestaurantsUseCase
 		retrieveRestaurantsDTO: RetrieveRestaurantsDto,
 	): Promise<RestaurantDto[]> {
 		const { data } = await this.repository.findPaginationByCriteria(
-			retrieveRestaurantsDTO.criteria,
 			retrieveRestaurantsDTO.pagination,
+			retrieveRestaurantsDTO.criteria,
 		);
 
 		const restaurantsDTO = data.map(RestaurantMapper.toDTO);

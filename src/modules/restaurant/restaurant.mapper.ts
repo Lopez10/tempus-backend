@@ -1,13 +1,7 @@
 import { Description, Email, ID, Name } from '@common';
 import { Restaurant } from './domain';
+import { RestaurantDto } from './restaurant.dto';
 
-export interface RestaurantDto {
-	id: string;
-	name: string;
-	email: string;
-	description: string;
-	capacity: number;
-}
 export class RestaurantMapper {
 	static toDomain(restaurantDto: RestaurantDto): Restaurant {
 		return Restaurant.create(

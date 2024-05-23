@@ -1,17 +1,10 @@
 import { PaginationQueryParams } from '@common';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class RetrieveRestaurantsDto {
-  @ApiProperty({ example: {}, required: false })
-  criteria?: any;
+	@ApiPropertyOptional({ example: {}, required: false })
+	criteria?: unknown;
 
-  @ApiProperty({
-    example: {
-      limit: 10,
-      offset: 0,
-      page: 0,
-      orderBy: { field: 'name', param: 'asc' },
-    },
-  })
-  pagination: PaginationQueryParams;
+	@ApiPropertyOptional()
+	pagination: PaginationQueryParams;
 }
