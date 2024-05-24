@@ -1,8 +1,5 @@
-export * from './CreateBooking/CreateBooking.useCase';
-export * from './CreateBooking/CreateBookingDTO';
+export * from './retrieve-booking/retrieve-booking.use-case';
+export * from './retrieve-booking/retrieve-booking.dto';
 
-export * from './RetrieveBooking/RetrieveBooking.useCase';
-export * from './RetrieveBooking/RetrieveBookingDTO';
-
-export * from './RetrieveBookings/RetrieveBookings.useCase';
-export * from './RetrieveBookings/RetrieveBookingsDTO';
+export * from './retrieve-bookings/retrieve-bookings.use-case';
+export * from './retrieve-bookings/retrieve-bookings.dto';

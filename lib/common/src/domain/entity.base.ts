@@ -36,7 +36,7 @@ export abstract class Entity<T> {
     return this._id.matches(object._id);
   }
 
-  public getPropsCopy(): Readonly<{ id: ID } & T> {
+  get propsCopy(): Readonly<{ id: ID } & T> {
     const propsCopy = {
       id: this._id,
       ...this.props,

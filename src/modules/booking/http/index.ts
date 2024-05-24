@@ -1,1 +1,1 @@
-export * from './Booking.controller';
+export * from './booking.controller';

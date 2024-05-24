@@ -1,5 +1,5 @@
 export * from './Email.valueObject';
-export * from './DNI.valueObject';
+export * from './Dni.valueObject';
 export * from './Phone.valueObject';
 export * from './Id.valueObject';
 export * from './Password.valueObject';
@@ -8,4 +8,5 @@ export * from './Description.valueObject';
 export * from './Token.valueObject';
 export * from './Role.valueObject';
 export * from './DateTime.valueObject';
-export * from './CustomDate.valueObject';
+export * from './Time.valueObject';
+export * from './Date.valueObject';

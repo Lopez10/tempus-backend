@@ -1,1 +1,1 @@
-export * from './RestaurantManagement.service';
+export * from './restaurant-management.service';

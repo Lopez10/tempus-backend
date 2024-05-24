@@ -1,1 +1,1 @@
-export * from './CapacityCalculation.service';
+export * from './capacity-calculation.service';

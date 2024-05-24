@@ -1,4 +1,4 @@
-import { DNI } from '@common';
+import { Dni } from '@common';
 
 describe('DNI Value object test', () => {
   const DNIValid = '12345678Z';
@@ -10,7 +10,7 @@ describe('DNI Value object test', () => {
     WHEN I create a DNI with these values
     THEN the value object is created with DNI as a value
   `, () => {
-    const newDNI = new DNI(DNIValid);
+    const newDNI = new Dni(DNIValid);
     const resultDNI = {
       props: {
         value: DNIValid,
@@ -26,7 +26,7 @@ describe('DNI Value object test', () => {
     THEN the value object is not created
     AND throw an error
   `, () => {
-    expect(() => new DNI(DNIInvalid)).toThrow(`DNI ${DNIInvalid} is incorrect`);
+    expect(() => new Dni(DNIInvalid)).toThrow(`DNI ${DNIInvalid} is incorrect`);
   });
 
   it(`
@@ -35,7 +35,7 @@ describe('DNI Value object test', () => {
     WHEN I call to valid if the last digit is a caracter
     THEN is true
   `, () => {
-    const isLastCaracter = DNI.isLastDigitCharacter(DNIValid);
+    const isLastCaracter = Dni.isLastDigitCharacter(DNIValid);
     expect(isLastCaracter).toBe(true);
   });
 
@@ -45,7 +45,7 @@ describe('DNI Value object test', () => {
     WHEN I call to valid if the first 8 digits are numbers
     THEN is true
   `, () => {
-    const isLastCaracter = DNI.isFirstEightDigitsNumbers(DNIValid);
+    const isLastCaracter = Dni.isFirstEightDigitsNumbers(DNIValid);
     expect(isLastCaracter).toBe(true);
   });
 
@@ -55,7 +55,7 @@ describe('DNI Value object test', () => {
     WHEN I test if the letter is valid
     THEN the method returns false
   `, () => {
-    const isLetterValid = DNI.isLetterValid(12345678, 'X');
+    const isLetterValid = Dni.isLetterValid(12345678, 'X');
     expect(isLetterValid).toBe(false);
   });
 
@@ -65,7 +65,7 @@ describe('DNI Value object test', () => {
     WHEN I test if the letter is valid
     THEN the method returns true
   `, () => {
-    const isLetterValid = DNI.isLetterValid(12345678, 'Z');
+    const isLetterValid = Dni.isLetterValid(12345678, 'Z');
     expect(isLetterValid).toBe(true);
   });
 });

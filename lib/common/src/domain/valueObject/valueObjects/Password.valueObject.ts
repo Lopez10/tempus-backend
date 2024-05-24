@@ -1,5 +1,4 @@
 import { ValueObject } from '../valueObject.base';
-import { compareSync, genSaltSync, hashSync } from 'bcrypt';
 
 export interface PasswordProps {
   value: string;
@@ -25,9 +24,10 @@ export class Password extends ValueObject<PasswordProps> {
   }
 
   public comparePassword(plainTextPassword: string): boolean {
-    return this.hashed
-      ? compareSync(plainTextPassword, this.value)
-      : this.props.value === plainTextPassword;
+    return false;
+    // return this.hashed
+    //   ? compareSync(plainTextPassword, this.value)
+    //   : this.props.value === plainTextPassword;
   }
 
   protected validate({ value: password, hashed }: PasswordProps): void {
@@ -50,12 +50,11 @@ export class Password extends ValueObject<PasswordProps> {
   }
 
   static encryptPassword(password: string): string {
-    const rounds = 12;
-    const salt = genSaltSync(rounds);
+    // const salt = genSaltSync(rounds);
 
-    const hashedText = hashSync(password, salt);
+    // const hashedText = hashSync(password, salt);
 
-    return hashedText;
+    return password;
   }
 }
 
