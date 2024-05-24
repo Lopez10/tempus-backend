@@ -3,62 +3,59 @@ import { RetrieveAreaUseCase, AreaRepositoryPort, Area } from '@modules';
 import { MockAreaRepository } from '../../infrastructure/area.mock.repository';
 
 describe('Retrieve Area Use Case', () => {
-  it(`
+	it(`
       GIVEN an existing area
       WHEN the area is retrieved by id
       THEN the area should be returned
     `, async () => {
-    const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
-    mockAreaData(areaReposistory);
-    const action = new RetrieveAreaUseCase(areaReposistory);
+		const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
+		mockAreaData(areaReposistory);
+		const action = new RetrieveAreaUseCase(areaReposistory);
 
-    // GIVEN
-    const areaRequestData = {
-      id: 'Area_1',
-    };
+		// GIVEN
 
-    // WHEN
-    const areaRetrieved = await action.run(areaRequestData);
+		const id = 'Area_1';
 
-    // THEN
-    expect(areaRetrieved.id).toEqual('Area_1');
-  });
+		// WHEN
+		const areaRetrieved = await action.run(id);
 
-  it(`
+		// THEN
+		expect(areaRetrieved.id).toEqual('Area_1');
+	});
+
+	it(`
       GIVEN an non existing area
       WHEN the area is retrieved by id
       THEN an error should be thrown
   `, async () => {
-    const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
-    mockAreaData(areaReposistory);
-    const action = new RetrieveAreaUseCase(areaReposistory);
+		const areaReposistory: AreaRepositoryPort = new MockAreaRepository();
+		mockAreaData(areaReposistory);
+		const action = new RetrieveAreaUseCase(areaReposistory);
 
-    // GIVEN
-    const areaRequestData = {
-      id: 'Area_10',
-    };
+		// GIVEN
+		const id = 'Area_10';
 
-    // WHEN
-    const areaRetrieved = action.run(areaRequestData);
+		// WHEN
+		const areaRetrieved = action.run(id);
 
-    // THEN
-    await expect(areaRetrieved).rejects.toThrowError('Error: Area not found');
-  });
+		// THEN
+		await expect(areaRetrieved).rejects.toThrowError('Error: Area not found');
+	});
 });
 
 async function mockAreaData(areaReposistory: AreaRepositoryPort) {
-  return await areaReposistory.insert(
-    Area.create(
-      {
-        name: new Name('Area_1_Name'),
-        maxCapacity: 10,
-        hoursPerReservation: 1,
-        open: new Time('10:00'),
-        close: new Time('15:00'),
-        interval: 30,
-        restaurantId: new ID('Restaurant_1'),
-      },
-      new ID('Area_1'),
-    ),
-  );
+	return await areaReposistory.insert(
+		Area.create(
+			{
+				name: new Name('Area_1_Name'),
+				maxCapacity: 10,
+				hoursPerReservation: 1,
+				open: new Time('10:00'),
+				close: new Time('15:00'),
+				interval: 30,
+				restaurantId: new ID('Restaurant_1'),
+			},
+			new ID('Area_1'),
+		),
+	);
 }

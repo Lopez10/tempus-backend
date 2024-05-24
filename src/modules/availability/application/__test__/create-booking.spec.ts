@@ -2,7 +2,6 @@ import { ID, Name, Time } from '@common';
 import {
 	Area,
 	AreaRepositoryPort,
-	BookingMapper,
 	CreateBookingDto,
 	CreateBookingUseCase,
 } from '@modules';
