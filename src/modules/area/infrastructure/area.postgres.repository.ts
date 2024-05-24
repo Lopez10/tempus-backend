@@ -1,13 +1,16 @@
 import { ID, PaginationQueryParams, Paginated } from '@common';
 import { Area } from '../domain/area.entity';
-import { PrismaClient } from '@prisma/client';
-import prisma from '@common/infrastructure/db';
 import { AreaRepositoryPort } from '../domain/area.repository.port';
-import { AreaDto, AreaMapper } from '../area.mapper';
+import { AreaMapper } from '../area.mapper';
 import { PrismaService } from '@modules/prisma/prisma.service';
+import { Area as AreaModel } from '@prisma/client';
+import { AreaDto } from '../area.dto';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class AreaPostgresRepository implements AreaRepositoryPort {
 	constructor(private readonly prisma: PrismaService) {}
+
 	async findByRestaurantId(restaurantId: ID): Promise<Area[]> {
 		const areasDTO: AreaDto[] = await this.prisma.area.findMany({
 			where: { restaurantId: restaurantId.value },
@@ -19,7 +22,7 @@ export class AreaPostgresRepository implements AreaRepositoryPort {
 	}
 
 	async insert(entity: Area): Promise<Area> {
-		const area: AreaDto = AreaMapper.toDto(entity);
+		const area: AreaModel = AreaMapper.toDto(entity);
 		const areaCreated = await this.prisma.area.create({
 			data: area,
 		});

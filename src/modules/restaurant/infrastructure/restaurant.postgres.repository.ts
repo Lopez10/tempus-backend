@@ -1,7 +1,7 @@
 import { ID, Name, Paginated, PaginationQueryParams } from '@common/domain';
 import { RestaurantRepositoryPort } from '../domain/restaurant.respository.port';
 import { Restaurant } from '../domain/restaurant.aggregate-root';
-import { PrismaClient, Restaurant as restaurantModel } from '@prisma/client';
+import { Restaurant as restaurantModel } from '@prisma/client';
 import { RestaurantMapper } from '../restaurant.mapper';
 import { PrismaService } from '@modules/prisma/prisma.service';
 import { Injectable } from '@nestjs/common';

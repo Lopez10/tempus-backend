@@ -1,15 +1,15 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Query } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AreaPostgresRepository } from '../infrastructure/area.postgres.repository';
-import { AreaDto, AreaMapper } from '../area.mapper';
+import { AreaMapper } from '../area.mapper';
 import {
 	CreateAreaDto,
 	CreateAreaUseCase,
-	RetrieveAreaDTO,
 	RetrieveAreaUseCase,
 	RetrieveAreasByRestaurantIdDto,
 	RetrieveAreasByRestaurantIdUseCase,
 } from '../application';
+import { AreaDto } from '../area.dto';
 
 @ApiTags('area')
 @Controller('area')
@@ -27,12 +27,15 @@ export class AreaController {
 		return AreaMapper.toDto(areaCreated);
 	}
 
-	@Get()
-	async getAreaById(
-		@Body() retrieveAreaDTO: RetrieveAreaDTO,
-	): Promise<AreaDto> {
+	@Get('/')
+	@ApiResponse({
+		status: 200,
+		description: '.',
+		type: AreaDto,
+	})
+	async getAreaById(@Query('id') id: string): Promise<AreaDto> {
 		const retrieveArea = new RetrieveAreaUseCase(this.areaPostgresRepository);
-		const area = await retrieveArea.run(retrieveAreaDTO);
+		const area = await retrieveArea.run(id);
 
 		return area;
 	}
@@ -40,19 +43,17 @@ export class AreaController {
 	@Get('/restaurant')
 	@ApiResponse({
 		status: 200,
-		description: '.',
-		type: Promise<AreaDto[]>,
+		description: '',
+		type: [AreaDto],
 	})
 	async getAreasByRestaurantId(
-		@Body() retrieveAreasByRestaurantIdDTO: RetrieveAreasByRestaurantIdDto,
+		@Query('restaurantId') restaurantId: string,
 	): Promise<AreaDto[]> {
 		const retrieveAreasByRestaurantId = new RetrieveAreasByRestaurantIdUseCase(
 			this.areaPostgresRepository,
 		);
 
-		const areasDTO = await retrieveAreasByRestaurantId.run(
-			retrieveAreasByRestaurantIdDTO,
-		);
+		const areasDTO = await retrieveAreasByRestaurantId.run(restaurantId);
 
 		return areasDTO;
 	}

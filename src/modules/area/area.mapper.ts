@@ -1,16 +1,6 @@
 import { ID, Name, Time } from '@common';
 import { Area } from './domain/area.entity';
-
-export interface AreaDto {
-	id: string;
-	name: string;
-	maxCapacity: number;
-	hoursPerReservation: number;
-	open: string;
-	close: string;
-	interval: number;
-	restaurantId: string;
-}
+import { AreaDto } from './area.dto';
 
 export class AreaMapper {
 	static toDomain(areaDto: AreaDto): Area {

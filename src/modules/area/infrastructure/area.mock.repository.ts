@@ -1,5 +1,6 @@
-import { ID, PaginationQueryParams, Paginated } from "@common";
-import { AreaRepositoryPort, Area, AreaDto, AreaMapper } from "@modules";
+import { ID, PaginationQueryParams, Paginated } from '@common';
+import { AreaRepositoryPort, Area, AreaMapper } from '@modules';
+import { AreaDto } from '../area.dto';
 
 export class MockAreaRepository implements AreaRepositoryPort {
 	private areasDTO: AreaDto[] = [];
@@ -31,10 +32,10 @@ export class MockAreaRepository implements AreaRepositoryPort {
 		return AreaMapper.toDomain(areaDTO);
 	}
 	findAll(): Promise<Area[]> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 	delete(id: ID): Promise<boolean> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 	async findPaginationByCriteria(
 		paginated: PaginationQueryParams,
@@ -57,10 +58,10 @@ export class MockAreaRepository implements AreaRepositoryPort {
 		};
 	}
 	update(entity: Area): Promise<Area> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 	transaction<T>(handler: () => Promise<T>): Promise<T> {
-		throw new Error("Method not implemented.");
+		throw new Error('Method not implemented.');
 	}
 
 	clear() {

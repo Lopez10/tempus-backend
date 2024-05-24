@@ -8,6 +8,7 @@ import {
 	CreateAreaUseCase,
 	RetrieveAreasUseCase,
 } from './application';
+import { PrismaModule } from '@modules/prisma/prisma.module';
 
 @Module({
 	controllers: [AreaController],
@@ -23,5 +24,7 @@ import {
 		CreateAreaUseCase,
 		RetrieveAreasUseCase,
 	],
+	imports: [PrismaModule],
+	exports: [],
 })
 export class AreaModule {}

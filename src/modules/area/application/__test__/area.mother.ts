@@ -1,4 +1,5 @@
-import { AreaDto, AreaMapper } from '@modules/area/area.mapper';
+import { AreaDto } from '@modules/area/area.dto';
+import { AreaMapper } from '@modules/area/area.mapper';
 import { Area } from '@modules/area/domain';
 
 export class AreaMother {
