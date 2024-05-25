@@ -14,7 +14,11 @@ export class PrismaService
 		try {
 			await this.$connect();
 		} catch (error) {
-			console.error('Failed to connect to the database:', error.message);
+			console.error(
+				'Failed to connect to the database:',
+				process.env.DATABASE_URL,
+				error.message,
+			);
 		}
 	}
 
