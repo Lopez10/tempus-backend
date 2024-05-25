@@ -13,3 +13,7 @@ docker-local-up:
 docker-local-down:
 	@echo "down docker-compose in local"
 	docker-compose -f ./docker-compose.local.yml down
+
+render-dev-up: 
+	@echo "Up render in development"
+	yarn install && yarn start:migrate:dev
