@@ -16,4 +16,4 @@ docker-local-down:
 
 render-dev-up: 
 	@echo "Up render in development"
-	yarn install && yarn start:migrate:dev
+	yarn install && yarn render:dev
