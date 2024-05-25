@@ -14,6 +14,10 @@ docker-local-down:
 	@echo "down docker-compose in local"
 	docker-compose -f ./docker-compose.local.yml down
 
-render-dev-up: 
+render-build-dev-up: 
 	@echo "Up render in development"
-	yarn install && yarn render:dev
+	yarn install && yarn render:build:dev
+
+render-dev-up:
+	@echo "Up render in development"
+	yarn render:dev

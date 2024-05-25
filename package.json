@@ -18,11 +18,11 @@
 		"start:migrate:dev": "export NODE_ENV=dev && npm run build && npm run start:dev && prisma migrate deploy",
 		"start:prod": "export NODE_ENV=prod && node dist/src/main",
 
-		"check-env": "dotenv -e .env.dev -- node -e 'console.log(`DATABASE_URL: ${process.env.DATABASE_URL}`)'",
 		"prestart": "prisma migrate deploy",
 		"start": "nest start",
-		"poststart": "prisma db push && prisma generate && prisma db push",
-		"render:dev": "npm-run-all check-env prestart start poststart",
+		"poststart": "prisma db push && prisma generate",
+		"render:build:dev": "npm-run-all build prestart",
+		"render:dev": "npm-run-all start poststart",
 
 		"start:migrate:prod": "prisma migrate deploy && npm run start:prod",
 		"test": "jest",
