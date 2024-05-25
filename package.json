@@ -22,7 +22,7 @@
 		"prestart": "dotenv -e .env.dev -- prisma migrate deploy",
 		"start": "dotenv -e .env.dev -- nest start",
 		"poststart": "dotenv -e .env.dev -- prisma db push && prisma generate && prisma db push",
-		"render:dev": "npm-run-all prestart start poststart",
+		"render:dev": "npm-run-all check-env prestart start poststart",
 
 		"start:migrate:prod": "prisma migrate deploy && npm run start:prod",
 		"test": "jest",
