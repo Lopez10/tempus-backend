@@ -15,7 +15,7 @@
 		"prisma:generate:local": "dotenv -e .env.local -- npx prisma generate",
 		"prisma:push:local": "dotenv -e .env.local -- npx prisma db push",
 		"start:dev": "export NODE_ENV=dev && node dist/src/main",
-		"start:migrate:dev": "prisma migrate deploy && npm run start:dev",
+		"start:migrate:dev": "export NODE_ENV=dev && prisma migrate deploy && npm run start:dev",
 		"start:prod": "export NODE_ENV=prod && node dist/src/main",
 		"start:migrate:prod": "prisma migrate deploy && npm run start:prod",
 		"test": "jest",
