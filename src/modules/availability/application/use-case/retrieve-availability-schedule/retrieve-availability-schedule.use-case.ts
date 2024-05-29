@@ -31,37 +31,39 @@ export class RetrieveAvailableHoursOfDayUseCase
 
 		const areas = await this.areaRepository.findByRestaurantId(restaurantId);
 
-		const responseHoursAvailableByAreaDto: AvailabilityAreasDto[] = [];
+		const responseHoursAvailableByAreaDto = await Promise.all(
+			areas.map(async (area) => {
+				const bookings = await this.bookingRepository.findByDayAndAreaId(
+					day,
+					area.id,
+				);
 
-		areas.forEach(async (area) => {
-			const bookings = await this.bookingRepository.findByDayAndAreaId(
-				day,
-				area.id,
-			);
+				const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] = bookings.map(
+					(booking) => AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
+				);
 
-			const timeAndPeopleOfBookings: timeAndPeopleOfBooking[] = bookings.map(
-				(booking) => AvailabilityMapper.toTimeAndPeopleOfBookings(booking),
-			);
+				const hoursAvailable = this.availabilityService.calculateAvailableHours(
+					{
+						close: area.propsCopy.close,
+						open: area.propsCopy.open,
+						interval: area.propsCopy.interval,
+						maxCapacity: area.propsCopy.maxCapacity,
+						timeAndPeopleOfBookings,
+					},
+				);
 
-			const hoursAvailable = this.availabilityService.calculateAvailableHours({
-				close: area.propsCopy.close,
-				open: area.propsCopy.open,
-				interval: area.propsCopy.interval,
-				maxCapacity: area.propsCopy.maxCapacity,
-				timeAndPeopleOfBookings,
-			});
+				const availability = hoursAvailable.map((availability) =>
+					AvailabilityMapper.toScheduleDto(availability),
+				);
 
-			const availability = hoursAvailable.map((availability) =>
-				AvailabilityMapper.toScheduleDto(availability),
-			);
+				const hoursAvailableByAreaDto: AvailabilityAreasDto = {
+					areaId: area.id.value,
+					availability,
+				};
 
-			const hoursAvailableByAreaDto: AvailabilityAreasDto = {
-				areaId: area.id.value,
-				availability,
-			};
-
-			responseHoursAvailableByAreaDto.push(hoursAvailableByAreaDto);
-		});
+				return hoursAvailableByAreaDto;
+			}),
+		);
 
 		return responseHoursAvailableByAreaDto;
 	}

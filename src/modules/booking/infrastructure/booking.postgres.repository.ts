@@ -1,10 +1,11 @@
 import { ID, PaginationQueryParams, Paginated, DateVO } from '@common';
-import { PrismaClient, Booking as bookModel } from '@prisma/client';
-import prisma from '@common/infrastructure/db';
+import { Booking as bookModel } from '@prisma/client';
 import { BookingMapper } from '../booking.mapper';
 import { BookingRepositoryPort, Booking } from '../domain';
 import { PrismaService } from '@modules/prisma/prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class BookingPostgresRepository implements BookingRepositoryPort {
 	constructor(private readonly prisma: PrismaService) {}
 

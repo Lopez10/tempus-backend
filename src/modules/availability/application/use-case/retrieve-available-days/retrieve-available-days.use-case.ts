@@ -13,7 +13,7 @@ import {
 
 @Injectable()
 export class RetrieveAvailableDaysUseCase
-	implements UseCase<RetrieveAvailableDaysDto, AvailableDaysDto>
+	implements UseCase<string, AvailableDaysDto>
 {
 	private availabilityService: AvailabilityService = new AvailabilityService();
 
@@ -24,9 +24,7 @@ export class RetrieveAvailableDaysUseCase
 		@Inject(AreaRepository)
 		private readonly areaRepository: AreaRepositoryPort,
 	) {}
-	async run({
-		restaurantId,
-	}: RetrieveAvailableDaysDto): Promise<AvailableDaysDto> {
+	async run(restaurantId: string): Promise<AvailableDaysDto> {
 		const today = new Date();
 		const dateDomain = new DateVO(today);
 		const restaurantIdDomain = new ID(restaurantId);
